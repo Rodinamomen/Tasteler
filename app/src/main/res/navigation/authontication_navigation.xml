@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/authontication_navigation"
+    app:startDestination="@id/splashScreenFragment2">
+    <fragment
+        android:id="@+id/splashScreenFragment2"
+        android:name="com.example.recipemobileapp.Authentication.SplashScreenFragment"
+        android:label="fragment_splash_screen2"
+        tools:layout="@layout/fragment_splash_screen2" />
+</navigation>
