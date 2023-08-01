@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.recipemobileapp.R
 
-
-
 class SplashScreenFragment : Fragment() {
 
     override fun onCreateView(

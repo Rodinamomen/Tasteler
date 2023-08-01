@@ -57,14 +57,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Your Email Address"
+            style="@style/textinput"
             app:boxStrokeColor="@color/light_baby_blue"
+            app:counterTextColor="@color/navy_blue"
             app:hintTextColor="@color/navy_blue"
+            app:placeholderTextColor="@color/navy_blue"
             app:prefixTextAppearance="@style/TextAppearance.AppCompat.Large"
+            app:startIconDrawable="@drawable/baseline_email_24"
+            app:startIconTint="@color/light_baby_blue"
             app:suffixTextAppearance="@style/TextAppearance.AppCompat.Large">
+
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
+                android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
@@ -75,6 +80,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/antic"
         android:paddingLeft="16dp"
+
         android:text="Password"
         android:textColor="@color/navy_blue"
         android:textSize="30sp"
@@ -83,7 +89,7 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout_email_address" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/linearLayout_password"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -99,8 +105,12 @@
             android:layout_height="wrap_content"
             android:hint="Your Password"
             app:boxStrokeColor="@color/light_baby_blue"
+            app:counterTextColor="@color/navy_blue"
             app:hintTextColor="@color/navy_blue"
+            app:placeholderTextColor="@color/navy_blue"
             app:prefixTextAppearance="@style/TextAppearance.AppCompat.Large"
+            app:startIconDrawable="@drawable/baseline_lock_24"
+            app:startIconTint="@color/light_baby_blue"
             app:suffixTextAppearance="@style/TextAppearance.AppCompat.Large">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -108,4 +118,39 @@
                 android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
+    <Button
+        android:id="@+id/button_login"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/navy_blue"
+        android:fontFamily="@font/antic"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:text="Login"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/linearLayout_password"
+        app:layout_constraintStart_toStartOf="@+id/linearLayout_password"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout_password"
+        app:layout_constraintVertical_bias="0.228" />
+
+    <Button
+        android:id="@+id/button_signup"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/navy_blue"
+        android:fontFamily="@font/antic"
+        android:text="Signup"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/button_login"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/button_login"
+        app:layout_constraintTop_toBottomOf="@+id/button_login"
+        app:layout_constraintVertical_bias="0.188" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
