@@ -8,5 +8,14 @@
         android:id="@+id/splashScreenFragment2"
         android:name="com.example.recipemobileapp.Authentication.SplashScreenFragment"
         android:label="fragment_splash_screen2"
-        tools:layout="@layout/fragment_splash_screen2" />
+        tools:layout="@layout/fragment_splash_screen2" >
+        <action
+            android:id="@+id/action_splashScreenFragment2_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.recipemobileapp.Authentication.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
 </navigation>
