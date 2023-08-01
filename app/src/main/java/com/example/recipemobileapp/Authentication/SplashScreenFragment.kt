@@ -11,7 +11,6 @@ import com.example.recipemobileapp.R
 
 class SplashScreenFragment : Fragment() {
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
