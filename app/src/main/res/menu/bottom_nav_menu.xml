@@ -4,17 +4,21 @@
     <item android:id="@+id/item_favourite"
         android:fontFamily="@font/antic"
         android:title="@string/favourites"
-        android:icon="@drawable/favorite_unfilled"/>
+        android:icon="@drawable/favorite_unfilled"
+        android:iconTint="@color/navy_blue"
+        />
 
     <item
         android:id="@+id/item_home"
         android:title="@string/home"
-        android:icon="@drawable/home_unfilled"/>
+        android:fontFamily="@font/antic"
+        android:icon="@drawable/home_unfilled"
+        android:iconTint="@color/navy_blue"/>
 
     <item android:id="@+id/item_search"
         android:fontFamily="@font/antic"
         android:title="@string/search"
         android:icon="@drawable/search_icon"
-        />
+        android:iconTint="@color/navy_blue" />
 
 </menu>
