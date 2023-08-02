@@ -125,7 +125,7 @@
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
     <Button
-        android:id="@+id/button_signup_signupfragment"
+        android:id="@+id/button_signup"
         style="?attr/materialButtonOutlinedStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
