@@ -4,11 +4,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.recipemobileapp.Models.Meal
+import com.example.recipemobileapp.Database.Meal
 import com.example.recipemobileapp.Repo.MealRepo
 import kotlinx.coroutines.launch
 
-class MealViewModel(val mealRepo: MealRepo):ViewModel() {
+class
+MealViewModel(val mealRepo: MealRepo):ViewModel() {
     private val _mealList = MutableLiveData<List<Meal>>()
     val mealList: LiveData<List<Meal>> = _mealList
 

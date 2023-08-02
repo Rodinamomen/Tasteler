@@ -1,13 +1,28 @@
-package com.example.recipemobileapp.Models
+package com.example.recipemobileapp.Database
 
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.Junction
+import androidx.room.PrimaryKey
+import androidx.room.Relation
+
+@Entity(tableName = "User")
+data class User (
+    @PrimaryKey(autoGenerate = true) val userid:Int = 0,
+    val username:String,
+    val lastName:String,
+    val email:String,
+    val password:String
+)
+@Entity(tableName ="Meal")
 data class Meal(
-    val dateModified: Any,
-    val idMeal: String,
+  //  val dateModified: Any,
+    @PrimaryKey(autoGenerate = false) val mealid: String,
     val strArea: String,
     val strCategory: String,
-    val strCreativeCommonsConfirmed: Any,
-    val strDrinkAlternate: Any,
-    val strImageSource: Any,
+   // val strCreativeCommonsConfirmed: Any,
+  //  val strDrinkAlternate: Any,
+//    val strImageSource: Any,
     val strIngredient1: String,
     val strIngredient10: String,
     val strIngredient11: String,
@@ -55,3 +70,5 @@ data class Meal(
     val strTags: String,
     val strYoutube: String
 )
+
+

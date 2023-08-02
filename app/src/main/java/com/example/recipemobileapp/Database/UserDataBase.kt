@@ -1,23 +1,24 @@
 package com.example.recipemobileapp.Database
 
 import android.content.Context
-import androidx.room.Dao
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [User::class], version = 1)
-abstract class Userdatabase : RoomDatabase() {
-    abstract fun dataDao(): MealDao
+@Database(entities = [User::class,Meal::class,Userwithmeals::class], version = 1)
+abstract class database : RoomDatabase() {
+    abstract fun mealDao(): MealDao
+    abstract fun userWithMealsDao(): UserwithMealsDao
+    abstract fun userDao():UserDao
     companion object{
         @Volatile
-        private var INSTANCE:Userdatabase?= null
-        fun getInstance(context: Context): Userdatabase{
+        private var INSTANCE:database?= null
+        fun getInstance(context: Context):database{
             return INSTANCE?: synchronized(this){
                 INSTANCE?: Room.databaseBuilder(
-                    context.applicationContext,Userdatabase::class.java, "Userdata"
+                    context.applicationContext,database::class.java, "Userdata"
                 ).build().also {
-                    INSTANCE= it
+                   INSTANCE= it
                 }
             }
         }

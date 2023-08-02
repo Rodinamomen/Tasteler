@@ -1,6 +1,6 @@
 package com.example.recipemobileapp.Network
 
-import com.example.recipemobileapp.Models.Recipe
+import com.example.recipemobileapp.Database.Recipe
 import retrofit2.http.GET
 
 interface APIService {
