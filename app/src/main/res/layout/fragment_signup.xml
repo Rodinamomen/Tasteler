@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#fff"
-    tools:context=".Authentication.SignupFragment">
+    tools:context=".Authentication.signup.view.SignupFragment">
 
     <TextView
         android:id="@+id/textview_signup"
