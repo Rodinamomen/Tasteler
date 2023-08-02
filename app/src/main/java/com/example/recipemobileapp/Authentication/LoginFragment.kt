@@ -6,10 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.recipemobileapp.R
-
-
 class LoginFragment : Fragment() {
   lateinit var  button_signup:Button
     override fun onCreateView(
@@ -20,10 +19,11 @@ class LoginFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         button_signup= view.findViewById(R.id.button_signup)
         button_signup.setOnClickListener{
-            findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
+            view.findNavController().navigate(R.id.signupFragment)
         }
-        super.onViewCreated(view, savedInstanceState)
+
     }
 }
