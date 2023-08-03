@@ -112,6 +112,7 @@
         app:boxStrokeColor="@color/light_baby_blue"
         app:counterTextColor="@color/navy_blue"
         app:hintTextColor="@color/navy_blue"
+        app:passwordToggleEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textinput_email"
