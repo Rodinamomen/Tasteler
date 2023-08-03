@@ -69,4 +69,6 @@ dependencies {
 
 
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'at.blogc:expandabletextview:1.0.5'
+
 }
