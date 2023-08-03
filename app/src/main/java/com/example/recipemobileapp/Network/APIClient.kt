@@ -7,4 +7,8 @@ object APIClient:RemoteDataSource {
         return APIHelper.retrofit.create(APIService::class.java).getAllMeals()
     }
 
+    override suspend fun getRandomMeal(): Recipe {
+        return APIHelper.retrofit.create(APIService::class.java).getRandomMeal()
+    }
+
 }

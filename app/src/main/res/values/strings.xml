@@ -9,4 +9,6 @@
     <string name="home">Home\n</string>
     <string name="My_Favourites">My Favourites</string>
     <string name="no_favourites_yet">No Favourites Yet!</string>
+    <string name="top_pick">Top Pick for you</string>
+    <string name="popular_Recipes">Popular Recipes</string>
 </resources>

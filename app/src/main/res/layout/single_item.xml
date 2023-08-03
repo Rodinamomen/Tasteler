@@ -27,6 +27,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="190dp"
             android:layout_marginTop="4dp"
+            android:textSize="24sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_favourite" />
