@@ -26,10 +26,11 @@ class MainAdapter(val data:List<Meal>) : RecyclerView.Adapter<MainAdapter.MyView
         val imgView:ImageView = holder.imageView
         Glide.with(holder.itemView.context)
             .load(data[position].strMealThumb)
+            .centerCrop()
             .apply(
                 RequestOptions()
-                    .placeholder(R.drawable.loading)
-                    .error(R.drawable.broken_img))
+                    .placeholder(R.drawable.loadingsvg)
+                    .error(R.drawable.broken_image))
             .into(imgView)
 //        holder.itemView.setOnClickListener {
 //            onItemClick(position)
@@ -42,8 +43,7 @@ class MainAdapter(val data:List<Meal>) : RecyclerView.Adapter<MainAdapter.MyView
 
     class MyViewHolder(val row: View) : RecyclerView.ViewHolder(row) {
         val textViewTitle: TextView = row.findViewById(R.id.textView_title)
-        val textViewTag: TextView = row.findViewById(R.id.textView_tags)
-        val favBtn: ImageButton = row.findViewById(R.id.button_favourite)
+//        val favBtn: ImageButton = row.findViewById(R.id.button_favourite)
         val imageView: ImageView = row.findViewById(R.id.imageView)
     }
 }
