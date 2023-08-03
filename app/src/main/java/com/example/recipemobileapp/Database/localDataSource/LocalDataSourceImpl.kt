@@ -14,8 +14,11 @@ class LocalDataSourceImpl(context:Context):LocalDataSource {
     override suspend fun insertUser(user: User) {
         userDao.insertUser(user)
     }
-
     override suspend fun deleteUser(user: User) {
         userDao.deleteUser(user)
+    }
+
+    override suspend fun getAllUsers(): List<User> {
+       return userDao.gellAllUsers()
     }
 }

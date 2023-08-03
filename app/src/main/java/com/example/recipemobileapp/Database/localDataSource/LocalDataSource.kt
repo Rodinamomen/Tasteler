@@ -5,4 +5,5 @@ import com.example.recipemobileapp.Database.User
 interface LocalDataSource {
     suspend fun insertUser(user: User)
     suspend fun deleteUser(user: User)
+    suspend fun getAllUsers(): List<User>
 }
