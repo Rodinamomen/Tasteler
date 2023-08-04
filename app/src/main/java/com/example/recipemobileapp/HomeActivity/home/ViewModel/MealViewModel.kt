@@ -1,5 +1,7 @@
 package com.example.recipemobileapp.ViewModel
 
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,16 +17,26 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
     private val _randomMealList = MutableLiveData<List<Meal>>()
     val randomMealList: LiveData<List<Meal>> = _randomMealList
 
-    fun getMealsList(){
+    fun getMealsList(randomChar: Char){
+
         viewModelScope.launch {
-            val response = mealRepo.getAllMealsFromAPI()
-            _mealList.value =response.meals
+            try {
+                val response = mealRepo.getAllMealsFromAPI(randomChar)
+                _mealList.value =response.meals
+            } catch (e: Exception) {
+                Log.d("Connection", "getMealsList: No connection")
+            }
+
         }
     }
     fun getRandomMeal(){
         viewModelScope.launch {
-            val response = mealRepo.getRandomMealFromAPI()
-            _randomMealList.value = response.meals
+            try{
+                val response = mealRepo.getRandomMealFromAPI()
+                _randomMealList.value = response.meals
+            } catch (e: Exception) {
+                Log.d("Connection", "getMealsList: No connection in random")
+            }
         }
     }
 

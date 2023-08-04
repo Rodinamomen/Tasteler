@@ -1,19 +1,15 @@
 package com.example.recipemobileapp.HomeActivity.home.view
 
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
+import android.widget.ProgressBar
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.example.recipemobileapp.Database.Meal
 import com.example.recipemobileapp.HomeActivity.home.Repo.MealRepoImpl
 import com.example.recipemobileapp.HomeActivity.home.adapters.MainAdapter
@@ -24,37 +20,62 @@ import com.example.recipemobileapp.ViewModel.MealviewModelFactory
 
 class HomeFragment : Fragment() {
     private lateinit var viewModel:MealViewModel
-    private lateinit var data:List<Meal>
     private lateinit var recyclerViewRandomMeal: RecyclerView
     private lateinit var recyclerViewAllMeals: RecyclerView
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        gettingViewModelReady()
+        recyclerViewRandomMeal = view.findViewById(R.id.recyclerView_randomMeal)
+        recyclerViewAllMeals = view.findViewById(R.id.recyclerView_home)
+
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initializeViewModel()
         recyclerViewRandomMeal = view.findViewById(R.id.recyclerView_randomMeal)
         recyclerViewAllMeals = view.findViewById(R.id.recyclerView_home)
+
+        val processBarMeal:ProgressBar = view.findViewById(R.id.progresBar_allMeals)
+        val processBarRandomMeal:ProgressBar = view.findViewById(R.id.progressBar_randomMeal)
+
         viewModel.getRandomMeal()
-        viewModel.getMealsList()
+        viewModel.getMealsList(('A'..'Z').random())
+
+
         viewModel.randomMealList.observe(viewLifecycleOwner){ meals->
-            data = meals
-            recyclerViewRandomMeal.adapter = MainAdapter(data)
-            recyclerViewRandomMeal.layoutManager = LinearLayoutManager(requireContext(),
-                RecyclerView.HORIZONTAL, false)
+            if(meals != null){
+                processBarMeal.visibility = View.GONE
+                addElements(meals,recyclerViewRandomMeal)
+            }else{
+                processBarMeal.visibility = View.VISIBLE
+            }
         }
         viewModel.mealList.observe(viewLifecycleOwner){ meals->
-            data = meals
-            recyclerViewAllMeals.adapter = MainAdapter(data)
-            recyclerViewAllMeals.layoutManager = LinearLayoutManager(requireContext(),
-                RecyclerView.HORIZONTAL, false)
+            if(meals != null){
+                processBarMeal.visibility = View.GONE
+                addElements(meals,recyclerViewAllMeals)
+            }else{
+                processBarMeal.visibility = View.VISIBLE
+            }
         }
+
     }
-    private fun initializeViewModel(){
+
+//    override fun onSaveInstanceState(outState: Bundle) {
+//        super.onSaveInstanceState(outState)
+//
+//    }
+
+    private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
+        recyclerView.adapter = MainAdapter(data)
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(),
+            RecyclerView.HORIZONTAL, false)
+    }
+    private fun gettingViewModelReady(){
         val mealFactory = MealviewModelFactory(MealRepoImpl(APIClient))
         viewModel = ViewModelProvider(this,mealFactory)[MealViewModel::class.java]
     }
