@@ -4,4 +4,5 @@ import com.example.recipemobileapp.Database.Recipe
 
 interface RemoteDataSource {
     suspend fun getAllMeals(): Recipe
+    suspend fun getRandomMeal(): Recipe
 }

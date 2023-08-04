@@ -2,9 +2,9 @@ package com.example.recipemobileapp.ViewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.recipemobileapp.Repo.MealRepo
+import com.example.recipemobileapp.HomeActivity.home.Repo.MealRepo
 
-class viewModelFactory(val mealRepo: MealRepo): ViewModelProvider.Factory {
+class MealviewModelFactory(val mealRepo: MealRepo): ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(MealViewModel::class.java)) {
             MealViewModel(mealRepo) as T

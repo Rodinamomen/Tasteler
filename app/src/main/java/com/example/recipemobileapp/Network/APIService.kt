@@ -7,4 +7,6 @@ interface APIService {
     @GET("/api/json/v1/1/search.php?s")
     suspend fun getAllMeals(): Recipe
 
+    @GET("/api/json/v1/1/random.php")
+    suspend fun getRandomMeal(): Recipe
 }
