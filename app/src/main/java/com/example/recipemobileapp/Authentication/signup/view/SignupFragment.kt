@@ -38,8 +38,20 @@ class SignupFragment : Fragment() {
         email=view.findViewById(R.id.textinput_email)
         password=view.findViewById(R.id.textinput_password)
         signupbtn=view.findViewById(R.id.button_signup)
-        signupbtn.setOnClickListener{
-            isValidData(email.editText?.text.toString(),firstname.editText?.text.toString(),lastname.editText?.text.toString(),password.editText?.text.toString())
+        signUpViewModel.userdata.observe(requireActivity()){data->
+            signupbtn.setOnClickListener{
+                signUpViewModel.isUserExist(email.editText?.text.toString(),password.editText?.text.toString())
+                if(data){
+                    Toast.makeText(context, "User exists", Toast.LENGTH_SHORT).show()
+                }else {
+                    isValidData(
+                        email.editText?.text.toString(),
+                        firstname.editText?.text.toString(),
+                        lastname.editText?.text.toString(),
+                        password.editText?.text.toString()
+                    )
+                }
+            }
         }
     }
     private fun gettingViewModelReady(context: Context) {

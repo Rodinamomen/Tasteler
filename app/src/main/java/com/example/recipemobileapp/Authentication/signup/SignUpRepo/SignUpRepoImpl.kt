@@ -13,4 +13,9 @@ class SignUpRepoImpl(val localDataSource: LocalDataSource): SignUpRepo {
         localDataSource.deleteUser(user)
     }
 
+    override suspend fun isUserExist(email: String, password: String): Boolean {
+      return  localDataSource.isUserExist(email, password)
+    }
+
+
 }
