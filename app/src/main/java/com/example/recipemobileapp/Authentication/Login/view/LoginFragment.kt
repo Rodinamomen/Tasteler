@@ -52,6 +52,7 @@ class LoginFragment : Fragment() {
             if (data != null) {
                 if (data) {
                     Toast.makeText(context, " logged in ", Toast.LENGTH_SHORT).show()
+                    view.findNavController().navigate(R.id.action_loginFragment_to_home_nav_graph)
                 } else{
                     Toast.makeText(context, "not ", Toast.LENGTH_SHORT).show()
                 }
