@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -19,14 +20,20 @@ import com.example.recipemobileapp.Authentication.signup.SignUpRepo.SignUpRepoIm
 import com.example.recipemobileapp.Authentication.signup.viewModel.SignUpViewModel
 import com.example.recipemobileapp.Authentication.signup.viewModel.SignUpViewModelFactory
 import com.example.recipemobileapp.Database.User
+import com.example.recipemobileapp.Database.localDataSource.LocalDataSource
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
 import com.example.recipemobileapp.R
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.w3c.dom.Text
 
 class LoginFragment : Fragment() {
-  lateinit var  button_signup:Button
-  lateinit var loginViewModel: LoginViewModel
+    lateinit var button_signup: Button
+    lateinit var loginViewModel: LoginViewModel
+    lateinit var email: TextInputLayout
+    lateinit var password: TextInputLayout
+    lateinit var loginbutton: Button
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,19 +41,38 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        gettingViewModelReady(requireContext())
         super.onViewCreated(view, savedInstanceState)
-        button_signup= view.findViewById(R.id.button_signup)
-        button_signup.setOnClickListener{
+        email = view.findViewById(R.id.text_input_email_address)
+        password = view.findViewById(R.id.text_input_password)
+        loginbutton = view.findViewById(R.id.button_login)
+        gettingViewModelReady(requireContext())
+        loginViewModel.userdata.observe(requireActivity()) { data ->
+            if (data != null) {
+                if (data) {
+                    Toast.makeText(context, " logged in ", Toast.LENGTH_SHORT).show()
+                } else{
+                    Toast.makeText(context, "not ", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+        loginbutton.setOnClickListener {
+            loginViewModel.isUserExist(email.editText?.text.toString(), password.editText?.text.toString())
+        }
+
+        button_signup = view.findViewById(R.id.button_signup)
+        button_signup.setOnClickListener {
             view.findNavController().navigate(R.id.signupFragment)
         }
 
     }
+
     private fun gettingViewModelReady(context: Context) {
         val loginViewModelFactory = LoginViewModelFactory(
             LoginRepoImp(LocalDataSourceImpl(context))
         )
-        loginViewModel=ViewModelProvider(this,loginViewModelFactory).get(LoginViewModel::class.java)
+        loginViewModel =
+            ViewModelProvider(this, loginViewModelFactory).get(LoginViewModel::class.java)
     }
 }

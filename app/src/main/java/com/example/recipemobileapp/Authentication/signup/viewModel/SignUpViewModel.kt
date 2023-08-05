@@ -8,7 +8,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class SignUpViewModel(val signUpRepo: SignUpRepo):ViewModel() {
-
     fun insertUser(user: User){
         viewModelScope.launch(Dispatchers.IO) {
             signUpRepo.insertUser(user)
