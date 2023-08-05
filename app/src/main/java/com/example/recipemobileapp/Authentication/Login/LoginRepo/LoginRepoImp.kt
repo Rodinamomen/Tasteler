@@ -17,5 +17,12 @@ class LoginRepoImp(val localDataSource: LocalDataSource):LoginRepo {
     override suspend fun isUserExist(email: String, password: String): Boolean {
         return localDataSource.isUserExist(email,password)
     }
+    override suspend fun isEmailExist(email: String):Boolean{
+      return  localDataSource.isEmailExist(email)
+    }
+    override suspend fun searchByEmail(email: String): User{
+        return localDataSource.searchByEmail(email)
+    }
+
 
 }

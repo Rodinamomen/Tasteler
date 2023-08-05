@@ -12,6 +12,9 @@ import kotlinx.coroutines.launch
 class SignUpViewModel(val signUpRepo: SignUpRepo):ViewModel() {
     private val _userdata= MutableLiveData<Boolean>()
     val userdata: LiveData<Boolean> = _userdata
+
+    private val _isEmailExists= MutableLiveData<Boolean>()
+    val isEmailExists= _isEmailExists
     fun insertUser(user: User){
         viewModelScope.launch(Dispatchers.IO) {
             signUpRepo.insertUser(user)
@@ -21,6 +24,12 @@ class SignUpViewModel(val signUpRepo: SignUpRepo):ViewModel() {
         viewModelScope.launch {
             val response = signUpRepo.isUserExist(email,password)
             _userdata.value=response
+        }
+    }
+    fun isEmailExists(email: String){
+        viewModelScope.launch{
+            val response= signUpRepo.isEmailExist(email)
+            _isEmailExists.value = response
         }
     }
 }

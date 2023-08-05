@@ -29,4 +29,12 @@ class LocalDataSourceImpl(context:Context):LocalDataSource {
     override suspend fun isUserExist(email: String, password: String ) : Boolean{
         return userDao.isUserExist(email, password)
     }
+
+    override suspend fun isEmailExist(email: String): Boolean {
+        return userDao.isEmailExist(email)
+    }
+
+    override suspend fun searchByEmail(email: String): User {
+      return  userDao.searchByEmail(email)
+    }
 }
