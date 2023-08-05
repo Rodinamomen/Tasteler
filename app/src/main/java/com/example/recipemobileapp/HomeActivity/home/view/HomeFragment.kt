@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipemobileapp.Database.Meal
+import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
 import com.example.recipemobileapp.HomeActivity.home.Repo.MealRepoImpl
 import com.example.recipemobileapp.HomeActivity.home.adapters.MainAdapter
 import com.example.recipemobileapp.Network.APIClient
@@ -76,7 +77,7 @@ class HomeFragment : Fragment() {
             RecyclerView.HORIZONTAL, false)
     }
     private fun gettingViewModelReady(){
-        val mealFactory = MealviewModelFactory(MealRepoImpl(APIClient))
+        val mealFactory = MealviewModelFactory(MealRepoImpl(APIClient,LocalDataSourceImpl(requireContext())))
         viewModel = ViewModelProvider(this,mealFactory)[MealViewModel::class.java]
     }
 }

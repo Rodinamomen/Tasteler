@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/item_favourite"
+    <item android:id="@+id/favouritesFragment"
         android:fontFamily="@font/antic"
         android:title="@string/favourites"
         android:icon="@drawable/favorite_unfilled"
@@ -9,13 +9,13 @@
         />
 
     <item
-        android:id="@+id/item_home"
+        android:id="@+id/homeFragment2"
         android:title="@string/home"
         android:fontFamily="@font/antic"
         android:icon="@drawable/home_unfilled"
         android:iconTint="@color/navy_blue"/>
 
-    <item android:id="@+id/item_search"
+    <item android:id="@+id/searchFragment"
         android:fontFamily="@font/antic"
         android:title="@string/search"
         android:icon="@drawable/search_icon"
