@@ -49,16 +49,16 @@ class LoginFragment : Fragment() {
         loginbutton = view.findViewById(R.id.button_login)
         gettingViewModelReady(requireContext())
         loginViewModel.userdata.observe(requireActivity()) { data ->
-        loginbutton.setOnClickListener {
-                if (data != null) {
-                  loginViewModel.isUserExist(email.editText?.text.toString(), password.editText?.text.toString())
-                        if (data) {
-                            Toast.makeText(context, " logged in ", Toast.LENGTH_SHORT).show()
-                        } else{
-                            Toast.makeText(context, "not ", Toast.LENGTH_SHORT).show()
-                        }
-                    }
+            if (data != null) {
+                if (data) {
+                    Toast.makeText(context, " logged in ", Toast.LENGTH_SHORT).show()
+                } else{
+                    Toast.makeText(context, "not ", Toast.LENGTH_SHORT).show()
+                }
             }
+        }
+        loginbutton.setOnClickListener {
+            loginViewModel.isUserExist(email.editText?.text.toString(), password.editText?.text.toString())
         }
 
         button_signup = view.findViewById(R.id.button_signup)
