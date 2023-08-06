@@ -77,8 +77,8 @@ class HomeFragment : Fragment() {
         recyclerView.adapter = MainAdapter(data){ position ->
             val clickedMeal = data[position]
             Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
-            Log.d("TAG", "addElements: ${clickedMeal.mealid}")
-//            viewModel.insertFav(Wishlist(1, clickedMeal.mealid))
+            Log.d("TAG", "addElements: ${data[position]}")
+            viewModel.insertFav(Wishlist(1, clickedMeal.mealid))
         }
         recyclerView.layoutManager = LinearLayoutManager(requireContext(),
             RecyclerView.HORIZONTAL, false)
