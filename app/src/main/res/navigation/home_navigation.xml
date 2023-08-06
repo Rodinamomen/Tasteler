@@ -18,4 +18,13 @@
         android:id="@+id/searchFragment"
         android:name="com.example.recipemobileapp.Subhome.SearchFragment"
         android:label="SearchFragment" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.recipemobileapp.HomeActivity.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.recipemobileapp.Subhome.AboutFragment"
+        android:label="AboutFragment" />
 </navigation>

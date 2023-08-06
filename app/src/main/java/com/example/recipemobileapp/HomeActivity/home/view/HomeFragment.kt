@@ -1,17 +1,19 @@
 package com.example.recipemobileapp.HomeActivity.home.view
 
 import android.os.Bundle
-import android.os.Parcelable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipemobileapp.Database.Meal
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
+import com.example.recipemobileapp.Database.Wishlist
 import com.example.recipemobileapp.HomeActivity.home.Repo.MealRepoImpl
 import com.example.recipemobileapp.HomeActivity.home.adapters.MainAdapter
 import com.example.recipemobileapp.Network.APIClient
@@ -49,10 +51,10 @@ class HomeFragment : Fragment() {
 
         viewModel.randomMealList.observe(viewLifecycleOwner){ meals->
             if(meals != null){
-                processBarMeal.visibility = View.GONE
+                processBarRandomMeal.visibility = View.GONE
                 addElements(meals,recyclerViewRandomMeal)
             }else{
-                processBarMeal.visibility = View.VISIBLE
+                processBarRandomMeal.visibility = View.VISIBLE
             }
         }
         viewModel.mealList.observe(viewLifecycleOwner){ meals->
@@ -72,7 +74,12 @@ class HomeFragment : Fragment() {
 //    }
 
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
-        recyclerView.adapter = MainAdapter(data)
+        recyclerView.adapter = MainAdapter(data){ position ->
+            val clickedMeal = data[position]
+            Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
+            Log.d("TAG", "addElements: ${clickedMeal.mealid}")
+//            viewModel.insertFav(Wishlist(1, clickedMeal.mealid))
+        }
         recyclerView.layoutManager = LinearLayoutManager(requireContext(),
             RecyclerView.HORIZONTAL, false)
     }

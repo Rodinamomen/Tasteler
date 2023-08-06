@@ -17,5 +17,9 @@ class HomeActivity : AppCompatActivity() {
         val navController = navHostFragment.navController
         val navView: BottomNavigationView = findViewById(R.id.bottomnavigationbar)
         navView.setupWithNavController(navController)
+
+    }
+    override fun onBackPressed() {
+        finish()
     }
 }
