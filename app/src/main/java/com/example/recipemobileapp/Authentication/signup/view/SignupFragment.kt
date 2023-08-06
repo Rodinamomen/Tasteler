@@ -67,7 +67,7 @@ class SignupFragment : Fragment() {
             signUpViewModel.insertUser(
                 User(0, firstname,lastname, email,password))
             Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
-            view?.findNavController()?.navigate(R.id.action_signupFragment_to_home_nav_graph)
+            view?.findNavController()?.navigate(R.id.action_signupFragment_to_home_nav_graph2)
         }else if(!isValidName(firstname)) {
             Toast.makeText(context, "invalid First Name", Toast.LENGTH_SHORT).show()
         }else if(!isValidName(lastname)){

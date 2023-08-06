@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
@@ -34,10 +35,14 @@ class LoginFragment : Fragment() {
     lateinit var email: TextInputLayout
     lateinit var password: TextInputLayout
     lateinit var loginbutton: Button
+    lateinit var loginFragment: LoginFragment
+  //  lateinit var fragmentManager: FragmentManager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
@@ -65,10 +70,6 @@ class LoginFragment : Fragment() {
             }
         }
         loginbutton.setOnClickListener {
-            loginViewModel.isUserExist(
-                email.editText?.text.toString(),
-                password.editText?.text.toString()
-            )
             loginViewModel.isUserExist(email.editText?.text.toString(), password.editText?.text.toString())
             loginViewModel.isEmailExists(email.editText?.text.toString())
         }
