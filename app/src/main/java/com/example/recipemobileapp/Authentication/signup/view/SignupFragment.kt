@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.recipemobileapp.Authentication.signup.SignUpRepo.SignUpRepoImpl
 import com.example.recipemobileapp.Authentication.signup.viewModel.SignUpViewModel
 import com.example.recipemobileapp.Authentication.signup.viewModel.SignUpViewModelFactory
@@ -25,6 +26,7 @@ class SignupFragment : Fragment() {
     lateinit var lastname:TextInputLayout
     lateinit var signupbtn: Button
     lateinit var signUpViewModel: SignUpViewModel
+    lateinit var loginButton: Button
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -39,6 +41,7 @@ class SignupFragment : Fragment() {
         email=view.findViewById(R.id.textinput_email)
         password=view.findViewById(R.id.textinput_password)
         signupbtn=view.findViewById(R.id.button_signup)
+        loginButton=view.findViewById(R.id.loginsignupfragment)
         signUpViewModel.isEmailExists.observe(requireActivity()){data->
                 if(data){
                     Toast.makeText(context, "User with that email exists", Toast.LENGTH_SHORT).show()
@@ -55,6 +58,10 @@ class SignupFragment : Fragment() {
         signupbtn.setOnClickListener{
             signUpViewModel.isEmailExists(email.editText?.text.toString())
         }
+        loginButton.setOnClickListener{
+            findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
+        }
+
     }
     private fun gettingViewModelReady(context: Context) {
         val signUpViewModelFactory = SignUpViewModelFactory(

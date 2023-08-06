@@ -73,12 +73,10 @@ class LoginFragment : Fragment() {
             loginViewModel.isUserExist(email.editText?.text.toString(), password.editText?.text.toString())
             loginViewModel.isEmailExists(email.editText?.text.toString())
         }
-
         button_signup = view.findViewById(R.id.button_signup)
         button_signup.setOnClickListener {
-            view.findNavController().navigate(R.id.signupFragment)
+            view.findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
         }
-
     }
 
     private fun gettingViewModelReady(context: Context) {
