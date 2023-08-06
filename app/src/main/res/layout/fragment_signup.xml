@@ -125,6 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/button_signup"
         style="?attr/materialButtonOutlinedStyle"
@@ -143,6 +144,22 @@
         app:layout_constraintTop_toBottomOf="@+id/textinput_password"
         app:layout_constraintVertical_bias="0.188" />
 
+
+    <Button
+        android:id="@+id/loginsignupfragment"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/navy_blue"
+        android:fontFamily="@font/antic"
+        android:text="Login "
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/button_signup"
+        app:layout_constraintStart_toStartOf="@+id/button_signup"
+        app:layout_constraintTop_toBottomOf="@+id/button_signup" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_view_userimg"
