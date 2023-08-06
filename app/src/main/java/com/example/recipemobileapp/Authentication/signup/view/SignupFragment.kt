@@ -9,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.recipemobileapp.Authentication.signup.SignUpRepo.SignUpRepoImpl
 import com.example.recipemobileapp.Authentication.signup.viewModel.SignUpViewModel
 import com.example.recipemobileapp.Authentication.signup.viewModel.SignUpViewModelFactory
@@ -24,6 +26,7 @@ class SignupFragment : Fragment() {
     lateinit var lastname:TextInputLayout
     lateinit var signupbtn: Button
     lateinit var signUpViewModel: SignUpViewModel
+    lateinit var loginButton: Button
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -38,9 +41,27 @@ class SignupFragment : Fragment() {
         email=view.findViewById(R.id.textinput_email)
         password=view.findViewById(R.id.textinput_password)
         signupbtn=view.findViewById(R.id.button_signup)
-        signupbtn.setOnClickListener{
-            isValidData(email.editText?.text.toString(),firstname.editText?.text.toString(),lastname.editText?.text.toString(),password.editText?.text.toString())
+        loginButton=view.findViewById(R.id.loginsignupfragment)
+        signUpViewModel.isEmailExists.observe(requireActivity()){data->
+                if(data){
+                    Toast.makeText(context, "User with that email exists", Toast.LENGTH_SHORT).show()
+                }else {
+                    isValidData(
+                        email.editText?.text.toString(),
+                        firstname.editText?.text.toString(),
+                        lastname.editText?.text.toString(),
+                        password.editText?.text.toString()
+                    )
+
+                }
         }
+        signupbtn.setOnClickListener{
+            signUpViewModel.isEmailExists(email.editText?.text.toString())
+        }
+        loginButton.setOnClickListener{
+            findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
+        }
+
     }
     private fun gettingViewModelReady(context: Context) {
         val signUpViewModelFactory = SignUpViewModelFactory(
@@ -52,6 +73,8 @@ class SignupFragment : Fragment() {
         if(isValidName(firstname)&& isValidName(lastname)&& isValidPassword(password) &&isValidEmail(email)){
             signUpViewModel.insertUser(
                 User(0, firstname,lastname, email,password))
+            Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
+            view?.findNavController()?.navigate(R.id.action_signupFragment_to_home_nav_graph2)
         }else if(!isValidName(firstname)) {
             Toast.makeText(context, "invalid First Name", Toast.LENGTH_SHORT).show()
         }else if(!isValidName(lastname)){
