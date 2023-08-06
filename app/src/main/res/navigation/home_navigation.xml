@@ -2,11 +2,37 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home_nav_graph"
-    app:startDestination="@id/homeFragment2">
+    android:id="@+id/home_navigation"
+    app:startDestination="@id/aboutFragment">
+
     <fragment
-        android:id="@+id/homeFragment2"
+        android:id="@+id/aboutFragment"
+        android:name="com.example.recipemobileapp.HomeActivity.home.view.AboutFragment"
+        android:label="AboutFragment" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.example.recipemobileapp.HomeActivity.home.view.SearchFragment"
+        android:label="SearchFragment" />
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.example.recipemobileapp.HomeActivity.DetailsFragment"
+        android:label="fragment_details"
+        tools:layout="@layout/fragment_details" />
+    <fragment
+        android:id="@+id/favouritesFragment"
+        android:name="com.example.recipemobileapp.HomeActivity.FavouritesFragment"
+        android:label="fragment_favourites"
+        tools:layout="@layout/fragment_favourites" />
+    <fragment
+        android:id="@+id/homeFragment"
         android:name="com.example.recipemobileapp.HomeActivity.home.view.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favouritesFragment"
+            app:destination="@id/favouritesFragment" />
+    </fragment>
 </navigation>

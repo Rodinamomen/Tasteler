@@ -11,5 +11,12 @@ class MealRepoImpl(val remoteDataSource: RemoteDataSource):MealRepo {
 
     override suspend fun getRandomMealFromAPI(): Recipe {
         return remoteDataSource.getRandomMeal()
+
     }
+
+    override suspend fun getSearchResultFromAPI(search : String): Recipe {
+        return remoteDataSource.getSearchResult(search)
+    }
+
+
 }

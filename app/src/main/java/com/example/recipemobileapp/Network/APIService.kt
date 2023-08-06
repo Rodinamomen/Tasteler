@@ -10,4 +10,12 @@ interface APIService {
 
     @GET("/api/json/v1/1/random.php")
     suspend fun getRandomMeal(): Recipe
+
+
+    @GET("/api/json/v1/1/search.php?")
+    suspend fun getSearchResult(@Query("s") search :String): Recipe
+
+
+
+
 }
