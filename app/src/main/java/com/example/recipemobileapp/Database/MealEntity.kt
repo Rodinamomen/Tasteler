@@ -8,7 +8,7 @@ import androidx.room.Relation
 @Entity(tableName ="Meal")
 data class Meal(
   //  val dateModified: Any,
-    @PrimaryKey(autoGenerate = false) val mealid: String,
+    @PrimaryKey(autoGenerate = true) val mealid: Int = 0,
     val strArea: String,
     val strCategory: String,
    // val strCreativeCommonsConfirmed: Any,

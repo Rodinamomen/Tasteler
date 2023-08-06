@@ -6,5 +6,5 @@ import androidx.room.PrimaryKey
 @Entity(primaryKeys = ["userid","mealid"])
 data class Wishlist (
      val userid : Int,
-     val mealid :String
+     val mealid :Int
 )

@@ -14,7 +14,7 @@ interface UserwithMealsDao {
     suspend fun insert(userwithmeals: Wishlist)
     @Transaction
     @Query("DELETE FROM WishList WHERE WishList.mealid = :mealid")
-    suspend fun removeAllMealsByMealId(mealid: String)
+    suspend fun removeAllMealsByMealId(mealid: Int)
     @Transaction
     @Query("DELETE  FROM WishList WHERE WishList.userid = :userid")
     suspend fun removeAllUsersByUserid(userid: Int)
