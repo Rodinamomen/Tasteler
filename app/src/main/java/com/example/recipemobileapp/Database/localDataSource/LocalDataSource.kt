@@ -12,4 +12,6 @@ interface LocalDataSource {
     suspend fun isUserExist(email: String, password: String ) : Boolean
 
     suspend fun getFavouriteMealsWithUserId(userId:Int): Userwithmeals?
+    suspend fun isEmailExist(email: String):Boolean
+    suspend fun searchByEmail(email: String): User
 }

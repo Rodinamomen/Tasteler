@@ -37,4 +37,12 @@ class LocalDataSourceImpl(context:Context):LocalDataSource {
     override suspend fun getFavouriteMealsWithUserId(userId: Int): Userwithmeals? {
         return userWithMealsDao.getUserWithMealsById(userId)
     }
+
+    override suspend fun isEmailExist(email: String): Boolean {
+        return userDao.isEmailExist(email)
+    }
+
+    override suspend fun searchByEmail(email: String): User {
+      return  userDao.searchByEmail(email)
+    }
 }

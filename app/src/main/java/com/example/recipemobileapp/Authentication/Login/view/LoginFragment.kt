@@ -41,24 +41,36 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         email = view.findViewById(R.id.text_input_email_address)
         password = view.findViewById(R.id.text_input_password)
         loginbutton = view.findViewById(R.id.button_login)
         gettingViewModelReady(requireContext())
+        loginViewModel.isEmailExists.observe(requireActivity()) { flag ->
         loginViewModel.userdata.observe(requireActivity()) { data ->
             if (data != null) {
                 if (data) {
                     Toast.makeText(context, " logged in ", Toast.LENGTH_SHORT).show()
-                } else{
-                    Toast.makeText(context, "not ", Toast.LENGTH_SHORT).show()
+                    view.findNavController().navigate(R.id.action_loginFragment_to_home_nav_graph)
+                } else {
+                        Log.d("flag", "onViewCreated: $flag")
+                        if (flag) {
+                            Toast.makeText(context, "invalid password", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(context, "Please sign up ", Toast.LENGTH_SHORT).show()
+                        }
+                    }
                 }
             }
         }
         loginbutton.setOnClickListener {
+            loginViewModel.isUserExist(
+                email.editText?.text.toString(),
+                password.editText?.text.toString()
+            )
             loginViewModel.isUserExist(email.editText?.text.toString(), password.editText?.text.toString())
+            loginViewModel.isEmailExists(email.editText?.text.toString())
         }
 
         button_signup = view.findViewById(R.id.button_signup)
@@ -75,4 +87,28 @@ class LoginFragment : Fragment() {
         loginViewModel =
             ViewModelProvider(this, loginViewModelFactory).get(LoginViewModel::class.java)
     }
+
+  /*  private fun checkLogin(email: String, password: String) {
+        loginViewModel.userdata.observe(requireActivity()) { data ->
+            if (data != null) {
+                if (data) {
+                    Toast.makeText(context, " logged in ", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_loginFragment_to_home_nav_graph)
+                } else {
+                    loginViewModel.isEmailExists.observe(requireActivity()) { flag ->
+                        Log.d("flag", "onViewCreated: $flag")
+                        if (flag) {
+                            Toast.makeText(context, "invalid password", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(context, "Please sign up ", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                }
+            }
+        }
+        loginViewModel.isUserExist(email, password)
+        loginViewModel.isEmailExists(email)
+    }*/
 }
+

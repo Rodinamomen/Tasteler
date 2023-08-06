@@ -9,7 +9,7 @@ import androidx.room.Query
 
 @Dao
 interface UserDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertUser(user: User)
     @Delete
     suspend fun deleteUser(user: User)
@@ -19,5 +19,12 @@ interface UserDao {
     fun readAllData(email: String, password: String): User
     @Query("SELECT EXISTS(SELECT * FROM User WHERE email = :email AND password= :password)")
     suspend fun isUserExist(email: String, password: String ): Boolean
+    @Query("SELECT EXISTS(SELECT * FROM User WHERE email = :email )")
+    suspend fun isEmailExist(email: String): Boolean
+
+    @Query("SELECT * FROM User WHERE email= :email")
+    suspend fun searchByEmail(email: String): User
+
+
 
 }

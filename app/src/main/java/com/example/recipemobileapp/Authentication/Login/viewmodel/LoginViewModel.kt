@@ -21,6 +21,12 @@ class LoginViewModel(val loginRepo: LoginRepo):ViewModel() {
     val usersdata: LiveData<List<User>> = _usersdata
     private val _userdata= MutableLiveData<Boolean>()
     val userdata: LiveData<Boolean> = _userdata
+
+   private val _searchByeemail=MutableLiveData<User>()
+    val searchByEmail= _searchByeemail
+
+    private val _isEmailExists= MutableLiveData<Boolean>()
+    val isEmailExists= _isEmailExists
      fun getAllUsers(){
          viewModelScope.launch{
              val response= loginRepo.getAllUsers()
@@ -40,6 +46,19 @@ class LoginViewModel(val loginRepo: LoginRepo):ViewModel() {
             _userdata.value=response
         }
     }
+    fun  searchByEmail(email:String){
+        viewModelScope.launch {
+            val response= loginRepo.searchByEmail(email)
+            _searchByeemail.value = response
+        }
+    }
+    fun isEmailExists(email: String){
+        viewModelScope.launch{
+            val response= loginRepo.isEmailExist(email)
+            _isEmailExists.value= response
+        }
+    }
+
 
 
 }

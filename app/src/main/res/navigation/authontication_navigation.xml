@@ -21,10 +21,18 @@
         <action
             android:id="@+id/action_loginFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_home_nav_graph"
+            app:destination="@id/home_nav_graph" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
         android:name="com.example.recipemobileapp.Authentication.signup.view.SignupFragment"
         android:label="fragment_signup"
-        tools:layout="@layout/fragment_signup" />
+        tools:layout="@layout/fragment_signup" >
+        <action
+            android:id="@+id/action_signupFragment_to_home_nav_graph"
+            app:destination="@id/home_nav_graph" />
+    </fragment>
+    <include app:graph="@navigation/home_navigation" />
 </navigation>
