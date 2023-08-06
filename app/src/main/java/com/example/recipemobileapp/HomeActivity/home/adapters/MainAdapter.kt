@@ -13,7 +13,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.recipemobileapp.Database.Meal
 import com.example.recipemobileapp.R
 
-class MainAdapter(val data:List<Meal>) : RecyclerView.Adapter<MainAdapter.MyViewHolder>() {
+class MainAdapter(val data:List<Meal>, private val onFavClick: (pos:Int) -> Unit) : RecyclerView.Adapter<MainAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val row =
             LayoutInflater.from(parent.context).inflate(R.layout.single_item, parent, false)
@@ -32,9 +32,9 @@ class MainAdapter(val data:List<Meal>) : RecyclerView.Adapter<MainAdapter.MyView
                     .placeholder(R.drawable.loadingsvg)
                     .error(R.drawable.broken_image))
             .into(imgView)
-//        holder.itemView.setOnClickListener {
-//            onItemClick(position)
-//        }
+        holder.favBtn.setOnClickListener {
+            onFavClick(position)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -43,7 +43,7 @@ class MainAdapter(val data:List<Meal>) : RecyclerView.Adapter<MainAdapter.MyView
 
     class MyViewHolder(val row: View) : RecyclerView.ViewHolder(row) {
         val textViewTitle: TextView = row.findViewById(R.id.textView_title)
-//        val favBtn: ImageButton = row.findViewById(R.id.button_favourite)
+        val favBtn: ImageButton = row.findViewById(R.id.imageButton2)
         val imageView: ImageView = row.findViewById(R.id.imageView)
     }
 }

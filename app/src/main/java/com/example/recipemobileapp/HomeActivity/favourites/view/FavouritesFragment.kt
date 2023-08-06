@@ -1,4 +1,4 @@
-package com.example.recipemobileapp.HomeActivity
+package com.example.recipemobileapp.HomeActivity.favourites.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

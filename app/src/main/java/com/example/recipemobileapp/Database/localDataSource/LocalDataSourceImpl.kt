@@ -1,16 +1,20 @@
 package com.example.recipemobileapp.Database.localDataSource
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import com.example.recipemobileapp.Database.User
 import com.example.recipemobileapp.Database.UserDao
 import com.example.recipemobileapp.Database.UserDataBase
+import com.example.recipemobileapp.Database.UserwithMealsDao
+import com.example.recipemobileapp.Database.Userwithmeals
+import com.example.recipemobileapp.Database.Wishlist
 
 class LocalDataSourceImpl(context:Context):LocalDataSource {
     private lateinit var userDao: UserDao
+    private lateinit var userWithMealsDao: UserwithMealsDao
     init {
         val db: UserDataBase = UserDataBase.getInstance(context)
         userDao = db.userDao()
+        userWithMealsDao = db.userWithMealsDao()
     }
     override suspend fun insertUser(user: User) {
         userDao.insertUser(user)
@@ -36,5 +40,13 @@ class LocalDataSourceImpl(context:Context):LocalDataSource {
 
     override suspend fun searchByEmail(email: String): User {
       return  userDao.searchByEmail(email)
+    }
+
+    override suspend fun getFavouriteMealsWithUserId(userId: Int): Userwithmeals? {
+        return userWithMealsDao.getUserWithMealsById(userId)
+    }
+
+    override suspend fun insertIntofavs(wishlist: Wishlist) {
+        return userWithMealsDao.insert(wishlist)
     }
 }

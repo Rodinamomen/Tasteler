@@ -23,4 +23,8 @@ interface UserwithMealsDao {
     @Transaction
     @Query("SELECT * FROM User")
    fun getuserWithMeals(): LiveData<List<Userwithmeals>>
+
+    @Transaction
+    @Query("SELECT * FROM User WHERE userid = :userid")
+    fun getUserWithMealsById(userid: Int): Userwithmeals?
 }
