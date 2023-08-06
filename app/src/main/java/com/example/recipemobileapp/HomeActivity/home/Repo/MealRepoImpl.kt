@@ -14,6 +14,11 @@ class MealRepoImpl(val remoteDataSource: RemoteDataSource ,val localDataSource: 
 
     override suspend fun getRandomMealFromAPI(): Recipe {
         return remoteDataSource.getRandomMeal()
+
+    }
+
+    override suspend fun getSearchResultFromAPI(search : String): Recipe {
+        return remoteDataSource.getSearchResult(search)
     }
 
     override suspend fun getFavouriteMealsWithUserId(userId:Int): Userwithmeals?{
@@ -22,4 +27,5 @@ class MealRepoImpl(val remoteDataSource: RemoteDataSource ,val localDataSource: 
     override suspend fun insertIntofavs(wishlist: Wishlist) {
         return localDataSource.insertIntofavs(wishlist)
     }
+
 }

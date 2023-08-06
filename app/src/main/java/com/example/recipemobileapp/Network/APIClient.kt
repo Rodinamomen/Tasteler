@@ -11,4 +11,7 @@ object APIClient:RemoteDataSource {
         return APIHelper.retrofit.create(APIService::class.java).getRandomMeal()
     }
 
+    override suspend fun getSearchResult(search: String): Recipe {
+        return APIHelper.retrofit.create(APIService::class.java).getSearchResult(search)
+    }
 }
