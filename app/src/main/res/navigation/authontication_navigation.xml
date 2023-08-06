@@ -25,7 +25,9 @@
             app:destination="@id/signupFragment" />
         <action
             android:id="@+id/action_loginFragment_to_home_nav_graph"
-            app:destination="@id/home_nav_graph" />
+            app:destination="@id/home_nav_graph"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
@@ -34,7 +36,9 @@
         tools:layout="@layout/fragment_signup" >
         <action
             android:id="@+id/action_signupFragment_to_home_nav_graph2"
-            app:destination="@id/home_nav_graph" />
+            app:destination="@id/home_nav_graph"
+            app:popUpTo="@id/signupFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <include app:graph="@navigation/home_navigation" />
 </navigation>
