@@ -1,4 +1,4 @@
-package com.example.recipemobileapp.HomeActivity
+package com.example.recipemobileapp.HomeActivity.favourites.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,5 +14,9 @@ class FavouritesFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_favourites, container, false)
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 }

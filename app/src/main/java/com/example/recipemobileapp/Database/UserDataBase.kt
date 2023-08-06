@@ -6,7 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [User::class,Meal::class,Wishlist::class], version = 2)
+@Database(entities = [User::class,Meal::class,Wishlist::class], version = 3)
 abstract class UserDataBase : RoomDatabase() {
     abstract fun mealDao(): MealDao
     abstract fun userWithMealsDao(): UserwithMealsDao
@@ -21,7 +21,8 @@ abstract class UserDataBase : RoomDatabase() {
                     context.applicationContext,
                     UserDataBase::class.java,
                     "Userdata"
-                ).build()
+                )   .fallbackToDestructiveMigration()
+                    .build()
                     .also {
                    INSTANCE= it
                 }

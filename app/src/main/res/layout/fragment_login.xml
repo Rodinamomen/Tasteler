@@ -104,6 +104,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Your Password"
+            app:passwordToggleEnabled="true"
             app:boxStrokeColor="@color/light_baby_blue"
             app:counterTextColor="@color/navy_blue"
             app:hintTextColor="@color/navy_blue"

@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.recipemobileapp.Database.Meal
+import com.example.recipemobileapp.Database.Wishlist
 import com.example.recipemobileapp.HomeActivity.home.Repo.MealRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -61,3 +62,11 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
 
 
 
+
+    fun insertFav(wishlist: Wishlist){
+        viewModelScope.launch(Dispatchers.IO) {
+            mealRepo.insertIntofavs(wishlist)
+        }
+    }
+
+}
