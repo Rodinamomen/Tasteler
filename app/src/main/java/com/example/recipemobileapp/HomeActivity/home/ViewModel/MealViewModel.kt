@@ -58,15 +58,13 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
 
 
 
-}
 
 
 
-
-    fun insertFav(wishlist: Wishlist){
+    fun insertFav(wishlist: Wishlist) {
         viewModelScope.launch(Dispatchers.IO) {
             mealRepo.insertIntofavs(wishlist)
         }
-    }
+    }    }
 
-}
+

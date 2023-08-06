@@ -2,6 +2,7 @@ package com.example.recipemobileapp.HomeActivity.home.view
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipemobileapp.Database.Meal
+import com.example.recipemobileapp.Database.Wishlist
+import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
 import com.example.recipemobileapp.HomeActivity.home.Repo.MealRepoImpl
 import com.example.recipemobileapp.HomeActivity.home.adapters.MainAdapter
 import com.example.recipemobileapp.Network.APIClient
@@ -33,7 +36,6 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
 
     val view =inflater.inflate(R.layout.fragment_search, container, false)
         // Getting View Model Ready
@@ -73,12 +75,17 @@ class SearchFragment : Fragment() {
 
 
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
-        recyclerView.adapter = MainAdapter(data)
+        recyclerView.adapter = MainAdapter(data){ position ->
+            val clickedMeal = data[position]
+            Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
+            Log.d("TAG", "addElements: ${data[position]}")
+            viewModel.insertFav(Wishlist(1, clickedMeal.mealid))
+        }
         recyclerView.layoutManager = LinearLayoutManager(requireContext(),
             RecyclerView.VERTICAL, false)
     }
     private fun gettingViewModelReady(){
-        val mealFactory = MealviewModelFactory(MealRepoImpl(APIClient))
+        val mealFactory = MealviewModelFactory(MealRepoImpl(APIClient, LocalDataSourceImpl(requireContext())))
         viewModel = ViewModelProvider(this,mealFactory)[MealViewModel::class.java]
     }
     private fun handleSearchQuery(query: String) { viewModel.getSearchResult(query) }
