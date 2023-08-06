@@ -13,7 +13,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.recipemobileapp.Database.Meal
 import com.example.recipemobileapp.R
 
-class MainAdapter(val data:List<Meal>, private val onFavClick: (pos:Int) -> Unit) : RecyclerView.Adapter<MainAdapter.MyViewHolder>() {
+class MainAdapter(val data:List<Meal>, private val onItemClick: (pos:Int) -> Unit) : RecyclerView.Adapter<MainAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val row =
             LayoutInflater.from(parent.context).inflate(R.layout.single_item, parent, false)
@@ -32,8 +32,8 @@ class MainAdapter(val data:List<Meal>, private val onFavClick: (pos:Int) -> Unit
                     .placeholder(R.drawable.loadingsvg)
                     .error(R.drawable.broken_image))
             .into(imgView)
-        holder.favBtn.setOnClickListener {
-            onFavClick(position)
+        holder.itemView.setOnClickListener {
+            onItemClick(position)
         }
     }
 

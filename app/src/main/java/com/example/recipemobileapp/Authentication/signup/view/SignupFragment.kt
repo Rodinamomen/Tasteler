@@ -67,7 +67,7 @@ class SignupFragment : Fragment() {
     private fun isValidData(email:String,firstname:String,lastname:String,password: String){
         if(isValidName(firstname)&& isValidName(lastname)&& isValidPassword(password) &&isValidEmail(email)){
             signUpViewModel.insertUser(
-                User(0, firstname,lastname, email,password))
+                User(  username = firstname, lastName = lastname, email = email, password = password))
             Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
 
             view?.findNavController()?.navigate(R.id.action_signupFragment_to_homeActivity)
