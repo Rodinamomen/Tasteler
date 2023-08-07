@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
+import androidx.room.Query
 
 @Dao
 interface MealDao {
@@ -11,5 +12,8 @@ interface MealDao {
     suspend fun insertMeal(meal: Meal)
     @Delete
     suspend fun deleteMeal(meal: Meal)
+
+    @Query("SELECT * FROM Meal WHERE mealid = :ID")
+    suspend fun getMealByID(ID: Int): Meal
 
 }
