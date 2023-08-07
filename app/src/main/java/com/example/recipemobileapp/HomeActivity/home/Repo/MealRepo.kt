@@ -9,9 +9,7 @@ interface MealRepo {
     suspend fun getAllMealsFromAPI(randomChar: Char): Recipe
     suspend fun getRandomMealFromAPI(): Recipe
 
-
     suspend fun getSearchResultFromAPI(search : String): Recipe
-
 
     suspend fun insertIntofavs(wishlist: Wishlist)
     suspend fun getFavouriteMealsWithUserId(userId:Int): Userwithmeals?

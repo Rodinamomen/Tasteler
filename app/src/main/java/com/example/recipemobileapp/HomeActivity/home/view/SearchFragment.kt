@@ -37,7 +37,6 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-
     val view =inflater.inflate(R.layout.fragment_search, container, false)
         // Getting View Model Ready
         gettingViewModelReady()
@@ -51,15 +50,29 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerViewSearchMeal = view.findViewById(R.id.recyclerViewSearchResults)
+       // recyclerViewSearchMeal = view.findViewById(R.id.recyclerViewSearchResults)
 
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                handleSearchQuery(query)
-//                Toast.makeText(view.context,query,Toast.LENGTH_SHORT).show()
-                return false }
+//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String): Boolean {
+//                handleSearchQuery(query)
+////                Toast.makeText(view.context,query,Toast.LENGTH_SHORT).show()
+//                return false }
+//
+//            override fun onQueryTextChange(p0: String?): Boolean =false
+//        })
+//
 
-            override fun onQueryTextChange(p0: String?): Boolean =false
+        searchView.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(p0: String?): Boolean {
+                handleSearchQuery(p0!!)
+
+        return true}
+
+            override fun onQueryTextChange(p0: String?): Boolean {
+               handleSearchQuery(p0!!)
+            return true}
+
+
         })
 
 

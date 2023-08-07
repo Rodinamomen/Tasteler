@@ -12,7 +12,7 @@ interface APIService {
     suspend fun getRandomMeal(): Recipe
 
 
-    @GET("/api/json/v1/1/search.php?")
+    @GET("/api/json/v1/1/search.php")
     suspend fun getSearchResult(@Query("s") search :String): Recipe
 
 

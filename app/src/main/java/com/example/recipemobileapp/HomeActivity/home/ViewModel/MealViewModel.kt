@@ -19,7 +19,7 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
     val randomMealList: LiveData<List<Meal>> = _randomMealList
 
     private val _searchMealList = MutableLiveData<List<Meal>>()
-    val searchMealList: LiveData<List<Meal>> = _randomMealList
+    val searchMealList: LiveData<List<Meal>> = _searchMealList
 
 
     fun getMealsList(randomChar: Char){
@@ -46,12 +46,10 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
 
     fun getSearchResult(search :String ){
         viewModelScope.launch {
-            try {val response = mealRepo.getSearchResultFromAPI(search)
+            val response = mealRepo.getSearchResultFromAPI(search)
                 _searchMealList.value = response.meals
 
-            }catch (e: Exception) {
-                Log.d("Connection", "getSearchResult: No connection in Search")
-            }
+
 
         } }
 
