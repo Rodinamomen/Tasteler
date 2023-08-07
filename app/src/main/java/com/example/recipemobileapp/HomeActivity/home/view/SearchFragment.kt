@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipemobileapp.Database.Meal
@@ -38,7 +39,7 @@ class SearchFragment : Fragment() {
     ): View? {
 
 
-    val view =inflater.inflate(R.layout.fragment_search, container, false)
+        val view =inflater.inflate(R.layout.fragment_search, container, false)
         // Getting View Model Ready
         gettingViewModelReady()
         // Set Recyclerview value by ID
@@ -72,7 +73,7 @@ class SearchFragment : Fragment() {
 
     }
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
-        recyclerView.adapter = MainAdapter(data){ position ->
+        recyclerView.adapter = MainAdapter(data,this::onRecipeClick ){ position ->
             val clickedMeal = data[position]
             Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
             Log.d("TAG", "addElements: ${data[position]}")
@@ -86,6 +87,11 @@ class SearchFragment : Fragment() {
             LocalDataSourceImpl(requireContext())
         ))
         viewModel = ViewModelProvider(this,mealFactory)[MealViewModel::class.java]
+    }
+    private fun onRecipeClick(clickedMeal: Meal) {
+        val bundle = Bundle()
+        bundle.putInt("recipeId", clickedMeal.mealid)
+        findNavController().navigate(R.id.action_searchFragment_to_detailsFragment, bundle)
     }
     private fun handleSearchQuery(query: String) { viewModel.getSearchResult(query) }
 
