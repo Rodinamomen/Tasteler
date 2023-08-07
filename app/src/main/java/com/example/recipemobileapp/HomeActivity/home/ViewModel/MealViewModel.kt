@@ -18,9 +18,6 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
     private val _randomMealList = MutableLiveData<List<Meal>>()
     val randomMealList: LiveData<List<Meal>> = _randomMealList
 
-    private val _sentmealtodetails = MutableLiveData<Meal>()
-    val sentmealtodetails: LiveData<Meal> = _sentmealtodetails
-
     private val _searchMealList = MutableLiveData<List<Meal>>()
     val searchMealList: LiveData<List<Meal>> = _randomMealList
 
@@ -64,19 +61,5 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
         }
     }
 
-    fun getMealbyID(ID: Int): LiveData<Meal> {
-        val resultLiveData = MutableLiveData<Meal>()
 
-        viewModelScope.launch {
-            try {
-                val meal = mealRepo.getMealByID(ID)
-                resultLiveData.postValue(meal)
-
-            } catch (e: Exception) {
-                Log.e("MealViewModel", "Error getting meal by ID: ${e.message}")
-            }
-        }
-
-        return resultLiveData
-    }
 }
