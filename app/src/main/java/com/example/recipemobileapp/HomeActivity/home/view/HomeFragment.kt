@@ -80,6 +80,7 @@ class HomeFragment : Fragment() {
             Log.d("TAG", "addElements: ${data[position]}")
             viewModel.insertFav(Wishlist(1, clickedMeal.mealid))
         }
+     
         recyclerView.layoutManager = LinearLayoutManager(requireContext(),
             RecyclerView.HORIZONTAL, false)
     }
