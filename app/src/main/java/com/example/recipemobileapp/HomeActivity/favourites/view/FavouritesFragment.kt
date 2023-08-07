@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipemobileapp.Database.Meal
@@ -53,7 +54,7 @@ class FavouritesFragment : Fragment() {
         }
     }
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
-        recyclerView.adapter = MainAdapter(data){ position ->
+        recyclerView.adapter = MainAdapter(data,this::onRecipeClick){ position ->
             val clickedMeal = data[position]
             viewModel.insertFav(Wishlist(1,clickedMeal.mealid))
         }
@@ -68,5 +69,10 @@ class FavouritesFragment : Fragment() {
             )
         )
         viewModel = ViewModelProvider(this,favFactory)[FavViewModel::class.java]
+    }
+    private fun onRecipeClick(clickedMeal: Meal) {
+        val bundle = Bundle()
+        bundle.putInt("recipeId", clickedMeal.mealid)
+        findNavController().navigate(R.id.action_favouritesFragment_to_detailsFragment, bundle)
     }
 }
