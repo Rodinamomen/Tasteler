@@ -23,7 +23,6 @@ class MainAdapter(val data:MutableList<Meal>,  private val onRecipeClick: (Meal)
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.textViewTitle.text = data[position].strMeal
-//        holder.textViewTag.text
         val imgView:ImageView = holder.imageView
         Glide.with(holder.itemView.context)
             .load(data[position].strMealThumb)

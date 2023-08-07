@@ -20,7 +20,7 @@ import com.example.recipemobileapp.Database.Meal
 import com.example.recipemobileapp.Database.User
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
 import com.example.recipemobileapp.Database.Wishlist
-import com.example.recipemobileapp.HomeActivity.Repo.MealRepoImpl
+import com.example.recipemobileapp.HomeActivity.home.Repo.MealRepoImpl
 import com.example.recipemobileapp.HomeActivity.home.adapters.MainAdapter
 import com.example.recipemobileapp.Network.APIClient
 import com.example.recipemobileapp.R
@@ -28,7 +28,7 @@ import com.example.recipemobileapp.ViewModel.MealViewModel
 import com.example.recipemobileapp.ViewModel.MealviewModelFactory
 
 class HomeFragment : Fragment() {
-    private lateinit var viewModel:MealViewModel
+    private lateinit var viewModel: MealViewModel
     private lateinit var recyclerViewRandomMeal: RecyclerView
     private lateinit var recyclerViewAllMeals: RecyclerView
     private lateinit var sharedPreferences:SharedPreferences
@@ -114,9 +114,14 @@ class HomeFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext(),
             RecyclerView.HORIZONTAL, false)
     }
-    private fun gettingViewModelReady(){
-        val mealFactory = MealviewModelFactory(MealRepoImpl(APIClient,LocalDataSourceImpl(requireContext())))
-        viewModel = ViewModelProvider(this,mealFactory)[MealViewModel::class.java]
+    private fun gettingViewModelReady() {
+        val mealFactory = MealviewModelFactory(
+            MealRepoImpl(
+                APIClient,
+                LocalDataSourceImpl(requireContext())
+            )
+        )
+        viewModel = ViewModelProvider(this, mealFactory)[MealViewModel::class.java]
     }
     private fun onRecipeClick(clickedMeal: Meal) {
         val bundle = Bundle()

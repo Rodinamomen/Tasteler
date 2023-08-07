@@ -18,14 +18,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import at.blogc.android.views.ExpandableTextView
 import com.example.recipemobileapp.Database.Meal
-import com.example.recipemobileapp.Database.Wishlist
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
-import com.example.recipemobileapp.HomeActivity.Repo.MealRepoImpl
+import com.example.recipemobileapp.HomeActivity.home.Repo.MealRepoImpl
 import com.example.recipemobileapp.HomeActivity.home.adapters.MainAdapter
 import com.example.recipemobileapp.Network.APIClient
 import com.example.recipemobileapp.R
 import com.example.recipemobileapp.ViewModel.MealViewModel
 import com.example.recipemobileapp.ViewModel.MealviewModelFactory
+
 
 class DetailsFragment : Fragment() {
     private lateinit var viewModel: MealViewModel
@@ -70,23 +70,23 @@ class DetailsFragment : Fragment() {
             return
         }
 
-        viewModel.getMealbyID(recipeId).observe(viewLifecycleOwner) { recipe ->
-            if (recipe != null) {
-                val favbtn:Button = view.findViewById(R.id.addtofavs)
-                favbtn.setOnClickListener{
-//                    viewModel.insertFav(Wishlist(1,recipeId))
-                    Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
-                }
-                //recipeImageView.setImageResource() // Replace with actual image
-                recipeNameTextView.text = recipe.strMeal
-                descriptionExpandableTextView.text = recipe.strInstructions
-                // var string: String = recipe.strYoutube
-                // tutorialWebView.loadUrl(string) // Replace with actual tutorial URL
-
-            } else {
-                Toast.makeText(requireContext(), "Recipe not found", Toast.LENGTH_SHORT).show()
-            }
-        }
+//        viewModel.getMealbyID(recipeId).observe(viewLifecycleOwner) { recipe ->
+//            if (recipe != null) {
+//                val favbtn:Button = view.findViewById(R.id.addtofavs)
+//                favbtn.setOnClickListener{
+////                    viewModel.insertFav(Wishlist(1,recipeId))
+//                    Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
+//                }
+//                //recipeImageView.setImageResource() // Replace with actual image
+//                recipeNameTextView.text = recipe.strMeal
+//                descriptionExpandableTextView.text = recipe.strInstructions
+//                // var string: String = recipe.strYoutube
+//                // tutorialWebView.loadUrl(string) // Replace with actual tutorial URL
+//
+//            } else {
+//                Toast.makeText(requireContext(), "Recipe not found", Toast.LENGTH_SHORT).show()
+//            }
+//        }
     }
 
 
@@ -101,6 +101,7 @@ class DetailsFragment : Fragment() {
     }
 
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
+        /**Make it in image view instead**/
         val mutableCopy = mutableListOf<Meal>().apply {
             addAll(data)
         }

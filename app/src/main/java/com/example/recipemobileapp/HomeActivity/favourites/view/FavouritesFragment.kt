@@ -10,8 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,16 +19,16 @@ import com.example.recipemobileapp.Database.Meal
 import com.example.recipemobileapp.Database.User
 import com.example.recipemobileapp.Database.Wishlist
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
-import com.example.recipemobileapp.HomeActivity.Repo.MealRepoImpl
+import com.example.recipemobileapp.HomeActivity.favourites.Repo.FavRepoImpl
+import com.example.recipemobileapp.HomeActivity.favourites.viewModel.FavViewModel
+import com.example.recipemobileapp.HomeActivity.favourites.viewModel.FavViewModelFactory
 import com.example.recipemobileapp.HomeActivity.home.adapters.MainAdapter
 import com.example.recipemobileapp.Network.APIClient
 import com.example.recipemobileapp.R
-import com.example.recipemobileapp.ViewModel.MealViewModel
-import com.example.recipemobileapp.ViewModel.MealviewModelFactory
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
 class FavouritesFragment : Fragment() {
-    private lateinit var viewModel: MealViewModel
+    private lateinit var viewModel: FavViewModel
     private lateinit var recyclerViewFav:RecyclerView
     private lateinit var textViewEmpty: TextView
     private lateinit var loggedInUser: User
@@ -109,8 +107,8 @@ class FavouritesFragment : Fragment() {
     }
 
     private fun gettingViewModelReady(){
-        val mealFactory = MealviewModelFactory(MealRepoImpl(APIClient,LocalDataSourceImpl(requireContext())))
-        viewModel = ViewModelProvider(this,mealFactory)[MealViewModel::class.java]
+        val favFactory = FavViewModelFactory(FavRepoImpl(APIClient,LocalDataSourceImpl(requireContext())))
+        viewModel = ViewModelProvider(this,favFactory)[FavViewModel::class.java]
     }
     private fun onRecipeClick(clickedMeal: Meal) {
         val bundle = Bundle()

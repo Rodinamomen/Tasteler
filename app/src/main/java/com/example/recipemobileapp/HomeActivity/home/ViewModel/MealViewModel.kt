@@ -1,7 +1,6 @@
 package com.example.recipemobileapp.ViewModel
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,10 +9,9 @@ import com.example.recipemobileapp.Database.Meal
 import com.example.recipemobileapp.Database.User
 import com.example.recipemobileapp.Database.Userwithmeals
 import com.example.recipemobileapp.Database.Wishlist
-import com.example.recipemobileapp.HomeActivity.Repo.MealRepo
-import kotlinx.coroutines.Deferred
+import com.example.recipemobileapp.HomeActivity.home.Repo.MealRepo
+import com.example.recipemobileapp.HomeActivity.home.Repo.SearchRepo
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class MealViewModel(val mealRepo: MealRepo):ViewModel() {
@@ -41,10 +39,7 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
     private val _userWithMeal = MutableLiveData<List<Userwithmeals>>()
     val userwithmeals:LiveData<List<Userwithmeals>> = _userWithMeal
 
-
-
     fun getMealsList(randomChar: Char){
-
         viewModelScope.launch {
             try {
                 val response = mealRepo.getAllMealsFromAPI(randomChar)
@@ -52,7 +47,6 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
             } catch (e: Exception) {
                 Log.d("Connection", "getMealsList: No connection")
             }
-
         }
     }
     fun getRandomMeal(){
@@ -86,21 +80,21 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
         }
     }
 
-    fun getMealbyID(ID: Int): LiveData<Meal> {
-        val resultLiveData = MutableLiveData<Meal>()
-
-        viewModelScope.launch {
-            try {
-                val meal = mealRepo.getMealByID(ID)
-                resultLiveData.postValue(meal)
-
-            } catch (e: Exception) {
-                Log.e("MealViewModel", "Error getting meal by ID: ${e.message}")
-            }
-        }
-
-        return resultLiveData
-    }
+//    fun getMealbyID(ID: Int): LiveData<Meal> {
+//        val resultLiveData = MutableLiveData<Meal>()
+//
+//        viewModelScope.launch {
+//            try {
+//                val meal = mealRepo.getMealByID(ID)
+//                resultLiveData.postValue(meal)
+//
+//            } catch (e: Exception) {
+//                Log.e("MealViewModel", "Error getting meal by ID: ${e.message}")
+//            }
+//        }
+//
+//        return resultLiveData
+//    }
 
     fun getUserId(userEmail:String){
         viewModelScope.launch {
