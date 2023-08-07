@@ -1,6 +1,5 @@
 package com.example.recipemobileapp.HomeActivity.home.Repo
 
-import androidx.lifecycle.MutableLiveData
 import com.example.recipemobileapp.Database.Meal
 import com.example.recipemobileapp.Database.Recipe
 import com.example.recipemobileapp.Database.Userwithmeals
@@ -27,10 +26,6 @@ class MealRepoImpl(val remoteDataSource: RemoteDataSource ,val localDataSource: 
     }
     override suspend fun insertIntofavs(wishlist: Wishlist) {
         return localDataSource.insertIntofavs(wishlist)
-    }
-
-    override suspend fun getMealByID(ID:Int):Meal{
-        return remoteDataSource.getMealByID(ID)
     }
 
 }

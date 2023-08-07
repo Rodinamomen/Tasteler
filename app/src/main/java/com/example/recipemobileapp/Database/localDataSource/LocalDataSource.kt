@@ -1,8 +1,6 @@
 package com.example.recipemobileapp.Database.localDataSource
 
 import androidx.lifecycle.LiveData
-import com.example.recipemobileapp.Database.Meal
-import com.example.recipemobileapp.Database.Recipe
 import com.example.recipemobileapp.Database.User
 import com.example.recipemobileapp.Database.Userwithmeals
 import com.example.recipemobileapp.Database.Wishlist
@@ -18,6 +16,5 @@ interface LocalDataSource {
     suspend fun insertIntofavs(wishlist: Wishlist)
     suspend fun isEmailExist(email: String):Boolean
     suspend fun searchByEmail(email: String): User
-
 
 }
