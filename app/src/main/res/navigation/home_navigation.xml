@@ -12,10 +12,14 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.recipemobileapp.HomeActivity.home.view.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.example.recipemobileapp.HomeActivity.DetailsFragment"
+        android:name="com.example.recipemobileapp.HomeActivity.home.view.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details" />
     <fragment
@@ -23,11 +27,19 @@
         android:name="com.example.recipemobileapp.HomeActivity.home.view.HomeFragment"
         android:label="fragment_home"
 
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/favouritesFragment"
         android:name="com.example.recipemobileapp.HomeActivity.favourites.view.FavouritesFragment"
         android:label="fragment_favourites"
-        tools:layout="@layout/fragment_favourites" />
+        tools:layout="@layout/fragment_favourites" >
+        <action
+            android:id="@+id/action_favouritesFragment_to_detailsFragment"
+            app:destination="@id/detailsFragment" />
+    </fragment>
 
 </navigation>

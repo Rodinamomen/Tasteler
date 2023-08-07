@@ -1,6 +1,9 @@
 package com.example.recipemobileapp.Authentication.Login.view
 
 import android.content.Context
+import android.content.Intent
+import android.content.SharedPreferences
+import android.content.SharedPreferences.Editor
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -30,24 +33,30 @@ import kotlinx.coroutines.launch
 import org.w3c.dom.Text
 
 class LoginFragment : Fragment() {
+    companion object {
+        const val SHARED_PREFS = "shared_prefs"
+        const val EMAIL_KEY = "email_key"
+        const val PASSWORD_KEY = "password_key"
+    }
+    lateinit var editor:Editor
     lateinit var button_signup: Button
     lateinit var loginViewModel: LoginViewModel
     lateinit var email: TextInputLayout
     lateinit var password: TextInputLayout
     lateinit var loginbutton: Button
-    lateinit var loginFragment: LoginFragment
+    lateinit var sharedPreferences: SharedPreferences
   //  lateinit var fragmentManager: FragmentManager
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPreferences= requireActivity().getSharedPreferences(SHARED_PREFS,Context.MODE_PRIVATE)
+        editor=sharedPreferences.edit()
         email = view.findViewById(R.id.text_input_email_address)
         password = view.findViewById(R.id.text_input_password)
         loginbutton = view.findViewById(R.id.button_login)
@@ -57,7 +66,11 @@ class LoginFragment : Fragment() {
             if (data != null) {
                 if (data) {
                     Toast.makeText(context, " logged in ", Toast.LENGTH_SHORT).show()
+                    editor.putString(EMAIL_KEY,email.editText?.text.toString())
+                    editor.putString(PASSWORD_KEY,password.editText?.text.toString())
+                    editor.commit()
                     view.findNavController().navigate(R.id.action_loginFragment_to_homeActivity)
+                   requireActivity().finish()
                 } else {
                         Log.d("flag", "onViewCreated: $flag")
                         if (flag) {
@@ -76,6 +89,7 @@ class LoginFragment : Fragment() {
         button_signup = view.findViewById(R.id.button_signup)
         button_signup.setOnClickListener {
             view.findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
+
         }
     }
 
