@@ -1,5 +1,7 @@
 package com.example.recipemobileapp.HomeActivity.home.view
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,14 +10,17 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipemobileapp.Authentication.Login.view.LoginFragment
 import com.example.recipemobileapp.Database.Meal
+import com.example.recipemobileapp.Database.User
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
 import com.example.recipemobileapp.Database.Wishlist
-import com.example.recipemobileapp.HomeActivity.home.Repo.MealRepoImpl
+import com.example.recipemobileapp.HomeActivity.Repo.MealRepoImpl
 import com.example.recipemobileapp.HomeActivity.home.adapters.MainAdapter
 import com.example.recipemobileapp.Network.APIClient
 import com.example.recipemobileapp.R
@@ -26,6 +31,9 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel:MealViewModel
     private lateinit var recyclerViewRandomMeal: RecyclerView
     private lateinit var recyclerViewAllMeals: RecyclerView
+    private lateinit var sharedPreferences:SharedPreferences
+    private var savedMealId:Int = -1
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -42,6 +50,8 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         recyclerViewRandomMeal = view.findViewById(R.id.recyclerView_randomMeal)
         recyclerViewAllMeals = view.findViewById(R.id.recyclerView_home)
+        sharedPreferences = requireActivity().getSharedPreferences(LoginFragment.SHARED_PREFS, Context.MODE_PRIVATE)
+
 
         val processBarMeal:ProgressBar = view.findViewById(R.id.progresBar_allMeals)
         val processBarRandomMeal:ProgressBar = view.findViewById(R.id.progressBar_randomMeal)
@@ -67,18 +77,39 @@ class HomeFragment : Fragment() {
             }
         }
 
+        val combinedLiveData = MediatorLiveData<Pair<User?, Meal?>>()
+
+        viewModel.loggedUser.observe(viewLifecycleOwner) { user ->
+            combinedLiveData.value = Pair(user, combinedLiveData.value?.second)
+        }
+
+        viewModel.savedMeal.observe(viewLifecycleOwner) { meal ->
+            combinedLiveData.value = Pair(combinedLiveData.value?.first, meal)
+        }
+
+        combinedLiveData.observe(viewLifecycleOwner) { (user, meal) ->
+            if (user != null && meal != null) {
+                Log.d("TAG", "Both user and meal data are available: $user, $meal")
+                savedMealId = user.userid
+                viewModel.insertFav(Wishlist(user.userid, meal.idMeal))
+            }
+        }
     }
 
-    //    override fun onSaveInstanceState(outState: Bundle) {
-//        super.onSaveInstanceState(outState)
-//
-//    }
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
-        recyclerView.adapter = MainAdapter(data,{clickedMeal -> onRecipeClick(clickedMeal)}){ position ->
-            val clickedMeal = data[position]
+        val mutableCopy = mutableListOf<Meal>().apply {
+            addAll(data)
+        }
+        recyclerView.adapter = MainAdapter(mutableCopy,
+            {clickedMeal -> onRecipeClick(clickedMeal)})
+        { position ->
+            val clickedMeal = mutableCopy[position]
             Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
-            Log.d("TAG", "addElements: ${data[position]}")
-            viewModel.insertFav(Wishlist(1, clickedMeal.mealid))
+            viewModel.insertMeal(clickedMeal)
+            val email = sharedPreferences.getString("email_key","")!!
+            viewModel.getUserId(email)
+            viewModel.getMealId(clickedMeal.idMeal)
+            Log.d("TAG", "addElements: $email ${clickedMeal.idMeal}")
         }
         recyclerView.layoutManager = LinearLayoutManager(requireContext(),
             RecyclerView.HORIZONTAL, false)
@@ -89,7 +120,7 @@ class HomeFragment : Fragment() {
     }
     private fun onRecipeClick(clickedMeal: Meal) {
         val bundle = Bundle()
-        bundle.putInt("recipeId", clickedMeal.mealid)
+//        bundle.putInt("recipeId", clickedMeal)
         findNavController().navigate(R.id.action_homeFragment_to_detailsFragment, bundle)
     }
 }

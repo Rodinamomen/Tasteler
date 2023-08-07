@@ -19,5 +19,11 @@ interface LocalDataSource {
     suspend fun isEmailExist(email: String):Boolean
     suspend fun searchByEmail(email: String): User
 
+    suspend fun insertMeal(meal: Meal)
+    suspend fun getuserWithMeals(): List<Userwithmeals>
+    suspend fun getMealById(id:String): Meal
+
+    suspend fun getUserIdByEmail(email:String):User
+    suspend fun deleteWishlist(wishlist: Wishlist)
 
 }

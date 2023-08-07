@@ -1,6 +1,5 @@
 package com.example.recipemobileapp.HomeActivity.home.view
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -16,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.recipemobileapp.Database.Meal
 import com.example.recipemobileapp.Database.Wishlist
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
-import com.example.recipemobileapp.HomeActivity.home.Repo.MealRepoImpl
+import com.example.recipemobileapp.HomeActivity.Repo.MealRepoImpl
 import com.example.recipemobileapp.HomeActivity.home.adapters.MainAdapter
 import com.example.recipemobileapp.Network.APIClient
 import com.example.recipemobileapp.R
@@ -73,24 +72,29 @@ class SearchFragment : Fragment() {
 
     }
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
-        recyclerView.adapter = MainAdapter(data,this::onRecipeClick ){ position ->
+        val mutableCopy = mutableListOf<Meal>().apply {
+            addAll(data)
+        }
+        recyclerView.adapter = MainAdapter(mutableCopy,this::onRecipeClick ){ position ->
             val clickedMeal = data[position]
             Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
             Log.d("TAG", "addElements: ${data[position]}")
-            viewModel.insertFav(Wishlist(1, clickedMeal.mealid))
+//            viewModel.insertFav(Wishlist(1, clickedMeal._mealid))
         }
         recyclerView.layoutManager = LinearLayoutManager(requireContext(),
             RecyclerView.VERTICAL, false)
     }
     private fun gettingViewModelReady(){
-        val mealFactory = MealviewModelFactory(MealRepoImpl(APIClient,
+        val mealFactory = MealviewModelFactory(
+            MealRepoImpl(APIClient,
             LocalDataSourceImpl(requireContext())
-        ))
+        )
+        )
         viewModel = ViewModelProvider(this,mealFactory)[MealViewModel::class.java]
     }
     private fun onRecipeClick(clickedMeal: Meal) {
         val bundle = Bundle()
-        bundle.putInt("recipeId", clickedMeal.mealid)
+//        bundle.putInt("recipeId", clickedMeal.mealid)
         findNavController().navigate(R.id.action_searchFragment_to_detailsFragment, bundle)
     }
     private fun handleSearchQuery(query: String) { viewModel.getSearchResult(query) }

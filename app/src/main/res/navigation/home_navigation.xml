@@ -40,6 +40,7 @@
         <action
             android:id="@+id/action_favouritesFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+
     </fragment>
 
 </navigation>

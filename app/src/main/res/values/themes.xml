@@ -7,4 +7,9 @@
     <style name="textinput" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"></style>
     <style name="button" parent="Widget.MaterialComponents.Button.TextButton.Dialog"></style>
     <style name="Theme.RecipeMobileApp" parent="Base.Theme.RecipeMobileApp" />
+    <style name="home" parent="@style/Theme.MaterialComponents">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/white</item>
+        <item name="colorAccent">@color/navy_blue</item>
+    </style>
 </resources>
