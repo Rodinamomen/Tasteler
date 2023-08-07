@@ -1,6 +1,7 @@
 package com.example.recipemobileapp.Authentication.signup.view
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -20,6 +21,13 @@ import com.example.recipemobileapp.R
 import com.google.android.material.textfield.TextInputLayout
 
 class SignupFragment : Fragment() {
+    companion object {
+        const val SHARED_PREFS = "shared_prefs"
+        const val EMAIL_KEY = "email_key"
+        const val PASSWORD_KEY = "password_key"
+    }
+    lateinit var editor: SharedPreferences.Editor
+    lateinit var sharedPreferences: SharedPreferences
     lateinit var email: TextInputLayout
     lateinit var password: TextInputLayout
     lateinit var firstname:TextInputLayout
@@ -50,7 +58,6 @@ class SignupFragment : Fragment() {
                         lastname.editText?.text.toString(),
                         password.editText?.text.toString()
                     )
-
                 }
         }
         signupbtn.setOnClickListener{
@@ -68,8 +75,14 @@ class SignupFragment : Fragment() {
         if(isValidName(firstname)&& isValidName(lastname)&& isValidPassword(password) &&isValidEmail(email)){
             signUpViewModel.insertUser(
                 User(  username = firstname, lastName = lastname, email = email, password = password))
+            sharedPreferences= requireActivity().getSharedPreferences(SHARED_PREFS,Context.MODE_PRIVATE)
+            editor= sharedPreferences.edit()
+            editor.putString(EMAIL_KEY, email)
+            editor.putString(PASSWORD_KEY,password)
+            editor.commit()
             Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
             view?.findNavController()?.navigate(R.id.action_signupFragment_to_homeActivity)
+            requireActivity().finish()
         }else if(!isValidName(firstname)) {
             Toast.makeText(context, "invalid First Name", Toast.LENGTH_SHORT).show()
         }
