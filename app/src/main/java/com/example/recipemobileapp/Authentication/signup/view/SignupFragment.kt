@@ -26,7 +26,6 @@ class SignupFragment : Fragment() {
     lateinit var lastname:TextInputLayout
     lateinit var signupbtn: Button
     lateinit var signUpViewModel: SignUpViewModel
-    lateinit var loginButton: Button
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -41,7 +40,6 @@ class SignupFragment : Fragment() {
         email=view.findViewById(R.id.textinput_email)
         password=view.findViewById(R.id.textinput_password)
         signupbtn=view.findViewById(R.id.button_signup)
-        loginButton=view.findViewById(R.id.loginsignupfragment)
         signUpViewModel.isEmailExists.observe(requireActivity()){data->
                 if(data){
                     Toast.makeText(context, "User with that email exists", Toast.LENGTH_SHORT).show()
@@ -58,9 +56,6 @@ class SignupFragment : Fragment() {
         signupbtn.setOnClickListener{
             signUpViewModel.isEmailExists(email.editText?.text.toString())
         }
-        loginButton.setOnClickListener{
-            findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
-        }
 
     }
     private fun gettingViewModelReady(context: Context) {
@@ -74,14 +69,20 @@ class SignupFragment : Fragment() {
             signUpViewModel.insertUser(
                 User(0, firstname,lastname, email,password))
             Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
-            view?.findNavController()?.navigate(R.id.action_signupFragment_to_home_nav_graph2)
+            view?.findNavController()?.navigate(R.id.action_signupFragment_to_homeActivity)
         }else if(!isValidName(firstname)) {
+            view?.findNavController()?.navigate(R.id.action_signupFragment_to_homeActivity)
+        }
+        if(!isValidName(firstname)) {
             Toast.makeText(context, "invalid First Name", Toast.LENGTH_SHORT).show()
-        }else if(!isValidName(lastname)){
+        }
+        if(!isValidName(lastname)){
             Toast.makeText(context, "invalid Last Name", Toast.LENGTH_SHORT).show()
-        }else if(!isValidPassword(password)){
+        }
+        if(!isValidPassword(password)){
             Toast.makeText(context, "invalid password", Toast.LENGTH_SHORT).show()
-        }else if(!isValidEmail(email)){
+        }
+        if(!isValidEmail(email)){
             Toast.makeText(context, "invalid Email", Toast.LENGTH_SHORT).show()
         }
     }

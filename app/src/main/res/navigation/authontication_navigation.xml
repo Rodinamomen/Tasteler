@@ -26,8 +26,8 @@
             app:popUpTo="@id/signupFragment"
             app:popUpToInclusive="true" />
         <action
-            android:id="@+id/action_loginFragment_to_home_nav_graph"
-            app:destination="@id/home_nav_graph"
+            android:id="@+id/action_loginFragment_to_homeActivity"
+            app:destination="@id/homeActivity"
             app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="true" />
     </fragment>
@@ -37,15 +37,14 @@
         android:label="fragment_signup"
         tools:layout="@layout/fragment_signup" >
         <action
-            android:id="@+id/action_signupFragment_to_home_nav_graph2"
-            app:destination="@id/home_nav_graph"
-            app:popUpTo="@id/signupFragment"
-            app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_signupFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
+            android:id="@+id/action_signupFragment_to_homeActivity"
+            app:destination="@id/homeActivity"
             app:popUpTo="@id/signupFragment"
             app:popUpToInclusive="true" />
     </fragment>
-    <include app:graph="@navigation/home_navigation" />
+    <activity
+        android:id="@+id/homeActivity"
+        android:name="com.example.recipemobileapp.HomeActivity.HomeActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
 </navigation>
