@@ -1,5 +1,7 @@
 package com.example.recipemobileapp.Network
 
+import androidx.lifecycle.MutableLiveData
+import com.example.recipemobileapp.Database.Meal
 import com.example.recipemobileapp.Database.Recipe
 
 object APIClient:RemoteDataSource {
@@ -11,4 +13,11 @@ object APIClient:RemoteDataSource {
         return APIHelper.retrofit.create(APIService::class.java).getRandomMeal()
     }
 
+    override suspend fun getSearchResult(search: String): Recipe {
+        return APIHelper.retrofit.create(APIService::class.java).getSearchResult(search)
+    }
+
+    override suspend fun getMealByID(ID: Int): Meal {
+        return APIHelper.retrofit.create(APIService::class.java).getMealByID(ID)
+    }
 }

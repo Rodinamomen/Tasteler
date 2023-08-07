@@ -67,11 +67,11 @@ class SignupFragment : Fragment() {
     private fun isValidData(email:String,firstname:String,lastname:String,password: String){
         if(isValidName(firstname)&& isValidName(lastname)&& isValidPassword(password) &&isValidEmail(email)){
             signUpViewModel.insertUser(
-                User(0, firstname,lastname, email,password))
+                User(  username = firstname, lastName = lastname, email = email, password = password))
             Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
             view?.findNavController()?.navigate(R.id.action_signupFragment_to_homeActivity)
         }else if(!isValidName(firstname)) {
-            view?.findNavController()?.navigate(R.id.action_signupFragment_to_homeActivity)
+            Toast.makeText(context, "invalid First Name", Toast.LENGTH_SHORT).show()
         }
         if(!isValidName(firstname)) {
             Toast.makeText(context, "invalid First Name", Toast.LENGTH_SHORT).show()

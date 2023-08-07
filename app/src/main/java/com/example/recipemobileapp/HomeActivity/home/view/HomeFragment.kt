@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipemobileapp.Database.Meal
@@ -68,13 +69,12 @@ class HomeFragment : Fragment() {
 
     }
 
-//    override fun onSaveInstanceState(outState: Bundle) {
+    //    override fun onSaveInstanceState(outState: Bundle) {
 //        super.onSaveInstanceState(outState)
 //
 //    }
-
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
-        recyclerView.adapter = MainAdapter(data){ position ->
+        recyclerView.adapter = MainAdapter(data,{clickedMeal -> onRecipeClick(clickedMeal)}){ position ->
             val clickedMeal = data[position]
             Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
             Log.d("TAG", "addElements: ${data[position]}")
@@ -86,5 +86,10 @@ class HomeFragment : Fragment() {
     private fun gettingViewModelReady(){
         val mealFactory = MealviewModelFactory(MealRepoImpl(APIClient,LocalDataSourceImpl(requireContext())))
         viewModel = ViewModelProvider(this,mealFactory)[MealViewModel::class.java]
+    }
+    private fun onRecipeClick(clickedMeal: Meal) {
+        val bundle = Bundle()
+        bundle.putInt("recipeId", clickedMeal.mealid)
+        findNavController().navigate(R.id.action_homeFragment_to_detailsFragment, bundle)
     }
 }
