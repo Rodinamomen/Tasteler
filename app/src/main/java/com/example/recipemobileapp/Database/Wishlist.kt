@@ -3,8 +3,8 @@ package com.example.recipemobileapp.Database
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(primaryKeys = ["userid","mealid"])
+@Entity(primaryKeys = ["userid","idMeal"])
 data class Wishlist (
      val userid : Int,
-     val mealid :Int
+     val idMeal :String
 )

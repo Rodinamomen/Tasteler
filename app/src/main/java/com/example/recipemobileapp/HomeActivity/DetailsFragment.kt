@@ -20,7 +20,7 @@ import at.blogc.android.views.ExpandableTextView
 import com.example.recipemobileapp.Database.Meal
 import com.example.recipemobileapp.Database.Wishlist
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
-import com.example.recipemobileapp.HomeActivity.home.Repo.MealRepoImpl
+import com.example.recipemobileapp.HomeActivity.Repo.MealRepoImpl
 import com.example.recipemobileapp.HomeActivity.home.adapters.MainAdapter
 import com.example.recipemobileapp.Network.APIClient
 import com.example.recipemobileapp.R
@@ -74,7 +74,7 @@ class DetailsFragment : Fragment() {
             if (recipe != null) {
                 val favbtn:Button = view.findViewById(R.id.addtofavs)
                 favbtn.setOnClickListener{
-                    viewModel.insertFav(Wishlist(1,recipeId))
+//                    viewModel.insertFav(Wishlist(1,recipeId))
                     Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
                 }
                 //recipeImageView.setImageResource() // Replace with actual image
@@ -101,18 +101,21 @@ class DetailsFragment : Fragment() {
     }
 
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
-        recyclerView.adapter = MainAdapter(data,{clickedMeal -> onRecipeClick(clickedMeal)}){ position ->
-            val clickedMeal = data[position]
+        val mutableCopy = mutableListOf<Meal>().apply {
+            addAll(data)
+        }
+        recyclerView.adapter = MainAdapter(mutableCopy,{clickedMeal -> onRecipeClick(clickedMeal)}){ position ->
+            val clickedMeal = mutableCopy[position]
             Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
             Log.d("TAG", "addElements: ${data[position]}")
-            viewModel.insertFav(Wishlist(1, clickedMeal.mealid))
+//            viewModel.insertFav(Wishlist(1, clickedMeal.idMeal))
         }
         recyclerView.layoutManager = LinearLayoutManager(requireContext(),
             RecyclerView.HORIZONTAL, false)
     }
     private fun onRecipeClick(clickedMeal: Meal) {
         val bundle = Bundle()
-        bundle.putInt("recipeId", clickedMeal.mealid)
+//        bundle.putInt("recipeId", clickedMeal._mealid)
         findNavController().navigate(R.id.action_searchFragment_to_detailsFragment, bundle)
     }
 

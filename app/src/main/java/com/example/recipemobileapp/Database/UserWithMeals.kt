@@ -9,7 +9,7 @@ data class Userwithmeals(
     val user: User,
     @Relation(
         parentColumn = "userid",
-        entityColumn = "mealid",
+        entityColumn = "idMeal",
         associateBy = Junction(Wishlist::class)
     )
     val meals : List<Meal>

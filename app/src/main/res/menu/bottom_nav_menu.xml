@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:id="@+id/favouritesFragment"
-        android:fontFamily="@font/antic"
-        android:title="@string/favourites"
-        android:icon="@drawable/favorite_unfilled"
-        android:iconTint="@color/navy_blue"
-        />
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/homeFragment"
-        android:title="@string/home"
-        android:fontFamily="@font/antic"
-        android:icon="@drawable/home_unfilled"
-        android:iconTint="@color/navy_blue"/>
+        android:id="@+id/favouritesFragment"
+        android:title="Favourites"
+        android:icon="@drawable/ic_favorite"/>
 
-    <item android:id="@+id/searchFragment"
-        android:fontFamily="@font/antic"
-        android:title="@string/search"
-        android:icon="@drawable/search_icon"
-        android:iconTint="@color/navy_blue" />
+    <item
+        android:id="@+id/placeholder"
+        android:title=""/>
+
+    <item
+        android:id="@+id/searchFragment"
+        android:title="Search"
+        android:icon="@drawable/ic_search" />
 
 </menu>
