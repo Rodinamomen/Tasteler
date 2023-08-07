@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -35,6 +36,7 @@ class FavouritesFragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private var savedMealId:Int = -1
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +46,7 @@ class FavouritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         gettingViewModelReady()
+
         val sharedPreferences = requireActivity().
             getSharedPreferences(LoginFragment.SHARED_PREFS, Context.MODE_PRIVATE)
 
