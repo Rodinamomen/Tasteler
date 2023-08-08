@@ -5,6 +5,6 @@
         android:id="@+id/fragment_about"
         android:title="About " />
     <item
-        android:id="@+id/signout_item"
+        android:id="@+id/signOut_item"
         android:title="Sign Out" />
 </menu>

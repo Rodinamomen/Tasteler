@@ -19,7 +19,7 @@
         app:layout_constraintBottom_toTopOf="@+id/guidelineHalf"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_topPick" />
+        app:layout_constraintTop_toBottomOf="@+id/topbarlayout" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_randomMeal"
@@ -32,22 +32,30 @@
         app:layout_constraintBottom_toTopOf="@+id/guidelineHalf"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_topPick" />
+        app:layout_constraintTop_toBottomOf="@+id/topbarlayout" />
 
 
 
-    <TextView
-        android:id="@+id/textView_topPick"
-        android:layout_width="wrap_content"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/topbarlayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:fontFamily="@font/antic"
-        android:text="@string/top_pick"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:background="#00FFFFFF"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:id="@+id/topAppBar"
+            app:title="@string/top_pick"
+            app:menu="@menu/option_menu"
+            android:background="#00FFFFFF"
+
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
 
 
     <TextView

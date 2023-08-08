@@ -8,11 +8,13 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.example.recipemobileapp.HomeActivity.home.view.AboutFragment"
-        android:label="AboutFragment" />
+        android:label="AboutFragment"
+        tools:layout="@layout/fragment_about"/>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.example.recipemobileapp.HomeActivity.search.view.SearchFragment"
-        android:label="SearchFragment" >
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search">
         <action
             android:id="@+id/action_searchFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
