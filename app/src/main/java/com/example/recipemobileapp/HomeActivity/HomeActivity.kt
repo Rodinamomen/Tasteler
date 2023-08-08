@@ -31,9 +31,9 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val navHostFragment =
+         navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
-        val navController = navHostFragment.navController
+         navController = navHostFragment.navController
         val navView: BottomNavigationView = findViewById(R.id.bottomnavigationbar)
         val bottomAppbar:CoordinatorLayout = findViewById(R.id.coordinatorLayout_home)
 
@@ -68,13 +68,6 @@ class HomeActivity : AppCompatActivity() {
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
-        navController = navHostFragment.navController
-        sharedPreferences= getSharedPreferences(
-            LoginFragment.SHARED_PREFS,
-            Context.MODE_PRIVATE)
-        editor=sharedPreferences.edit()
         when(item.itemId){
             R.id.aboutFragment ->{
                 val navController = findNavController(R.id.nav_host)
