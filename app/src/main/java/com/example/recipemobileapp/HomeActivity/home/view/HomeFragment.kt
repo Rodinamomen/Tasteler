@@ -32,6 +32,7 @@ import com.example.recipemobileapp.HomeActivity.HomeActivity.Companion.EMAIL_KEY
 import com.example.recipemobileapp.HomeActivity.HomeActivity.Companion.PASSWORD_KEY
 import com.example.recipemobileapp.HomeActivity.home.Repo.MealRepoImpl
 import com.example.recipemobileapp.HomeActivity.home.adapters.MainAdapter
+import com.example.recipemobileapp.HomeActivity.home.adapters.Top_picked_adapter
 import com.example.recipemobileapp.Network.APIClient
 import com.example.recipemobileapp.R
 import com.example.recipemobileapp.ViewModel.MealViewModel
@@ -113,7 +114,7 @@ private lateinit var toolbar: Toolbar
         viewModel.randomMealList.observe(viewLifecycleOwner){ meals->
             if(meals != null){
                 processBarRandomMeal.visibility = View.GONE
-                addElements(meals,recyclerViewRandomMeal)
+                addElementsRandom(meals,recyclerViewRandomMeal)
             }else{
                 processBarRandomMeal.visibility = View.VISIBLE
             }
@@ -131,6 +132,19 @@ private lateinit var toolbar: Toolbar
         Log.d("Home", "addElements: i entered here ${cnt++}")
         recyclerView.adapter = MainAdapter(data,
         {clickedMeal -> onRecipeClick(clickedMeal)})
+        { position ->
+            val clickedMeal = data[position]
+            Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
+            viewModel.insertMeal(clickedMeal)
+            viewModel.insertFav(Wishlist(sharedPreferences.getInt("userId",0),clickedMeal.idMeal))
+        }
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(),
+            RecyclerView.HORIZONTAL, false)
+    }
+    private fun addElementsRandom(data:List<Meal>, recyclerView: RecyclerView){
+        Log.d("Home", "addElements: i entered here ${cnt++}")
+        recyclerView.adapter = Top_picked_adapter(data,
+            {clickedMeal -> onRecipeClick(clickedMeal)})
         { position ->
             val clickedMeal = data[position]
             Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()

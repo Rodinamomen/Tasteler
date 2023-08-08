@@ -33,9 +33,9 @@ class MainAdapter(val data:List<Meal>,  private val onRecipeClick: (Meal) -> Uni
                     .placeholder(R.drawable.loadingsvg)
                     .error(R.drawable.broken_image))
             .into(imgView)
-
         holder.favBtn.setOnClickListener {
             onFavClick(position)
+            holder.favBtn.setImageResource(R.drawable.ic_fav_filled)
         }
         val meal = data[position]
 

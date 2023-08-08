@@ -46,7 +46,7 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
                 val response = mealRepo.getRandomMealFromAPI()
                 _randomMealList.value = response.meals
             } catch (e: Exception) {
-                Log.d("Connection", "getMealsList: No connection in random")
+                Log.d("Connion", "getMealsList: No connection in random")
             }
         }        }
 
