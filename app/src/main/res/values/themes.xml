@@ -16,7 +16,10 @@
         <item name="itemTextColor">@color/navy_blue</item>
     </style>
     <style name="fab" parent="Widget.MaterialComponents.FloatingActionButton">
-        <item name="backgroundTint">@color/black</item>
+        <item name="backgroundTint">@color/light_baby_blue</item>
         <item name="rippleColor">@color/white</item>
+    </style>
+    <style name="prograssBar" parent="Widget.MaterialComponents.CircularProgressIndicator">
+
     </style>
 </resources>

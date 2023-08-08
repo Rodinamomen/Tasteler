@@ -7,19 +7,21 @@
     app:layout_constraintHeight_percent="50"
     tools:context=".HomeActivity.home.view.HomeFragment">
 
-
-    <ProgressBar
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progressBar_randomMeal"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
+        style="@style/prograssBar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:foregroundGravity="center"
+        android:indeterminate="true"
+        app:indicatorColor="@color/light_baby_blue"
         app:layout_constraintBottom_toTopOf="@+id/guidelineHalf"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/topbarlayout" />
+        app:layout_constraintTop_toBottomOf="@+id/topbarlayout"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_randomMeal"
@@ -35,7 +37,6 @@
         app:layout_constraintTop_toBottomOf="@+id/topbarlayout" />
 
 
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/topbarlayout"
         android:layout_width="match_parent"
@@ -45,17 +46,16 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:id="@+id/topAppBar"
-            app:title="@string/top_pick"
-            app:menu="@menu/option_menu"
             android:background="#00FFFFFF"
+            app:menu="@menu/option_menu"
+            app:title="@string/top_pick"
 
             />
 
     </com.google.android.material.appbar.AppBarLayout>
-
 
 
     <TextView
@@ -63,21 +63,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:fontFamily="@font/antic"
+        android:fontFamily="@font/bangers"
         android:text="@string/popular_Recipes"
-        android:textSize="24sp"
+        android:textColor="@color/navy_blue"
+        android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guidelineHalf" />
 
-    <ProgressBar
+    <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/progresBar_allMeals"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="match_parent"
+        style="@style/prograssBar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:foregroundGravity="center"
+        android:indeterminate="true"
+        app:indicatorColor="@color/light_baby_blue"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerView_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

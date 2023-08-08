@@ -23,6 +23,7 @@ import com.example.recipemobileapp.Database.Wishlist
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
 import com.example.recipemobileapp.HomeActivity.home.Repo.SearchRepoImpl
 import com.example.recipemobileapp.HomeActivity.home.adapters.MainAdapter
+import com.example.recipemobileapp.HomeActivity.search.adapter.SearchAdapter
 import com.example.recipemobileapp.Network.APIClient
 import com.example.recipemobileapp.R
 import com.example.recipemobileapp.ViewModel.SearchViewModel
@@ -86,7 +87,7 @@ class SearchFragment : Fragment() {
 
     }
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
-        recyclerView.adapter = MainAdapter(data,
+        recyclerView.adapter = SearchAdapter(data,
             {clickedMeal -> onRecipeClick(clickedMeal)})
             { position ->
                 val clickedMeal = data[position]
