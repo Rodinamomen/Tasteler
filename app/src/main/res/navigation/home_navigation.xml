@@ -42,5 +42,9 @@
             app:destination="@id/detailsFragment" />
 
     </fragment>
+    <activity
+        android:id="@+id/aucthenticationActivity"
+        android:name="com.example.recipemobileapp.Authentication.AucthenticationActivity"
+        android:label="AucthenticationActivity" />
 
 </navigation>
