@@ -19,6 +19,10 @@ class FavRepoImpl(val remoteDataSource: RemoteDataSource, val localDataSource: L
         localDataSource.insertMeal(meal)
     }
 
+    override suspend fun deleteMeal(meal: Meal) {
+        localDataSource.deleteMeal(meal)
+    }
+
     override suspend fun getuserWithMeals(): List<Userwithmeals> {
         return localDataSource.getuserWithMeals()
     }

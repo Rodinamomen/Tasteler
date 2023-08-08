@@ -59,15 +59,6 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
             }
         }        }
 
-    fun getSearchResult(search :String ){
-        viewModelScope.launch {
-            val response = mealRepo.getSearchResultFromAPI(search)
-                _searchMealList.value = response.meals
-
-
-
-        } }
-
     fun insertFav(wishlist: Wishlist){
         viewModelScope.launch(Dispatchers.IO) {
             mealRepo.insertIntofavs(wishlist)
@@ -79,23 +70,6 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
             mealRepo.insertMeal(meal)
         }
     }
-
-//    fun getMealbyID(ID: Int): LiveData<Meal> {
-//        val resultLiveData = MutableLiveData<Meal>()
-//
-//        viewModelScope.launch {
-//            try {
-//                val meal = mealRepo.getMealByID(ID)
-//                resultLiveData.postValue(meal)
-//
-//            } catch (e: Exception) {
-//                Log.e("MealViewModel", "Error getting meal by ID: ${e.message}")
-//            }
-//        }
-//
-//        return resultLiveData
-//    }
-
     fun getUserId(userEmail:String){
         viewModelScope.launch {
             val userResponse = mealRepo.getUserIdByEmail(userEmail)
@@ -109,19 +83,9 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
         }
 
     }
-
-    fun getUserWithMeals(){
-        viewModelScope.launch {
-            val response = mealRepo.getuserWithMeals()
-            _userWithMeal.value = response
-        }
-    }
-
     fun deleteWishlist(wishlist: Wishlist){
         viewModelScope.launch(Dispatchers.IO) {
             mealRepo.deleteWishlist(wishlist)
         }
     }
-
-
 }
