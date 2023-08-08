@@ -37,7 +37,6 @@ class MainAdapter(val data:List<Meal>,  private val onRecipeClick: (Meal) -> Uni
         holder.favBtn.setOnClickListener {
             onFavClick(position)
         }
-
         val meal = data[position]
 
         holder.itemView.setOnClickListener {
