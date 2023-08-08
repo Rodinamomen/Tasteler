@@ -7,18 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
-import android.webkit.WebView
-import android.webkit.WebViewClient
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import at.blogc.android.views.ExpandableTextView
 import com.bumptech.glide.Glide
 import com.example.recipemobileapp.Database.Meal
@@ -36,12 +30,10 @@ class DetailsFragment : Fragment() {
     private lateinit var viewModel: MealViewModel
     private lateinit var recipeImageView: ImageView
     private lateinit var recipeNameTextView: TextView
-    private lateinit var recipeCategoryTextView: TextView
     private lateinit var descriptionExpandableTextView: ExpandableTextView
     private lateinit var descriptionExpandableTextView2: ExpandableTextView
-
+    private lateinit var readmore: TextView
     private lateinit var tutorialyoutubeView: YouTubePlayerView
-    private lateinit var seetutorial: Button
 
 
 
@@ -55,7 +47,7 @@ class DetailsFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_details, container, false)
 
 
-
+        readmore = view.findViewById(R.id.readmorebtn)
         recipeImageView = view.findViewById(R.id.imageView2)
         recipeNameTextView = view.findViewById(R.id.textView2)
         descriptionExpandableTextView = view.findViewById(R.id.instructionsTextView)
@@ -66,11 +58,13 @@ class DetailsFragment : Fragment() {
         descriptionExpandableTextView.setAnimationDuration(750L)
         descriptionExpandableTextView.setInterpolator(OvershootInterpolator())
 
-        descriptionExpandableTextView.setOnClickListener {
+        readmore.setOnClickListener {
             if (descriptionExpandableTextView.isExpanded) {
                 descriptionExpandableTextView.collapse()
+                readmore.text = "read more"
             } else {
                 descriptionExpandableTextView.expand()
+                readmore.text = "read less"
             }
         }
         descriptionExpandableTextView2.setAnimationDuration(750L)
@@ -123,8 +117,7 @@ class DetailsFragment : Fragment() {
 
                  recipeNameTextView.text = recipe.strMeal
                  descriptionExpandableTextView.text = "Instructions : \n ${recipe.strInstructions}"
-                 descriptionExpandableTextView2.text = "General Information : \n - Area: ${recipe.strArea} \n -Category : ${recipe.strCategory}\n -Tags : ${recipe.strTags} \n" +
-                         " -Source : ${recipe.strSource}"
+                 descriptionExpandableTextView2.text = "General Information : \n - Area: ${recipe.strArea} \n -Category : ${recipe.strCategory}\n -Tags : ${recipe.strTags} \n"
 
 
             } else {

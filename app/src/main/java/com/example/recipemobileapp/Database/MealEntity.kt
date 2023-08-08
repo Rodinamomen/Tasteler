@@ -38,13 +38,11 @@ data class Meal(
     val strMeal: String,
     val strMealThumb: String,
     val strTags: String?,
-    val strInstructions:String,
     val strYoutube: String
 
 
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readInt(),
         parcel.readString()?: "",
         parcel.readString()?: "",
         parcel.readString()?: "",
@@ -73,31 +71,11 @@ data class Meal(
         parcel.readString()?: "",
         parcel.readString()?: "",
         parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "",
-        parcel.readString()?: "None",
-        parcel.readString()?: ""
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(mealid)
+        parcel.writeString(idMeal)
         parcel.writeString(strArea)
         parcel.writeString(strCategory)
         parcel.writeString(strIngredient1)
@@ -123,85 +101,12 @@ data class Meal(
         parcel.writeString(strInstructions)
         parcel.writeString(strMeal)
         parcel.writeString(strMealThumb)
-        parcel.writeString(strMeasure1)
-        parcel.writeString(strMeasure10)
-        parcel.writeString(strMeasure11)
-        parcel.writeString(strMeasure12)
-        parcel.writeString(strMeasure13)
-        parcel.writeString(strMeasure14)
-        parcel.writeString(strMeasure15)
-        parcel.writeString(strMeasure16)
-        parcel.writeString(strMeasure17)
-        parcel.writeString(strMeasure18)
-        parcel.writeString(strMeasure19)
-        parcel.writeString(strMeasure2)
-        parcel.writeString(strMeasure20)
-        parcel.writeString(strMeasure3)
-        parcel.writeString(strMeasure4)
-        parcel.writeString(strMeasure5)
-        parcel.writeString(strMeasure6)
-        parcel.writeString(strMeasure7)
-        parcel.writeString(strMeasure8)
-        parcel.writeString(strMeasure9)
-        parcel.writeString(strSource)
         parcel.writeString(strTags)
         parcel.writeString(strYoutube)
     }
 
     override fun describeContents(): Int {
         return 0
-    }
-    override fun hashCode(): Int {
-        var result = mealid
-        result = 31 * result + (strArea?.hashCode() ?: 0)
-        result = 31 * result + (strCategory?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient1?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient10?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient11?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient12?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient13?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient14?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient15?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient16?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient17?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient18?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient19?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient2?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient20?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient3?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient4?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient5?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient6?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient7?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient8?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient9?.hashCode() ?: 0)
-        result = 31 * result + (strInstructions?.hashCode() ?: 0)
-        result = 31 * result + (strMeal?.hashCode() ?: 0)
-        result = 31 * result + (strMealThumb?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure1?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure10?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure11?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure12?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure13?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure14?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure15?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure16?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure17?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure18?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure19?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure2?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure20?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure3?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure4?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure5?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure6?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure7?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure8?.hashCode() ?: 0)
-        result = 31 * result + (strMeasure9?.hashCode() ?: 0)
-        result = 31 * result + (strSource?.hashCode() ?: 0)
-        result = 31 * result + (strTags?.hashCode() ?: 0)
-        result = 31 * result + (strYoutube?.hashCode() ?: 0)
-        return result
     }
 
     companion object CREATOR : Parcelable.Creator<Meal> {
