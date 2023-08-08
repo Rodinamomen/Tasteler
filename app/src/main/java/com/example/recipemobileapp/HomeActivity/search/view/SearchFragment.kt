@@ -124,7 +124,7 @@ class SearchFragment : Fragment() {
     }
     private fun onRecipeClick(clickedMeal: Meal) {
         val bundle = Bundle()
-//        bundle.putInt("recipeId", clickedMeal.mealid)
+        bundle.putParcelable("recipe", clickedMeal)
         findNavController().navigate(R.id.action_searchFragment_to_detailsFragment, bundle)
     }
     private fun handleSearchQuery(query: String) { viewModel.getSearchResult(query) }

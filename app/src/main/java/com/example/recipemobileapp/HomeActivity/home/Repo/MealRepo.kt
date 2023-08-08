@@ -8,13 +8,6 @@ import com.example.recipemobileapp.Database.Wishlist
 interface MealRepo {
     suspend fun getAllMealsFromAPI(randomChar: Char): Recipe
     suspend fun getRandomMealFromAPI(): Recipe
-
-
-
-
-    suspend fun getSearchResultFromAPI(search : String): Recipe
-
-
     suspend fun insertIntofavs(wishlist: Wishlist)
     suspend fun insertMeal(meal: Meal)
     suspend fun getMealById(id:String): Meal

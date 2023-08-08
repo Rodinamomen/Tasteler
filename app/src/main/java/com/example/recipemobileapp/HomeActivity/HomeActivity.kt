@@ -5,23 +5,18 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.recipemobileapp.Authentication.Login.view.LoginFragment
 import com.example.recipemobileapp.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.navigation.NavigationView
-import java.security.AccessController.getContext
 
 class HomeActivity : AppCompatActivity() {
     companion object {
@@ -40,7 +35,7 @@ class HomeActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
          navController = navHostFragment.navController
         val navView: BottomNavigationView = findViewById(R.id.bottomnavigationbar)
-
+        val bottomAppbar:CoordinatorLayout = findViewById(R.id.coordinatorLayout_home)
 
         navView.background = null
         navView.selectedItemId = R.id.placeholder
@@ -54,11 +49,11 @@ class HomeActivity : AppCompatActivity() {
         }
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if(destination.id == R.id.detailsFragment) {
-                navView.visibility = View.GONE
+                bottomAppbar.visibility = View.GONE
 
             } else {
 
-                navView.visibility = View.VISIBLE
+                bottomAppbar.visibility = View.VISIBLE
             }
         }
 

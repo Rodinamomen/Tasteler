@@ -18,10 +18,6 @@ class MealRepoImpl(val remoteDataSource: RemoteDataSource, val localDataSource: 
 
     }
 
-    override suspend fun getSearchResultFromAPI(search: String): Recipe {
-        TODO("Not yet implemented")
-    }
-
     override suspend fun insertMeal(meal: Meal) {
         localDataSource.insertMeal(meal)
     }
