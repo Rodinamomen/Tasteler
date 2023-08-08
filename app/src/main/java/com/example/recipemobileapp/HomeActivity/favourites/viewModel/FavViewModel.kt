@@ -38,6 +38,11 @@ class FavViewModel(val favRepo: FavRepo):ViewModel() {
             favRepo.insertMeal(meal)
         }
     }
+    fun deleteMeal(meal:Meal){
+        viewModelScope.launch(Dispatchers.IO) {
+            favRepo.deleteMeal(meal)
+        }
+    }
 
     fun getUserId(userEmail:String){
         viewModelScope.launch {

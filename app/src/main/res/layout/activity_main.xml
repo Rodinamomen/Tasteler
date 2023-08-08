@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".HomeActivity.HomeActivity">
@@ -28,6 +27,7 @@
 
 
         <com.google.android.material.bottomappbar.BottomAppBar
+            style="@style/home"
             android:id="@+id/bottomAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,6 +42,7 @@
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottomnavigationbar"
+                style="@style/bottomNav"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
@@ -49,6 +50,7 @@
 
             </com.google.android.material.bottomnavigation.BottomNavigationView>
         </com.google.android.material.bottomappbar.BottomAppBar>
+
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

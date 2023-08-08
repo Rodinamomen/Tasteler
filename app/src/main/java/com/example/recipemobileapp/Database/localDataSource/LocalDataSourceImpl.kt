@@ -53,6 +53,10 @@ class LocalDataSourceImpl(context:Context):LocalDataSource {
         mealDao.insertMeal(meal)
     }
 
+    override suspend fun deleteMeal(meal: Meal) {
+        mealDao.deleteMeal(meal)
+    }
+
     override suspend fun getuserWithMeals(): List<Userwithmeals> {
         return userWithMealsDao.getuserWithMeals()
     }

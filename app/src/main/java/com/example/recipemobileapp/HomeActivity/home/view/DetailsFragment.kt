@@ -103,11 +103,8 @@ class DetailsFragment : Fragment() {
 
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
         /**Make it in image view instead**/
-        val mutableCopy = mutableListOf<Meal>().apply {
-            addAll(data)
-        }
-        recyclerView.adapter = MainAdapter(mutableCopy,{clickedMeal -> onRecipeClick(clickedMeal)}){ position ->
-            val clickedMeal = mutableCopy[position]
+        recyclerView.adapter = MainAdapter(data,{clickedMeal -> onRecipeClick(clickedMeal)}){ position ->
+            val clickedMeal = data[position]
             Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
             Log.d("TAG", "addElements: ${data[position]}")
 //            viewModel.insertFav(Wishlist(1, clickedMeal.idMeal))
