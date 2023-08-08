@@ -48,7 +48,18 @@
                 android:layout_marginEnd="16dp"
                 app:menu="@menu/bottom_nav_menu">
 
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_home"
+                    style="@style/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_home"
+                    app:layout_anchor="@id/bottomAppBar"
+                    android:layout_gravity="top|center"
+                    app:layout_constraintBottom_toBottomOf="@+id/nav_host" />
+
             </com.google.android.material.bottomnavigation.BottomNavigationView>
+
         </com.google.android.material.bottomappbar.BottomAppBar>
 
 
