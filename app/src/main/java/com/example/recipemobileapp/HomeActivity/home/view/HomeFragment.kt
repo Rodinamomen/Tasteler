@@ -37,38 +37,36 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerViewRandomMeal: RecyclerView
     private lateinit var recyclerViewAllMeals: RecyclerView
     private lateinit var sharedPreferences:SharedPreferences
-    private var savedMealId:Int = -1
-
-
+    private lateinit var savedMealId:String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val view = inflater.inflate(R.layout.fragment_home, container, false)
-
-        gettingViewModelReady()
-        recyclerViewRandomMeal = view.findViewById(R.id.recyclerView_randomMeal)
-        recyclerViewAllMeals = view.findViewById(R.id.recyclerView_home)
         setHasOptionsMenu(true)
+        gettingViewModelReady()
+        sharedPreferences = requireActivity().getSharedPreferences(LoginFragment.SHARED_PREFS,
+                                                                        Context.MODE_PRIVATE)
+        val email = sharedPreferences.getString("email_key","")!!
+        viewModel.getUserId(email)
+        viewModel.loggedUser.observe(viewLifecycleOwner) { user ->
+            if (user != null) {
+                val editor=sharedPreferences.edit()
+                editor.putInt("userId",user.userid)
+                editor.apply()
+            }
+        }
         return view
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        gettingViewModelReady()
         recyclerViewRandomMeal = view.findViewById(R.id.recyclerView_randomMeal)
         recyclerViewAllMeals = view.findViewById(R.id.recyclerView_home)
-        sharedPreferences = requireActivity().getSharedPreferences(LoginFragment.SHARED_PREFS, Context.MODE_PRIVATE)
-
-
         val processBarMeal:ProgressBar = view.findViewById(R.id.progresBar_allMeals)
         val processBarRandomMeal:ProgressBar = view.findViewById(R.id.progressBar_randomMeal)
 
         viewModel.getRandomMeal()
         viewModel.getMealsList(('A'..'Z').random())
-
-
         viewModel.randomMealList.observe(viewLifecycleOwner){ meals->
             if(meals != null){
                 processBarRandomMeal.visibility = View.GONE
@@ -85,38 +83,15 @@ class HomeFragment : Fragment() {
                 processBarMeal.visibility = View.VISIBLE
             }
         }
-
-        val combinedLiveData = MediatorLiveData<Pair<User?, Meal?>>()
-
-        viewModel.loggedUser.observe(viewLifecycleOwner) { user ->
-            combinedLiveData.value = Pair(user, combinedLiveData.value?.second)
-        }
-
-        viewModel.savedMeal.observe(viewLifecycleOwner) { meal ->
-            combinedLiveData.value = Pair(combinedLiveData.value?.first, meal)
-        }
-
-        combinedLiveData.observe(viewLifecycleOwner) { (user, meal) ->
-            if (user != null && meal != null) {
-                Log.d("TAG", "Both user and meal data are available: $user, $meal")
-                savedMealId = user.userid
-                viewModel.insertFav(Wishlist(user.userid, meal.idMeal))
-            }
-        }
     }
-
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
-
         recyclerView.adapter = MainAdapter(data,
             {clickedMeal -> onRecipeClick(clickedMeal)})
         { position ->
             val clickedMeal = data[position]
             Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
             viewModel.insertMeal(clickedMeal)
-            val email = sharedPreferences.getString("email_key","")!!
-            viewModel.getUserId(email)
-            viewModel.getMealId(clickedMeal.idMeal)
-            Log.d("TAG", "addElements: $email ${clickedMeal.idMeal}")
+            viewModel.insertFav(Wishlist(sharedPreferences.getInt("userId",0),clickedMeal.idMeal))
         }
         recyclerView.layoutManager = LinearLayoutManager(requireContext(),
             RecyclerView.HORIZONTAL, false)

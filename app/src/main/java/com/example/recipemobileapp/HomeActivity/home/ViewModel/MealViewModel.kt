@@ -21,15 +21,6 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
     private val _randomMealList = MutableLiveData<List<Meal>>()
     val randomMealList: LiveData<List<Meal>> = _randomMealList
 
-    private val _sentmealtodetails = MutableLiveData<Meal>()
-    val sentmealtodetails: LiveData<Meal> = _sentmealtodetails
-
-    private val _searchMealList = MutableLiveData<List<Meal>>()
-    val searchMealList: LiveData<List<Meal>> = _searchMealList
-
-    private val _userWithMeals = MutableLiveData<List<Userwithmeals>>()
-    val userWithMeals: LiveData<List<Userwithmeals>> = _userWithMeals
-
     private val _loggedUser = MutableLiveData<User>()
     val loggedUser:LiveData<User> = _loggedUser
 
@@ -75,18 +66,6 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
         viewModelScope.launch {
             val userResponse = mealRepo.getUserIdByEmail(userEmail)
             _loggedUser.value = userResponse
-        }
-    }
-    fun getMealId(mealId:String){
-        viewModelScope.launch {
-            val mealResponse =  mealRepo.getMealById(mealId)
-            _savedMeal.value = mealResponse
-        }
-
-    }
-    fun deleteWishlist(wishlist: Wishlist){
-        viewModelScope.launch(Dispatchers.IO) {
-            mealRepo.deleteWishlist(wishlist)
         }
     }
 }
