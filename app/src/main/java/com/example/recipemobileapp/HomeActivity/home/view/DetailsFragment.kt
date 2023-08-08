@@ -13,13 +13,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModelProvider
 import at.blogc.android.views.ExpandableTextView
 import com.bumptech.glide.Glide
 import com.example.recipemobileapp.Authentication.Login.view.LoginFragment
 import com.example.recipemobileapp.Database.Meal
-import com.example.recipemobileapp.Database.User
 import com.example.recipemobileapp.Database.Wishlist
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
 import com.example.recipemobileapp.HomeActivity.home.Repo.MealRepoImpl

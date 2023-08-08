@@ -18,7 +18,7 @@ class FavsAdapter(val data:MutableList<Meal>,
                   private val onFavClick: (pos:Int) -> Unit) : RecyclerView.Adapter<FavsAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val row =
-            LayoutInflater.from(parent.context).inflate(R.layout.single_item, parent, false)
+            LayoutInflater.from(parent.context).inflate(R.layout.single_item_vertical, parent, false)
         return MyViewHolder(row)
     }
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {

@@ -38,6 +38,7 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerViewAllMeals: RecyclerView
     private lateinit var sharedPreferences:SharedPreferences
     private lateinit var savedMealId:String
+    var cnt = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -85,8 +86,9 @@ class HomeFragment : Fragment() {
         }
     }
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
+        Log.d("Home", "addElements: i entered here ${cnt++}")
         recyclerView.adapter = MainAdapter(data,
-            {clickedMeal -> onRecipeClick(clickedMeal)})
+        {clickedMeal -> onRecipeClick(clickedMeal)})
         { position ->
             val clickedMeal = data[position]
             Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
@@ -109,8 +111,6 @@ class HomeFragment : Fragment() {
         val bundle = Bundle()
         bundle.putParcelable("recipe", clickedMeal)
         findNavController().navigate(R.id.action_homeFragment_to_detailsFragment, bundle)
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu , inflater: MenuInflater) {
