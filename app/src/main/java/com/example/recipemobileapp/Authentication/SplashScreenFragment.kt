@@ -9,10 +9,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.recipemobileapp.Authentication.Login.view.LoginFragment
 import com.example.recipemobileapp.R
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class SplashScreenFragment : Fragment() {
     companion object {
@@ -26,7 +29,7 @@ class SplashScreenFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Handler(Looper.getMainLooper()).postDelayed({
+        /*   Handler(Looper.getMainLooper()).postDelayed({
             sharedPreferences= requireActivity().getSharedPreferences(
                 LoginFragment.SHARED_PREFS,
                 Context.MODE_PRIVATE)
@@ -37,11 +40,25 @@ class SplashScreenFragment : Fragment() {
              findNavController().navigate(R.id.action_splashScreenFragment2_to_homeActivity)
              requireActivity().finish()
          }
-        },1000)
+        },1000)*/
+        lifecycleScope.launch {
+            delay(500)
+            sharedPreferences= requireActivity().getSharedPreferences(
+                LoginFragment.SHARED_PREFS,
+                Context.MODE_PRIVATE)
+            editor=sharedPreferences.edit()
+
+            if(sharedPreferences.getString(EMAIL_KEY,null)==null && sharedPreferences.getString(PASSWORD_KEY,null)==null){
+                findNavController().navigate(R.id.action_splashScreenFragment2_to_loginFragment)
+            }else{
+                findNavController().navigate(R.id.action_splashScreenFragment2_to_homeActivity)
+                requireActivity().finish()
+            }
+        }
+
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_splash_screen2, container, false)
+            return inflater.inflate(R.layout.fragment_splash_screen2, container, false)
 
-    }
-
+        }
 }
