@@ -3,7 +3,6 @@ package com.example.recipemobileapp.HomeActivity.favourites.view
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipemobileapp.Authentication.Login.view.LoginFragment
 import com.example.recipemobileapp.Database.Meal
-import com.example.recipemobileapp.Database.User
 import com.example.recipemobileapp.Database.Wishlist
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
 import com.example.recipemobileapp.HomeActivity.favourites.Repo.FavRepoImpl
@@ -31,7 +29,7 @@ class FavouritesFragment : Fragment() {
     private lateinit var viewModel: FavViewModel
     private lateinit var recyclerViewFav:RecyclerView
     private lateinit var textViewEmpty: TextView
-    private lateinit var loggedInUser: User
+    private var loggedInUserId: Int = -1
     private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
@@ -43,33 +41,18 @@ class FavouritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         gettingViewModelReady()
-
         sharedPreferences = requireActivity().
             getSharedPreferences(LoginFragment.SHARED_PREFS, Context.MODE_PRIVATE)
-
         recyclerViewFav = view.findViewById(R.id.recyclerView_favourites)
         textViewEmpty = view.findViewById(R.id.textView_empty)
         textViewEmpty.visibility = View.VISIBLE
+        loggedInUserId = sharedPreferences.getInt("userId",0)
 
-        val email = sharedPreferences.getString("email_key","")
-
-        email?.let {
-            viewModel.getUserId(it)
-        }
-
-        viewModel.loggedUser.observe(viewLifecycleOwner) { user ->
-           if(user != null){
-               loggedInUser = user
-               viewModel.getUserWithMeals()
-           }
-        }
-
-        viewModel.userwithmeals.observe(viewLifecycleOwner){
-            userWithMeals->
+        viewModel.getUserWithMeals()
+        viewModel.userwithmeals.observe(viewLifecycleOwner){ userWithMeals->
             if(userWithMeals != null){
-                Log.d("TAG", "onViewCreated: $userWithMeals")
                 for(item in userWithMeals){
-                    if(item.user.userid == loggedInUser.userid && item.meals.isNotEmpty()){
+                    if(item.user.userid == loggedInUserId && item.meals.isNotEmpty()){
                         textViewEmpty.visibility = View.GONE
                         addElements(item.meals,recyclerViewFav)
                     }
@@ -77,7 +60,6 @@ class FavouritesFragment : Fragment() {
             }
         }
     }
-
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
         val mutableCopy = mutableListOf<Meal>().apply {
             addAll(data)
@@ -92,9 +74,9 @@ class FavouritesFragment : Fragment() {
                     if(mutableCopy.isNotEmpty()){
                         val clickedMeal = mutableCopy[position]
                         mutableCopy.removeAt(position)
-                        recyclerView.adapter?.notifyItemRemoved(position)
+                        recyclerView.adapter?.notifyDataSetChanged()
                         viewModel.deleteMeal(clickedMeal)
-                        viewModel.deleteWishlist(Wishlist(loggedInUser.userid, clickedMeal.idMeal))
+                        viewModel.deleteWishlist(Wishlist(loggedInUserId, clickedMeal.idMeal))
                         Toast.makeText(requireContext(), "Deleted from Favs", Toast.LENGTH_SHORT).show()
                     }
                 }

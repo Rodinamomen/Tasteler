@@ -13,16 +13,17 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.recipemobileapp.Database.Meal
 import com.example.recipemobileapp.R
 
-class FavsAdapter(val data:MutableList<Meal>, private val onRecipeClick: (Meal) -> Unit, private val onFavClick: (pos:Int) -> Unit) : RecyclerView.Adapter<FavsAdapter.MyViewHolder>() {
+class FavsAdapter(val data:MutableList<Meal>,
+                  private val onRecipeClick: (Meal) -> Unit,
+                  private val onFavClick: (pos:Int) -> Unit) : RecyclerView.Adapter<FavsAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val row =
             LayoutInflater.from(parent.context).inflate(R.layout.single_item, parent, false)
-
         return MyViewHolder(row)
     }
-
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.textViewTitle.text = data[position].strMeal
+
         val imgView:ImageView = holder.imageView
         Glide.with(holder.itemView.context)
             .load(data[position].strMealThumb)
@@ -32,16 +33,13 @@ class FavsAdapter(val data:MutableList<Meal>, private val onRecipeClick: (Meal) 
                     .placeholder(R.drawable.loadingsvg)
                     .error(R.drawable.broken_image))
             .into(imgView)
-        holder.favBtn.setImageResource(R.drawable.ic_fav_filled)
+//        holder.favBtn.setImageResource(R.drawable.ic_fav_filled)
 
         holder.favBtn.setOnClickListener {
             onFavClick(position)
         }
-
-        val meal = data[position]
-
         holder.itemView.setOnClickListener {
-            onRecipeClick(meal)
+            onRecipeClick(data[position])
         }
     }
 
