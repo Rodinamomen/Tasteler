@@ -1,5 +1,6 @@
 package com.example.recipemobileapp.Database
 
+import androidx.room.Embedded
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.room.Entity
@@ -61,8 +62,6 @@ data class Meal(
     val strSource: String,
     val strTags: String,
     val strYoutube: String
-
-
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
