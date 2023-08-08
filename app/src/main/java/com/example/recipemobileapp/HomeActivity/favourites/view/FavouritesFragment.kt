@@ -23,7 +23,6 @@ import com.example.recipemobileapp.HomeActivity.favourites.Repo.FavRepoImpl
 import com.example.recipemobileapp.HomeActivity.favourites.adapter.FavsAdapter
 import com.example.recipemobileapp.HomeActivity.favourites.viewModel.FavViewModel
 import com.example.recipemobileapp.HomeActivity.favourites.viewModel.FavViewModelFactory
-import com.example.recipemobileapp.HomeActivity.home.adapters.MainAdapter
 import com.example.recipemobileapp.Network.APIClient
 import com.example.recipemobileapp.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -108,7 +107,9 @@ class FavouritesFragment : Fragment() {
     }
 
     private fun gettingViewModelReady(){
-        val favFactory = FavViewModelFactory(FavRepoImpl(APIClient,LocalDataSourceImpl(requireContext())))
+        val favFactory = FavViewModelFactory(FavRepoImpl(
+            APIClient,
+            LocalDataSourceImpl(requireContext())))
         viewModel = ViewModelProvider(this,favFactory)[FavViewModel::class.java]
     }
     private fun onRecipeClick(clickedMeal: Meal) {

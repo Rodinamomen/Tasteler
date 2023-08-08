@@ -62,6 +62,7 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
     fun insertFav(wishlist: Wishlist){
         viewModelScope.launch(Dispatchers.IO) {
             mealRepo.insertIntofavs(wishlist)
+            Log.d("TAG", "insertFav: inserted $wishlist")
         }
     }
 
