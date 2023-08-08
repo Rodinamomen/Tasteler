@@ -18,7 +18,8 @@ interface APIService {
     suspend fun getSearchResult(@Query("s") search :String): Recipe
 
 
-
+    @GET("/api/json/v1/1/lookup.php?")
+    suspend fun getMealByID(@Query("i") ID: Int): Meal
 
 
 

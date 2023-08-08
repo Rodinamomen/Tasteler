@@ -17,5 +17,7 @@ object APIClient:RemoteDataSource {
         return APIHelper.retrofit.create(APIService::class.java).getSearchResult(search)
     }
 
-
+    override suspend fun getMealByID(ID: Int): Meal {
+        return APIHelper.retrofit.create(APIService::class.java).getMealByID(ID)
+    }
 }

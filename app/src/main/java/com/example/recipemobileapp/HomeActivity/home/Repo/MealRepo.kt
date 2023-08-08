@@ -11,6 +11,7 @@ interface MealRepo {
     suspend fun getAllMealsFromAPI(randomChar: Char): Recipe
     suspend fun getRandomMealFromAPI(): Recipe
 
+    suspend fun getMealByID(ID:Int): Meal
 
 
 
