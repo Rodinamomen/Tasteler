@@ -10,7 +10,6 @@ interface RemoteDataSource {
     suspend fun getRandomMeal(): Recipe
     suspend fun getSearchResult( search :String): Recipe
 
-    suspend fun getMealByID(ID:Int): Meal
 
 
 }

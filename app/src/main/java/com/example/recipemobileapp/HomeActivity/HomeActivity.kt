@@ -51,6 +51,15 @@ class HomeActivity : AppCompatActivity() {
             navController.navigate(R.id.homeFragment)
             fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_home_filled))
         }
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if(destination.id == R.id.detailsFragment) {
+                navView.visibility = View.GONE
+
+            } else {
+
+                navView.visibility = View.VISIBLE
+            }
+        }
 
     }
 

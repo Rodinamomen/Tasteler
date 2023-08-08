@@ -56,6 +56,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        gettingViewModelReady()
         recyclerViewRandomMeal = view.findViewById(R.id.recyclerView_randomMeal)
         recyclerViewAllMeals = view.findViewById(R.id.recyclerView_home)
         sharedPreferences = requireActivity().getSharedPreferences(LoginFragment.SHARED_PREFS, Context.MODE_PRIVATE)
@@ -129,10 +130,12 @@ class HomeFragment : Fragment() {
         )
         viewModel = ViewModelProvider(this, mealFactory)[MealViewModel::class.java]
     }
-    private fun onRecipeClick(clickedMeal: Meal) {
+    private fun onRecipeClick(clickedMeal: Meal?) {
         val bundle = Bundle()
-//        bundle.putInt("recipeId", clickedMeal)
+        bundle.putParcelable("recipe", clickedMeal)
         findNavController().navigate(R.id.action_homeFragment_to_detailsFragment, bundle)
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu , inflater: MenuInflater) {

@@ -114,7 +114,7 @@ class FavouritesFragment : Fragment() {
     }
     private fun onRecipeClick(clickedMeal: Meal) {
         val bundle = Bundle()
-//        bundle.putInt("recipeId", clickedMeal.mealid)
+        bundle.putParcelable("recipe", clickedMeal)
         findNavController().navigate(R.id.action_favouritesFragment_to_detailsFragment, bundle)
     }
 }
