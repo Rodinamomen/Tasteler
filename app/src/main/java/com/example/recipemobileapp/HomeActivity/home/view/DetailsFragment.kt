@@ -39,6 +39,7 @@ class DetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.fragment_details, container, false)
         gettingViewModelReady()
         recipeImageView = view.findViewById(R.id.imageView2)

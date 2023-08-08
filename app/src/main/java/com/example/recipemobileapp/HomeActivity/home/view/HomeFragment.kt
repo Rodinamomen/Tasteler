@@ -1,17 +1,22 @@
 package com.example.recipemobileapp.HomeActivity.home.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,15 +39,18 @@ class HomeFragment : Fragment() {
     private lateinit var sharedPreferences:SharedPreferences
     private var savedMealId:Int = -1
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.fragment_home, container, false)
+
         gettingViewModelReady()
         recyclerViewRandomMeal = view.findViewById(R.id.recyclerView_randomMeal)
         recyclerViewAllMeals = view.findViewById(R.id.recyclerView_home)
-
+        setHasOptionsMenu(true)
         return view
     }
 
@@ -126,4 +134,31 @@ class HomeFragment : Fragment() {
 //        bundle.putInt("recipeId", clickedMeal)
         findNavController().navigate(R.id.action_homeFragment_to_detailsFragment, bundle)
     }
+
+    override fun onCreateOptionsMenu(menu: Menu , inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu,inflater)
+        inflater.inflate(R.menu.option_menu,menu)
+        Log.d("Menu", "Menu inflated")
+        }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        Log.d("Menu", "Menu item clicked: ${item.itemId}")
+        return when (item.itemId) {
+            R.id.aboutFragment -> {
+                val navController = findNavController()
+                navController.navigate(R.id.aboutFragment)
+                true
+            }
+            R.id.signOut_item -> {
+                // Handle sign out action
+                Toast.makeText(context, "Sign Out was selected", Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        } }
+
+
+
+
 }

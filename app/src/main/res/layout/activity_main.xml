@@ -25,6 +25,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+
         <com.google.android.material.bottomappbar.BottomAppBar
             style="@style/home"
             android:id="@+id/bottomAppBar"
@@ -50,14 +51,7 @@
             </com.google.android.material.bottomnavigation.BottomNavigationView>
         </com.google.android.material.bottomappbar.BottomAppBar>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_home"
-            style="@style/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_home"
-            app:layout_anchor="@id/bottomAppBar"
-            app:layout_constraintBottom_toBottomOf="@+id/nav_host" />
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
