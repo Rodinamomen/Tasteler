@@ -31,9 +31,9 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-         navHostFragment =
+        val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
-         navController = navHostFragment.navController
+        val navController = navHostFragment.navController
         val navView: BottomNavigationView = findViewById(R.id.bottomnavigationbar)
         val bottomAppbar:CoordinatorLayout = findViewById(R.id.coordinatorLayout_home)
 
@@ -46,6 +46,10 @@ class HomeActivity : AppCompatActivity() {
         fab.setOnClickListener {
             navController.navigate(R.id.homeFragment)
             fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_home_filled))
+
+
+
+
         }
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if(destination.id == R.id.detailsFragment) {
@@ -59,6 +63,9 @@ class HomeActivity : AppCompatActivity() {
 
     }
 
+
+
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         super.onCreateOptionsMenu(menu)
         menuInflater.inflate(R.menu.option_menu,menu)
@@ -66,13 +73,6 @@ class HomeActivity : AppCompatActivity() {
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
-        navController = navHostFragment.navController
-        sharedPreferences= getSharedPreferences(
-            LoginFragment.SHARED_PREFS,
-            Context.MODE_PRIVATE)
-        editor=sharedPreferences.edit()
         when(item.itemId){
             R.id.aboutFragment ->{
                 val navController = findNavController(R.id.nav_host)
@@ -86,7 +86,7 @@ class HomeActivity : AppCompatActivity() {
                 editor.remove(EMAIL_KEY)
                 editor.remove(PASSWORD_KEY)
                 editor.commit()
-                navController.navigate(R.id.aucthenticationActivity)
+             //   navController.navigate(R.id.aucthenticationActivity)
                 finish()
             } }
 
