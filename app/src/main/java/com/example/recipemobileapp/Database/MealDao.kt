@@ -13,7 +13,6 @@ interface MealDao {
     @Delete
     suspend fun deleteMeal(meal: Meal)
 
-    @Query("SELECT * FROM Meal WHERE mealid = :ID")
-    suspend fun getMealByID(ID: Int): Meal
+
 
 }

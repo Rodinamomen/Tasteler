@@ -41,7 +41,6 @@ class SearchFragment : Fragment() {
 
         val view =inflater.inflate(R.layout.fragment_search, container, false)
         // Getting View Model Ready
-        gettingViewModelReady()
         // Set Recyclerview value by ID
         recyclerViewSearchMeal = view.findViewById(R.id.recyclerViewSearchResults)
         searchView  =view.findViewById(R.id.searchView)
@@ -52,6 +51,8 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        gettingViewModelReady()
+
         recyclerViewSearchMeal = view.findViewById(R.id.recyclerViewSearchResults)
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -73,7 +74,7 @@ class SearchFragment : Fragment() {
 
     }
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
-        recyclerView.adapter = MainAdapter(data,this::onRecipeClick ){ position ->
+        recyclerView.adapter = MainAdapter(data,{clickedMeal -> onRecipeClick(clickedMeal)} ){ position ->
             val clickedMeal = data[position]
             Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
             Log.d("TAG", "addElements: ${data[position]}")
@@ -90,7 +91,7 @@ class SearchFragment : Fragment() {
     }
     private fun onRecipeClick(clickedMeal: Meal) {
         val bundle = Bundle()
-        bundle.putInt("recipeId", clickedMeal.mealid)
+        bundle.putParcelable("recipe", clickedMeal)
         findNavController().navigate(R.id.action_searchFragment_to_detailsFragment, bundle)
     }
     private fun handleSearchQuery(query: String) { viewModel.getSearchResult(query) }

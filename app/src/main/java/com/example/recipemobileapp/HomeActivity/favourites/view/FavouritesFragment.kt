@@ -1,6 +1,7 @@
 package com.example.recipemobileapp.HomeActivity.favourites.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -54,7 +55,7 @@ class FavouritesFragment : Fragment() {
         }
     }
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
-        recyclerView.adapter = MainAdapter(data,this::onRecipeClick){ position ->
+        recyclerView.adapter = MainAdapter(data,{clickedMeal -> onRecipeClick(clickedMeal)}){ position ->
             val clickedMeal = data[position]
             viewModel.insertFav(Wishlist(1,clickedMeal.mealid))
         }
@@ -72,7 +73,7 @@ class FavouritesFragment : Fragment() {
     }
     private fun onRecipeClick(clickedMeal: Meal) {
         val bundle = Bundle()
-        bundle.putInt("recipeId", clickedMeal.mealid)
+        bundle.putParcelable("recipe", clickedMeal)
         findNavController().navigate(R.id.action_favouritesFragment_to_detailsFragment, bundle)
     }
 }

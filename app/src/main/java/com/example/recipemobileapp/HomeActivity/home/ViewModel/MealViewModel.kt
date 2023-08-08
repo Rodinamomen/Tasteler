@@ -64,19 +64,5 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
         }
     }
 
-    fun getMealbyID(ID: Int): LiveData<Meal> {
-        val resultLiveData = MutableLiveData<Meal>()
 
-        viewModelScope.launch {
-            try {
-                val meal = mealRepo.getMealByID(ID)
-                resultLiveData.postValue(meal)
-
-            } catch (e: Exception) {
-                Log.e("MealViewModel", "Error getting meal by ID: ${e.message}")
-            }
-        }
-
-        return resultLiveData
-    }
 }

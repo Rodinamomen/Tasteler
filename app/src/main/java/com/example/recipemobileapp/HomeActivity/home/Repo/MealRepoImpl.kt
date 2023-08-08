@@ -29,8 +29,6 @@ class MealRepoImpl(val remoteDataSource: RemoteDataSource ,val localDataSource: 
         return localDataSource.insertIntofavs(wishlist)
     }
 
-    override suspend fun getMealByID(ID:Int):Meal{
-        return remoteDataSource.getMealByID(ID)
-    }
+
 
 }
