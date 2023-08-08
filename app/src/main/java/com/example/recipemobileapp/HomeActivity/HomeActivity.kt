@@ -55,10 +55,11 @@ class HomeActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             if(destination.id == R.id.detailsFragment) {
                 navView.visibility = View.GONE
+                fab.visibility=View.GONE
 
             } else {
-
                 navView.visibility = View.VISIBLE
+                fab.visibility=View.VISIBLE
             }
         }
 
