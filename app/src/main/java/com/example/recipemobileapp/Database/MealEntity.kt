@@ -108,6 +108,37 @@ data class Meal(
     override fun describeContents(): Int {
         return 0
     }
+    override fun hashCode(): Int {
+        var result = idMeal.toInt()
+        result = 31 * result + (strArea?.hashCode() ?: 0)
+        result = 31 * result + (strCategory?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient1?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient10?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient11?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient12?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient13?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient14?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient15?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient16?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient17?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient18?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient19?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient2?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient20?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient3?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient4?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient5?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient6?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient7?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient8?.hashCode() ?: 0)
+        result = 31 * result + (strIngredient9?.hashCode() ?: 0)
+        result = 31 * result + (strInstructions?.hashCode() ?: 0)
+        result = 31 * result + (strMeal?.hashCode() ?: 0)
+        result = 31 * result + (strMealThumb?.hashCode() ?: 0)
+        result = 31 * result + (strTags?.hashCode() ?: 0)
+        result = 31 * result + (strYoutube?.hashCode() ?: 0)
+        return result
+    }
 
     companion object CREATOR : Parcelable.Creator<Meal> {
         override fun createFromParcel(parcel: Parcel): Meal {
