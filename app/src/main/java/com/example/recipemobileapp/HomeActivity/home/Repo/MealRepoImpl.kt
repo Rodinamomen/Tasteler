@@ -3,7 +3,6 @@ package com.example.recipemobileapp.HomeActivity.home.Repo
 import com.example.recipemobileapp.Database.Meal
 import com.example.recipemobileapp.Database.Recipe
 import com.example.recipemobileapp.Database.User
-import com.example.recipemobileapp.Database.Userwithmeals
 import com.example.recipemobileapp.Database.Wishlist
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSource
 import com.example.recipemobileapp.Network.RemoteDataSource
@@ -19,20 +18,8 @@ class MealRepoImpl(val remoteDataSource: RemoteDataSource, val localDataSource: 
 
     }
 
-    override suspend fun getSearchResultFromAPI(search : String): Recipe {
-        return remoteDataSource.getSearchResult(search)
-    }
-
-    override suspend fun getFavouriteMealsWithUserId(userId:Int): Userwithmeals?{
-        return localDataSource.getFavouriteMealsWithUserId(userId)
-    }
-
     override suspend fun insertMeal(meal: Meal) {
         localDataSource.insertMeal(meal)
-    }
-
-    override suspend fun getuserWithMeals(): List<Userwithmeals> {
-        return localDataSource.getuserWithMeals()
     }
 
     override suspend fun getMealById(id: String):Meal {

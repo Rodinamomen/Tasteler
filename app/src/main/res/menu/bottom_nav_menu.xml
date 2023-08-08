@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/favouritesFragment"
-        android:title="Favourites"
+        android:title="@string/favouritesIcon"
         android:icon="@drawable/ic_favorite"/>
 
     <item
@@ -13,7 +13,7 @@
 
     <item
         android:id="@+id/searchFragment"
-        android:title="Search"
+        android:title="@string/searchIcon"
         android:icon="@drawable/ic_search" />
 
 </menu>

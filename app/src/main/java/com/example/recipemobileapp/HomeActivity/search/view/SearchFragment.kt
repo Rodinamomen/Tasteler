@@ -102,20 +102,17 @@ class SearchFragment : Fragment() {
 
     }
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
-        val mutableCopy = mutableListOf<Meal>().apply {
-            addAll(data)
-        }
-        recyclerView.adapter = MainAdapter(mutableCopy,
+        recyclerView.adapter = MainAdapter(data,
             {clickedMeal -> onRecipeClick(clickedMeal)})
             { position ->
-                    val clickedMeal = mutableCopy[position]
+                    val clickedMeal = data[position]
                     Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
                     viewModel.insertMeal(clickedMeal)
                     val email = sharedPreferences.getString("email_key","")!!
                     viewModel.getUserId(email)
                     viewModel.getMealId(clickedMeal.idMeal)
                     Log.d("TAG", "addElements: $email ${clickedMeal.idMeal}")
-                }
+            }
     }
 
     private fun gettingViewModelReady(){
@@ -127,7 +124,7 @@ class SearchFragment : Fragment() {
     }
     private fun onRecipeClick(clickedMeal: Meal) {
         val bundle = Bundle()
-//        bundle.putInt("recipeId", clickedMeal.mealid)
+        bundle.putParcelable("recipe", clickedMeal)
         findNavController().navigate(R.id.action_searchFragment_to_detailsFragment, bundle)
     }
     private fun handleSearchQuery(query: String) { viewModel.getSearchResult(query) }

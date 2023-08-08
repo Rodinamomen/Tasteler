@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -21,9 +20,9 @@ import com.example.recipemobileapp.Database.User
 import com.example.recipemobileapp.Database.Wishlist
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
 import com.example.recipemobileapp.HomeActivity.favourites.Repo.FavRepoImpl
+import com.example.recipemobileapp.HomeActivity.favourites.adapter.FavsAdapter
 import com.example.recipemobileapp.HomeActivity.favourites.viewModel.FavViewModel
 import com.example.recipemobileapp.HomeActivity.favourites.viewModel.FavViewModelFactory
-import com.example.recipemobileapp.HomeActivity.home.adapters.MainAdapter
 import com.example.recipemobileapp.Network.APIClient
 import com.example.recipemobileapp.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -34,8 +33,6 @@ class FavouritesFragment : Fragment() {
     private lateinit var textViewEmpty: TextView
     private lateinit var loggedInUser: User
     private lateinit var sharedPreferences: SharedPreferences
-    private var savedMealId:Int = -1
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,7 +44,7 @@ class FavouritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         gettingViewModelReady()
 
-        val sharedPreferences = requireActivity().
+        sharedPreferences = requireActivity().
             getSharedPreferences(LoginFragment.SHARED_PREFS, Context.MODE_PRIVATE)
 
         recyclerViewFav = view.findViewById(R.id.recyclerView_favourites)
@@ -64,7 +61,6 @@ class FavouritesFragment : Fragment() {
            if(user != null){
                loggedInUser = user
                viewModel.getUserWithMeals()
-               Log.d("TAG", "fav onViewCreated: $loggedInUser")
            }
         }
 
@@ -73,8 +69,7 @@ class FavouritesFragment : Fragment() {
             if(userWithMeals != null){
                 Log.d("TAG", "onViewCreated: $userWithMeals")
                 for(item in userWithMeals){
-                    if(item.user.userid == loggedInUser.userid){
-                        Log.d("TAG", "fav onViewCreated: ${item.user.userid}")
+                    if(item.user.userid == loggedInUser.userid && item.meals.isNotEmpty()){
                         textViewEmpty.visibility = View.GONE
                         addElements(item.meals,recyclerViewFav)
                     }
@@ -87,19 +82,21 @@ class FavouritesFragment : Fragment() {
         val mutableCopy = mutableListOf<Meal>().apply {
             addAll(data)
         }
-        recyclerView.adapter = MainAdapter(mutableCopy,
+        recyclerView.adapter = FavsAdapter(mutableCopy,
             {clickedMeal -> onRecipeClick(clickedMeal)})
         { position ->
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Are you sure you want to remove this recipe from favourites?")
                 .setMessage("This action can not be undone!")
                 .setNegativeButton("Yes") { dialog, which ->
-                    val clickedMeal = mutableCopy[position]
-                    mutableCopy.removeAt(position)
-                    Log.d("TAG", "addElements: $mutableCopy")
-                    recyclerView.adapter?.notifyItemRemoved(position)
-                    viewModel.deleteWishlist(Wishlist(loggedInUser.userid, clickedMeal.idMeal))
-                    Toast.makeText(requireContext(), "Deleted from Favs", Toast.LENGTH_SHORT).show()
+                    if(mutableCopy.isNotEmpty()){
+                        val clickedMeal = mutableCopy[position]
+                        mutableCopy.removeAt(position)
+                        recyclerView.adapter?.notifyItemRemoved(position)
+                        viewModel.deleteMeal(clickedMeal)
+                        viewModel.deleteWishlist(Wishlist(loggedInUser.userid, clickedMeal.idMeal))
+                        Toast.makeText(requireContext(), "Deleted from Favs", Toast.LENGTH_SHORT).show()
+                    }
                 }
                 .setPositiveButton("No") { dialog, which ->
                 }
@@ -110,12 +107,14 @@ class FavouritesFragment : Fragment() {
     }
 
     private fun gettingViewModelReady(){
-        val favFactory = FavViewModelFactory(FavRepoImpl(APIClient,LocalDataSourceImpl(requireContext())))
+        val favFactory = FavViewModelFactory(FavRepoImpl(
+            APIClient,
+            LocalDataSourceImpl(requireContext())))
         viewModel = ViewModelProvider(this,favFactory)[FavViewModel::class.java]
     }
     private fun onRecipeClick(clickedMeal: Meal) {
         val bundle = Bundle()
-//        bundle.putInt("recipeId", clickedMeal.mealid)
+        bundle.putParcelable("recipe", clickedMeal)
         findNavController().navigate(R.id.action_favouritesFragment_to_detailsFragment, bundle)
     }
 }

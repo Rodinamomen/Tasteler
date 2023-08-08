@@ -1,93 +1,157 @@
 package com.example.recipemobileapp.HomeActivity.home.view
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
-import android.webkit.WebView
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import at.blogc.android.views.ExpandableTextView
+import com.bumptech.glide.Glide
+import com.example.recipemobileapp.Authentication.Login.view.LoginFragment
 import com.example.recipemobileapp.Database.Meal
+import com.example.recipemobileapp.Database.User
+import com.example.recipemobileapp.Database.Wishlist
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
 import com.example.recipemobileapp.HomeActivity.home.Repo.MealRepoImpl
-import com.example.recipemobileapp.HomeActivity.home.adapters.MainAdapter
 import com.example.recipemobileapp.Network.APIClient
 import com.example.recipemobileapp.R
 import com.example.recipemobileapp.ViewModel.MealViewModel
 import com.example.recipemobileapp.ViewModel.MealviewModelFactory
-
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
 class DetailsFragment : Fragment() {
     private lateinit var viewModel: MealViewModel
     private lateinit var recipeImageView: ImageView
     private lateinit var recipeNameTextView: TextView
-    private lateinit var recipeCategoryTextView: TextView
     private lateinit var descriptionExpandableTextView: ExpandableTextView
-    private lateinit var tutorialWebView: WebView
+    private lateinit var descriptionExpandableTextView2: ExpandableTextView
+    private lateinit var readmore: TextView
+    private lateinit var tutorialyoutubeView: YouTubePlayerView
+
+
+
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_details, container, false)
-        gettingViewModelReady()
+
+
+        readmore = view.findViewById(R.id.readmorebtn)
         recipeImageView = view.findViewById(R.id.imageView2)
         recipeNameTextView = view.findViewById(R.id.textView2)
         descriptionExpandableTextView = view.findViewById(R.id.instructionsTextView)
-        tutorialWebView = view.findViewById(R.id.webview)
+        descriptionExpandableTextView2 = view.findViewById(R.id.instructionsTextView2)
+        tutorialyoutubeView = view.findViewById(R.id.youtube_player_view)
+        lifecycle.addObserver(tutorialyoutubeView)
 
         descriptionExpandableTextView.setAnimationDuration(750L)
         descriptionExpandableTextView.setInterpolator(OvershootInterpolator())
 
-        descriptionExpandableTextView.setOnClickListener {
+        readmore.setOnClickListener {
             if (descriptionExpandableTextView.isExpanded) {
                 descriptionExpandableTextView.collapse()
+                readmore.text = "read more"
             } else {
                 descriptionExpandableTextView.expand()
+                readmore.text = "read less"
+            }
+        }
+        descriptionExpandableTextView2.setAnimationDuration(750L)
+        descriptionExpandableTextView2.setInterpolator(OvershootInterpolator())
+
+        descriptionExpandableTextView2.setOnClickListener {
+            if (descriptionExpandableTextView2.isExpanded) {
+                descriptionExpandableTextView2.collapse()
+            } else {
+                descriptionExpandableTextView2.expand()
+            }
+        }
+        return view
+    }
+
+
+    @SuppressLint("NewApi")
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        gettingViewModelReady()
+        val sharedPreferences = requireActivity().
+            getSharedPreferences(LoginFragment.SHARED_PREFS, Context.MODE_PRIVATE)
+
+        val combinedLiveData = MediatorLiveData<Pair<User?, Meal?>>()
+
+
+        viewModel.loggedUser.observe(viewLifecycleOwner) { user ->
+            combinedLiveData.value = Pair(user, combinedLiveData.value?.second)
+        }
+
+        viewModel.savedMeal.observe(viewLifecycleOwner) { meal ->
+            combinedLiveData.value = Pair(combinedLiveData.value?.first, meal)
+        }
+
+        combinedLiveData.observe(viewLifecycleOwner) { (user, meal) ->
+            if (user != null && meal != null) {
+                Log.d("TAG", "Both user and meal data are available: $user, $meal")
+                viewModel.insertFav(Wishlist(user.userid, meal.idMeal))
             }
         }
 
 
+        val recipe = arguments?.getParcelable("recipe",Meal::class.java)
+         if (recipe != null) {
+                val favbtn:Button = view.findViewById(R.id.addtofavs)
+                favbtn.setOnClickListener{
+                    val clickedMeal = recipe
+                    Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
+                    viewModel.insertMeal(clickedMeal)
+                    val email = sharedPreferences.getString("email_key","")!!
+                    viewModel.getUserId(email)
+                    viewModel.getMealId(clickedMeal.idMeal)
+                    Log.d("TAG", "addElements: $email ${clickedMeal.idMeal}")
+                }
+             tutorialyoutubeView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
+                 override fun onReady(youTubePlayer: YouTubePlayer) {
+                     super.onReady(youTubePlayer)
+                     val videoId = recipe.strYoutube.substring(recipe.strYoutube.length-11,recipe.strYoutube.length)
+                     Log.d("vid",recipe.strYoutube)
+                     Log.d("vid",videoId)
+                     youTubePlayer.loadVideo(videoId, 0F)
+                     youTubePlayer.pause()
 
-        return view
+                 }
+             })
+
+             Glide.with(requireContext())
+                 .load(recipe.strMealThumb)
+                 .into(recipeImageView)
+
+                 recipeNameTextView.text = recipe.strMeal
+                 descriptionExpandableTextView.text = "Instructions : \n ${recipe.strInstructions}"
+                 descriptionExpandableTextView2.text = "General Information : \n - Area: ${recipe.strArea} \n -Category : ${recipe.strCategory}\n -Tags : ${recipe.strTags} \n"
+
+
+            } else {
+                Toast.makeText(requireContext(), "Recipe not found", Toast.LENGTH_SHORT).show()
+            }
+
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        val recipeId = arguments?.getInt("recipeId", -1) ?: -1
-        if (recipeId == -1) {
-            Toast.makeText(requireContext(), "Invalid recipe ID", Toast.LENGTH_SHORT).show()
-            return
-        }
 
-//        viewModel.getMealbyID(recipeId).observe(viewLifecycleOwner) { recipe ->
-//            if (recipe != null) {
-//                val favbtn:Button = view.findViewById(R.id.addtofavs)
-//                favbtn.setOnClickListener{
-////                    viewModel.insertFav(Wishlist(1,recipeId))
-//                    Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
-//                }
-//                //recipeImageView.setImageResource() // Replace with actual image
-//                recipeNameTextView.text = recipe.strMeal
-//                descriptionExpandableTextView.text = recipe.strInstructions
-//                // var string: String = recipe.strYoutube
-//                // tutorialWebView.loadUrl(string) // Replace with actual tutorial URL
-//
-//            } else {
-//                Toast.makeText(requireContext(), "Recipe not found", Toast.LENGTH_SHORT).show()
-//            }
-//        }
-    }
 
 
     private fun gettingViewModelReady() {
@@ -100,24 +164,16 @@ class DetailsFragment : Fragment() {
         viewModel = ViewModelProvider(this, mealFactory)[MealViewModel::class.java]
     }
 
-    private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
-        /**Make it in image view instead**/
-        val mutableCopy = mutableListOf<Meal>().apply {
-            addAll(data)
-        }
-        recyclerView.adapter = MainAdapter(mutableCopy,{clickedMeal -> onRecipeClick(clickedMeal)}){ position ->
-            val clickedMeal = mutableCopy[position]
-            Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
-            Log.d("TAG", "addElements: ${data[position]}")
-//            viewModel.insertFav(Wishlist(1, clickedMeal.idMeal))
-        }
-        recyclerView.layoutManager = LinearLayoutManager(requireContext(),
-            RecyclerView.HORIZONTAL, false)
-    }
-    private fun onRecipeClick(clickedMeal: Meal) {
-        val bundle = Bundle()
-//        bundle.putInt("recipeId", clickedMeal._mealid)
-        findNavController().navigate(R.id.action_searchFragment_to_detailsFragment, bundle)
-    }
+
+
+
+
+
+
+
+
+
+
+
 
 }

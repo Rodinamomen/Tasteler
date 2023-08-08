@@ -31,11 +31,11 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-         navHostFragment =
+        val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
-         navController = navHostFragment.navController
+        val navController = navHostFragment.navController
         val navView: BottomNavigationView = findViewById(R.id.bottomnavigationbar)
-        val bottomAppbar:CoordinatorLayout = findViewById(R.id.coordinatorLayout)
+        val bottomAppbar:CoordinatorLayout = findViewById(R.id.coordinatorLayout_home)
 
         navView.background = null
         navView.selectedItemId = R.id.placeholder
@@ -46,16 +46,15 @@ class HomeActivity : AppCompatActivity() {
         fab.setOnClickListener {
             navController.navigate(R.id.homeFragment)
             fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_home_filled))
-        }
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.detailsFragment) {
-                bottomAppbar.visibility = View.GONE
 
-            } else {
 
-                bottomAppbar.visibility = View.VISIBLE
-            }
+
+
         }
+
+
+
+
 
     }
 
