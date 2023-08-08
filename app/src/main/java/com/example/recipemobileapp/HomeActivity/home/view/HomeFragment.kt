@@ -97,13 +97,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
-        val mutableCopy = mutableListOf<Meal>().apply {
-            addAll(data)
-        }
-        recyclerView.adapter = MainAdapter(mutableCopy,
+
+        recyclerView.adapter = MainAdapter(data,
             {clickedMeal -> onRecipeClick(clickedMeal)})
         { position ->
-            val clickedMeal = mutableCopy[position]
+            val clickedMeal = data[position]
             Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
             viewModel.insertMeal(clickedMeal)
             val email = sharedPreferences.getString("email_key","")!!

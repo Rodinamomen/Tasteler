@@ -7,5 +7,16 @@
     <style name="textinput" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"></style>
     <style name="button" parent="Widget.MaterialComponents.Button.TextButton.Dialog"></style>
     <style name="Theme.RecipeMobileApp" parent="Base.Theme.RecipeMobileApp" />
-    <style name="home" parent="@style/Theme.MaterialComponents"/>
+    <style name="home" parent="Widget.MaterialComponents.BottomAppBar">
+        <item name="backgroundTint">@color/white</item>
+    </style>
+    <style name="bottomNav" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="backgroundTint">@color/white</item>
+        <item name="itemIconTint">@color/navy_blue</item>
+        <item name="itemTextColor">@color/navy_blue</item>
+    </style>
+    <style name="fab" parent="Widget.MaterialComponents.FloatingActionButton">
+        <item name="backgroundTint">@color/black</item>
+        <item name="rippleColor">@color/white</item>
+    </style>
 </resources>
