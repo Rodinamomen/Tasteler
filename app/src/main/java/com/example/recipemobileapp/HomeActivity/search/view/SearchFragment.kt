@@ -39,7 +39,8 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-      val view =inflater.inflate(R.layout.fragment_search, container, false)
+
+        val view =inflater.inflate(R.layout.fragment_search, container, false)
         // Getting View Model Ready
         gettingViewModelReady()
         // Set Recyclerview value by ID
