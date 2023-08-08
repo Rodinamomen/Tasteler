@@ -2,8 +2,15 @@ package com.example.recipemobileapp.HomeActivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.example.recipemobileapp.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -18,14 +25,47 @@ class HomeActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
         val navController = navHostFragment.navController
         val navView: BottomNavigationView = findViewById(R.id.bottomnavigationbar)
+
+
         navView.background = null
         navView.selectedItemId = R.id.placeholder
         navView.setupWithNavController(navController)
         val fab:FloatingActionButton = findViewById(R.id.fab_home)
+
         fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_home_filled))
         fab.setOnClickListener {
             navController.navigate(R.id.homeFragment)
             fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_home_filled))
+
+
+
+
         }
+
+
+
+
+
     }
+
+
+
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.option_menu,menu)
+        return true}
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.aboutFragment ->{
+                val navController = findNavController(R.id.nav_host)
+                navController.navigate(R.id.aboutFragment) }
+
+
+            else -> { Toast.makeText(this,"SignOut was selected",Toast.LENGTH_SHORT).show() } }
+
+        return super.onOptionsItemSelected(item)}
+
 }

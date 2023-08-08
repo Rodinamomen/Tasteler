@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/about_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -16,94 +16,94 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/recipe"
-            android:scaleType="centerInside"
-            android:adjustViewBounds="true"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/recipe" />
 
         <!-- About App -->
         <TextView
             android:id="@+id/textViewAboutApp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="About the App"
-            android:textSize="20sp"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            android:text="About the App"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:text="App that provides personalised, step-by-step instructions. Users can search through a large number of recipes, save their favourites, and view cooking demonstration videos"
-            android:textSize="16sp"
             android:textColor="@android:color/black"
-            android:layout_marginBottom="16dp"/>
+            android:textSize="16sp" />
 
         <!-- About Us -->
         <TextView
             android:id="@+id/textViewAboutUs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="About Us"
-            android:textSize="20sp"
-            android:textColor="@android:color/black"
-            android:textStyle="bold"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"/>
+            android:layout_marginBottom="8dp"
+            android:text="About Us"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <!-- Creator 1 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
             android:text="Fady Milad Garas"
-            android:textSize="16sp"
             android:textColor="@android:color/black"
-            android:layout_marginBottom="4dp"/>
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="Email: elfadyy2010@yahoo.com"
-            android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
-            android:layout_marginBottom="8dp"/>
+            android:textSize="14sp" />
 
         <!-- Creator 2 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
             android:text="Rawan Abdelrahman Younis"
-            android:textSize="16sp"
             android:textColor="@android:color/black"
-            android:layout_marginBottom="4dp"/>
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="Email: rawannyounis@gmail.com"
-            android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
-            android:layout_marginBottom="8dp"/>
+            android:textSize="14sp" />
 
         <!-- Creator 3 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
             android:text="Rodina Mo'men Mohamed"
-            android:textSize="16sp"
             android:textColor="@android:color/black"
-            android:layout_marginBottom="4dp"/>
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:text="Email: Rodinamobark3@gmail.com"
-            android:textSize="14sp"
             android:textColor="@android:color/darker_gray"
-            android:layout_marginBottom="16dp"/>
+            android:textSize="14sp" />
 
     </LinearLayout>
 
