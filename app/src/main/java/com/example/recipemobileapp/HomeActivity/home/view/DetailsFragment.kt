@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -36,7 +37,7 @@ class DetailsFragment : Fragment(){
     private lateinit var recipeImageView: ImageView
     private lateinit var recipeNameTextView: TextView
     private lateinit var descriptionExpandableTextView: ExpandableTextView
-    private lateinit var descriptionExpandableTextView2: ExpandableTextView
+    private lateinit var descriptionTextView2: TextView
     private lateinit var readmore: TextView
     private lateinit var tutorialyoutubeView: YouTubePlayerView
 
@@ -55,7 +56,7 @@ class DetailsFragment : Fragment(){
         recipeImageView = view.findViewById(R.id.imageView2)
         recipeNameTextView = view.findViewById(R.id.textView2)
         descriptionExpandableTextView = view.findViewById(R.id.instructionsTextView)
-        descriptionExpandableTextView2 = view.findViewById(R.id.instructionsTextView2)
+        descriptionTextView2 = view.findViewById(R.id.instructionsTextView2)
         tutorialyoutubeView = view.findViewById(R.id.youtube_player_view)
         lifecycle.addObserver(tutorialyoutubeView)
 
@@ -71,16 +72,7 @@ class DetailsFragment : Fragment(){
                 readmore.text = "read less"
             }
         }
-        descriptionExpandableTextView2.setAnimationDuration(750L)
-        descriptionExpandableTextView2.setInterpolator(OvershootInterpolator())
 
-        descriptionExpandableTextView2.setOnClickListener {
-            if (descriptionExpandableTextView2.isExpanded) {
-                descriptionExpandableTextView2.collapse()
-            } else {
-                descriptionExpandableTextView2.expand()
-            }
-        }
         return view
     }
 
@@ -94,7 +86,7 @@ class DetailsFragment : Fragment(){
 
         val recipe = arguments?.parcelable<Meal>("recipe")
         if (recipe != null) {
-            val favbtn:Button = view.findViewById(R.id.addtofavs)
+            val favbtn:ImageButton = view.findViewById(R.id.addtofavs)
             favbtn.setOnClickListener{
                 val clickedMeal = recipe
                 Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
@@ -120,7 +112,7 @@ class DetailsFragment : Fragment(){
 
             recipeNameTextView.text = recipe.strMeal
             descriptionExpandableTextView.text = "Instructions : \n ${recipe.strInstructions}"
-            descriptionExpandableTextView2.text = "General Information : \n - Area: ${recipe.strArea} \n -Category : ${recipe.strCategory}\n -Tags : ${recipe.strTags} \n"
+            descriptionTextView2.text = "General Information : \n - Area: ${recipe.strArea} \n -Category : ${recipe.strCategory}"
 
 
         } else {
