@@ -109,6 +109,7 @@ class SearchFragment : Fragment() {
         bundle.putParcelable("recipe", clickedMeal)
         findNavController().navigate(R.id.action_searchFragment_to_detailsFragment, bundle)
     }
-    private fun handleSearchQuery(query: String) { viewModel.getSearchResult(query) }
+    private fun handleSearchQuery(query: String) {
+        if(query != "") {viewModel.getSearchResult(query) }}
 
 }

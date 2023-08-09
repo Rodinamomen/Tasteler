@@ -37,26 +37,6 @@
         app:layout_constraintTop_toBottomOf="@+id/topbarlayout" />
 
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/topbarlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#00FFFFFF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/topAppBar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="#00FFFFFF"
-            app:menu="@menu/option_menu"
-            app:title="@string/top_pick"
-
-            />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
 
     <TextView
         android:id="@+id/textView_popularRecipes"
@@ -103,6 +83,20 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:fontFamily="@font/antic"
+        android:text="@string/top_pick"
+        android:textSize="22dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_randomMeal"
+        app:layout_constraintHorizontal_bias="0.11"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.19" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
