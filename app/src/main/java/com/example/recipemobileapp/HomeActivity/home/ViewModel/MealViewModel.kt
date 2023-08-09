@@ -68,4 +68,10 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
             _loggedUser.value = userResponse
         }
     }
+//    private val _isFav = MutableLiveData<Boolean>()
+//    val isFav:LiveData<Boolean> = _isFav
+     suspend fun isFavourite(userid: Int, idMeal: String):Boolean {
+            return mealRepo.isFavourite(userid,idMeal)
+     }
+
 }

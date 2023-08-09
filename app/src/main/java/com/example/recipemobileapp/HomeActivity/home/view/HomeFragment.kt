@@ -43,38 +43,24 @@ class HomeFragment : Fragment() {
     private lateinit var viewModel: MealViewModel
     private lateinit var recyclerViewRandomMeal: RecyclerView
     private lateinit var recyclerViewAllMeals: RecyclerView
-
-    //private lateinit var sharedPreferences:SharedPreferences
     private lateinit var toolbar: Toolbar
-
-
+    lateinit var editor: SharedPreferences.Editor
+    lateinit var sharedPreferences: SharedPreferences
+    private lateinit var savedMealId:String
     companion object {
         const val SHARED_PREFS = "shared_prefs"
         const val EMAIL_KEY = "email_key"
         const val PASSWORD_KEY = "password_key"
     }
-    lateinit var editor: SharedPreferences.Editor
-    lateinit var sharedPreferences: SharedPreferences
-
-
-
-
-    
-    private lateinit var savedMealId:String
-    var cnt = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
-
-
         gettingViewModelReady()
         recyclerViewRandomMeal = view.findViewById(R.id.recyclerView_randomMeal)
         recyclerViewAllMeals = view.findViewById(R.id.recyclerView_home)
-   //    setHasOptionsMenu(true)
-
         setHasOptionsMenu(true)
         gettingViewModelReady()
         sharedPreferences = requireActivity().getSharedPreferences(LoginFragment.SHARED_PREFS,
@@ -88,27 +74,20 @@ class HomeFragment : Fragment() {
                 editor.apply()
             }
         }
-
         return view
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerViewRandomMeal = view.findViewById(R.id.recyclerView_randomMeal)
         recyclerViewAllMeals = view.findViewById(R.id.recyclerView_home)
-
-        sharedPreferences = requireActivity().getSharedPreferences(LoginFragment.SHARED_PREFS, Context.MODE_PRIVATE)
-
-    toolbar = view.findViewById(R.id.topbarlayout)
+        toolbar = view.findViewById(R.id.topbarlayout)
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
-        setHasOptionsMenu(true)
-
-
-
         val processBarMeal:ProgressBar = view.findViewById(R.id.progresBar_allMeals)
         val processBarRandomMeal:ProgressBar = view.findViewById(R.id.progressBar_randomMeal)
 
         viewModel.getRandomMeal()
         viewModel.getMealsList(('A'..'Z').random())
+
         viewModel.randomMealList.observe(viewLifecycleOwner){ meals->
             if(meals != null){
                 processBarRandomMeal.visibility = View.GONE
@@ -127,28 +106,16 @@ class HomeFragment : Fragment() {
         }
     }
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
-        Log.d("Home", "addElements: i entered here ${cnt++}")
-        recyclerView.adapter = MainAdapter(data,
-        {clickedMeal -> onRecipeClick(clickedMeal)})
-        { position ->
-            val clickedMeal = data[position]
-            Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
-            viewModel.insertMeal(clickedMeal)
-            viewModel.insertFav(Wishlist(sharedPreferences.getInt("userId",0),clickedMeal.idMeal))
-        }
+        recyclerView.adapter = MainAdapter(data, viewModel
+        ) { clickedMeal -> onRecipeClick(clickedMeal) }
+
         recyclerView.layoutManager = LinearLayoutManager(requireContext(),
             RecyclerView.HORIZONTAL, false)
     }
     private fun addElementsRandom(data:List<Meal>, recyclerView: RecyclerView){
-        Log.d("Home", "addElements: i entered here ${cnt++}")
-        recyclerView.adapter = Top_picked_adapter(data,
-            {clickedMeal -> onRecipeClick(clickedMeal)})
-        { position ->
-            val clickedMeal = data[position]
-            Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
-            viewModel.insertMeal(clickedMeal)
-            viewModel.insertFav(Wishlist(sharedPreferences.getInt("userId",0),clickedMeal.idMeal))
-        }
+        recyclerView.adapter = Top_picked_adapter(data,viewModel)
+                    { clickedMeal -> onRecipeClick(clickedMeal) }
+
         recyclerView.layoutManager = LinearLayoutManager(requireContext(),
             RecyclerView.HORIZONTAL, false)
     }
@@ -161,7 +128,7 @@ class HomeFragment : Fragment() {
         )
         viewModel = ViewModelProvider(this, mealFactory)[MealViewModel::class.java]
     }
-    private fun onRecipeClick(clickedMeal: Meal?) {
+    private fun onRecipeClick(clickedMeal: Meal) {
         val bundle = Bundle()
         bundle.putParcelable("recipe", clickedMeal)
         findNavController().navigate(R.id.action_homeFragment_to_detailsFragment, bundle)

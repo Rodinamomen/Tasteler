@@ -11,4 +11,6 @@ interface MealRepo {
     suspend fun insertIntofavs(wishlist: Wishlist)
     suspend fun insertMeal(meal: Meal)
     suspend fun getUserIdByEmail(email:String): User
+    suspend fun isFavourite(userid:Int,idMeal:String): Boolean
+
 }
