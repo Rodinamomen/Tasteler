@@ -14,6 +14,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.recipemobileapp.Authentication.Login.view.LoginFragment
+import com.example.recipemobileapp.Database.Wishlist
 import com.example.recipemobileapp.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -34,8 +35,12 @@ class HomeActivity : AppCompatActivity() {
          navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host) as NavHostFragment
          navController = navHostFragment.navController
+        sharedPreferences = getSharedPreferences(LoginFragment.SHARED_PREFS,
+            Context.MODE_PRIVATE)
         val navView: BottomNavigationView = findViewById(R.id.bottomnavigationbar)
         val bottomAppbar:CoordinatorLayout = findViewById(R.id.coordinatorLayout_home)
+        val email = sharedPreferences.getString("email_key","")!!
+
 
         navView.background = null
         navView.selectedItemId = R.id.placeholder
@@ -46,45 +51,15 @@ class HomeActivity : AppCompatActivity() {
         fab.setOnClickListener {
             navController.navigate(R.id.homeFragment)
             fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_home_filled))
-
-
-
-
         }
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if(destination.id == R.id.detailsFragment) {
+                bottomAppbar.visibility = View.GONE
 
-
-
-
-
+            } else {
+                bottomAppbar.visibility = View.VISIBLE
+            }
+        }
     }
-
-
-
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.option_menu,menu)
-        return true}
-
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.aboutFragment ->{
-                val navController = findNavController(R.id.nav_host)
-                navController.navigate(R.id.aboutFragment) }
-
-
-            else -> { sharedPreferences= getSharedPreferences(
-                LoginFragment.SHARED_PREFS,
-                Context.MODE_PRIVATE)
-                editor=sharedPreferences.edit()
-                editor.remove(EMAIL_KEY)
-                editor.remove(PASSWORD_KEY)
-                editor.commit()
-             //   navController.navigate(R.id.aucthenticationActivity)
-                finish()
-            } }
-
-        return super.onOptionsItemSelected(item)}
 
 }

@@ -1,4 +1,4 @@
-package com.example.recipemobileapp.HomeActivity.favourites.adapter
+package com.example.recipemobileapp.HomeActivity.search.adapter
 
 
 import android.view.LayoutInflater
@@ -13,18 +13,20 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.recipemobileapp.Database.Meal
 import com.example.recipemobileapp.R
 
-class FavsAdapter(val data:MutableList<Meal>,
-                  private val onRecipeClick: (Meal) -> Unit,
-                  private val onFavClick: (pos:Int) -> Unit) : RecyclerView.Adapter<FavsAdapter.MyViewHolder>() {
+class SearchAdapter(val data:List<Meal>, private val onRecipeClick: (Meal) -> Unit,
+                    private val onFavClick: (pos:Int) -> Unit) : RecyclerView.Adapter<SearchAdapter.MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val row =
             LayoutInflater.from(parent.context).inflate(R.layout.single_item_vertical, parent, false)
+
         return MyViewHolder(row)
     }
+
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.textViewTitle.text = data[position].strMeal
-
         val imgView:ImageView = holder.imageView
+        holder.textViewCategory.text= data[position].strCategory
+        holder.textViewArea.text=data[position].strArea
         Glide.with(holder.itemView.context)
             .load(data[position].strMealThumb)
             .centerCrop()
@@ -33,16 +35,15 @@ class FavsAdapter(val data:MutableList<Meal>,
                     .placeholder(R.drawable.loadingsvg)
                     .error(R.drawable.broken_image))
             .into(imgView)
-        holder.favBtn.setImageResource(R.drawable.ic_fav_filled)
-
         holder.favBtn.setOnClickListener {
             onFavClick(position)
+            holder.favBtn.setImageResource(R.drawable.ic_fav_filled)
         }
+        val meal = data[position]
+
         holder.itemView.setOnClickListener {
-            onRecipeClick(data[position])
+            onRecipeClick(meal)
         }
-        holder.textViewCategory.text= data[position].strCategory
-        holder.textViewArea.text=data[position].strArea
     }
 
     override fun getItemCount(): Int {
