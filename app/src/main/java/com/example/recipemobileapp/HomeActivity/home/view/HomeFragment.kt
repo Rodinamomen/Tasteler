@@ -14,6 +14,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
+//import android.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
@@ -25,6 +28,8 @@ import com.example.recipemobileapp.Database.Meal
 import com.example.recipemobileapp.Database.User
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
 import com.example.recipemobileapp.Database.Wishlist
+import com.example.recipemobileapp.HomeActivity.HomeActivity.Companion.EMAIL_KEY
+import com.example.recipemobileapp.HomeActivity.HomeActivity.Companion.PASSWORD_KEY
 import com.example.recipemobileapp.HomeActivity.home.Repo.MealRepoImpl
 import com.example.recipemobileapp.HomeActivity.home.adapters.MainAdapter
 import com.example.recipemobileapp.HomeActivity.home.adapters.Top_picked_adapter
@@ -128,16 +133,16 @@ class HomeFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu , inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu,inflater)
         inflater.inflate(R.menu.option_menu,menu)
+        super.onCreateOptionsMenu(menu,inflater)
         Log.d("Menu", "Menu inflated")
-        }
+      }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         Log.d("Menu", "Menu item clicked: ${item.itemId}")
         return when (item.itemId) {
-            R.id.aboutFragment -> {
+            R.id.item_about -> {
                 val navController = findNavController()
                 navController.navigate(R.id.aboutFragment)
                 true
@@ -145,6 +150,19 @@ class HomeFragment : Fragment() {
             R.id.signOut_item -> {
                 // Handle sign out action
                 Toast.makeText(context, "Sign Out was selected", Toast.LENGTH_SHORT).show()
+
+
+                sharedPreferences =  requireActivity().getSharedPreferences(LoginFragment.SHARED_PREFS, Context.MODE_PRIVATE)
+                editor=sharedPreferences.edit()
+                editor.remove(EMAIL_KEY)
+                editor.remove(PASSWORD_KEY)
+                editor.commit()
+                //   navController.navigate(R.id.aucthenticationActivity)
+                requireActivity().finish()
+
+
+
+
                 true
             }
             else -> super.onOptionsItemSelected(item)
