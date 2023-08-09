@@ -2,6 +2,7 @@ package com.example.recipemobileapp.HomeActivity.home.view
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
@@ -89,41 +90,42 @@ class DetailsFragment : Fragment(){
         super.onViewCreated(view, savedInstanceState)
         gettingViewModelReady()
         val sharedPreferences = requireActivity().
-            getSharedPreferences(LoginFragment.SHARED_PREFS, Context.MODE_PRIVATE)
+        getSharedPreferences(LoginFragment.SHARED_PREFS, Context.MODE_PRIVATE)
 
-        val recipe = arguments?.getParcelable("recipe",Meal::class.java)
-         if (recipe != null) {
-                val favbtn:Button = view.findViewById(R.id.addtofavs)
-                favbtn.setOnClickListener{
-                    val clickedMeal = recipe
-                    Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
-                    viewModel.insertMeal(clickedMeal)
-                    viewModel.insertFav(Wishlist(sharedPreferences.getInt("userId",0),clickedMeal.idMeal))
-                }
-             tutorialyoutubeView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
-                 override fun onReady(youTubePlayer: YouTubePlayer) {
-                     super.onReady(youTubePlayer)
-                     val videoId = recipe.strYoutube.substring(recipe.strYoutube.length-11,recipe.strYoutube.length)
-                     Log.d("vid",recipe.strYoutube)
-                     Log.d("vid",videoId)
-                     youTubePlayer.loadVideo(videoId, 0F)
-                     youTubePlayer.pause()
-
-                 }
-             })
-
-             Glide.with(requireContext())
-                 .load(recipe.strMealThumb)
-                 .into(recipeImageView)
-
-                 recipeNameTextView.text = recipe.strMeal
-                 descriptionExpandableTextView.text = "Instructions : \n ${recipe.strInstructions}"
-                 descriptionExpandableTextView2.text = "General Information : \n - Area: ${recipe.strArea} \n -Category : ${recipe.strCategory}\n -Tags : ${recipe.strTags} \n"
-
-
-            } else {
-                Toast.makeText(requireContext(), "Recipe not found", Toast.LENGTH_SHORT).show()
+        val recipe = arguments?.parcelable<Meal>("recipe")
+        if (recipe != null) {
+            val favbtn:Button = view.findViewById(R.id.addtofavs)
+            favbtn.setOnClickListener{
+                val clickedMeal = recipe
+                Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
+                viewModel.insertMeal(clickedMeal)
+                viewModel.insertFav(Wishlist(sharedPreferences.getInt("userId",0),clickedMeal.idMeal))
             }
+
+            tutorialyoutubeView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
+                override fun onReady(youTubePlayer: YouTubePlayer) {
+                    super.onReady(youTubePlayer)
+                    val videoId = recipe.strYoutube.substring(recipe.strYoutube.length-11,recipe.strYoutube.length)
+                    Log.d("vid",recipe.strYoutube)
+                    Log.d("vid",videoId)
+                    youTubePlayer.loadVideo(videoId, 0F)
+                    youTubePlayer.pause()
+
+                }
+            })
+
+            Glide.with(requireContext())
+                .load(recipe.strMealThumb)
+                .into(recipeImageView)
+
+            recipeNameTextView.text = recipe.strMeal
+            descriptionExpandableTextView.text = "Instructions : \n ${recipe.strInstructions}"
+            descriptionExpandableTextView2.text = "General Information : \n - Area: ${recipe.strArea} \n -Category : ${recipe.strCategory}\n -Tags : ${recipe.strTags} \n"
+
+
+        } else {
+            Toast.makeText(requireContext(), "Recipe not found", Toast.LENGTH_SHORT).show()
+        }
 
     }
 
@@ -153,3 +155,21 @@ class DetailsFragment : Fragment(){
 
 
 }
+
+    inline fun <reified T : Parcelable> Bundle.parcelable(key: String): T? = when {
+        SDK_INT >= 33 -> getParcelable(key, T::class.java)
+        else -> @Suppress("DEPRECATION") getParcelable(key) as? T
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+

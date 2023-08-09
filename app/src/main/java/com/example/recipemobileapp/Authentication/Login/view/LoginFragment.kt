@@ -27,6 +27,7 @@ import com.example.recipemobileapp.Database.User
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSource
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
 import com.example.recipemobileapp.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -65,7 +66,6 @@ class LoginFragment : Fragment() {
         loginViewModel.userdata.observe(requireActivity()) { data ->
             if (data != null) {
                 if (data) {
-                    Toast.makeText(context, " logged in ", Toast.LENGTH_SHORT).show()
                     editor.putString(EMAIL_KEY,email.editText?.text.toString())
                     editor.putString(PASSWORD_KEY,password.editText?.text.toString())
                     editor.commit()
@@ -74,9 +74,10 @@ class LoginFragment : Fragment() {
                 } else {
                         Log.d("flag", "onViewCreated: $flag")
                         if (flag) {
-                            Toast.makeText(context, "invalid password", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Invalid password", Toast.LENGTH_SHORT).show()
                         } else {
-                            Toast.makeText(context, "Please sign up ", Toast.LENGTH_SHORT).show()
+                            MaterialAlertDialogBuilder(requireContext()).setTitle("The Account Is Inactive").setMessage("By signing up, you can establish an account. ").setPositiveButton("Ok", null)
+                                .show()
                         }
                     }
                 }

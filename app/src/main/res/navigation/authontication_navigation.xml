@@ -46,6 +46,11 @@
             app:destination="@id/homeActivity"
             app:popUpTo="@id/signupFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_signupFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/signupFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <activity
         android:id="@+id/homeActivity"

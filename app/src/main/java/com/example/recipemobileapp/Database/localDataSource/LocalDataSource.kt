@@ -26,6 +26,7 @@ interface LocalDataSource {
 
     suspend fun getUserIdByEmail(email:String):User
     suspend fun deleteWishlist(wishlist: Wishlist)
+    suspend fun isFavourite(userid:Int,idMeal:String): Boolean
 
 
 }

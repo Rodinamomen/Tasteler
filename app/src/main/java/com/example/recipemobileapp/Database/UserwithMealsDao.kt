@@ -27,4 +27,9 @@ interface UserwithMealsDao {
     @Transaction
     @Query("SELECT * FROM User WHERE userid = :userid")
     fun getUserWithMealsById(userid: Int): Userwithmeals?
+
+    @Transaction
+    @Query("SELECT EXISTS(SELECT * FROM Wishlist WHERE userid = :userid AND idMeal =:idMeal )")
+    suspend fun isFavourite(userid:Int,idMeal:String): Boolean
+
 }

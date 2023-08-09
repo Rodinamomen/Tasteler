@@ -26,7 +26,7 @@ class MealRepoImpl(
     override suspend fun insertIntofavs(wishlist: Wishlist) {
         return localDataSource.insertIntofavs(wishlist)
     }
-
-
-
+    override suspend fun isFavourite(userid: Int, idMeal: String): Boolean {
+        return localDataSource.isFavourite(userid,idMeal)
+    }
 }

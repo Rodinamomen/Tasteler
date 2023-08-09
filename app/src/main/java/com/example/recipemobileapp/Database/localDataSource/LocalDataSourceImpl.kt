@@ -73,6 +73,10 @@ class LocalDataSourceImpl(context:Context):LocalDataSource {
         userWithMealsDao.deleteWishlist(wishlist)
     }
 
+    override suspend fun isFavourite(userid: Int, idMeal: String): Boolean {
+        return userWithMealsDao.isFavourite(userid,idMeal)
+    }
+
     override suspend fun getFavouriteMealsWithUserId(userId: Int): Userwithmeals? {
         return userWithMealsDao.getUserWithMealsById(userId)
     }

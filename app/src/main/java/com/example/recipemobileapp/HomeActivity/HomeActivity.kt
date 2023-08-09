@@ -39,8 +39,6 @@ class HomeActivity : AppCompatActivity() {
             Context.MODE_PRIVATE)
         val navView: BottomNavigationView = findViewById(R.id.bottomnavigationbar)
         val bottomAppbar:CoordinatorLayout = findViewById(R.id.coordinatorLayout_home)
-        val email = sharedPreferences.getString("email_key","")!!
-
 
         navView.background = null
         navView.selectedItemId = R.id.placeholder
@@ -53,7 +51,7 @@ class HomeActivity : AppCompatActivity() {
             fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_home_filled))
         }
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.detailsFragment) {
+            if(destination.id == R.id.detailsFragment || destination.id == R.id.aboutFragment) {
                 bottomAppbar.visibility = View.GONE
 
             } else {
