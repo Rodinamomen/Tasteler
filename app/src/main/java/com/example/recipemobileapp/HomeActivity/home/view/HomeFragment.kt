@@ -44,7 +44,7 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerViewAllMeals: RecyclerView
 
     //private lateinit var sharedPreferences:SharedPreferences
-    private var savedMealId:Int = -1
+  //  private var savedMealId:Int = -1
 private lateinit var toolbar: Toolbar
 
 
@@ -98,7 +98,7 @@ private lateinit var toolbar: Toolbar
 
         sharedPreferences = requireActivity().getSharedPreferences(LoginFragment.SHARED_PREFS, Context.MODE_PRIVATE)
 
-    toolbar = view.findViewById(R.id.topbarlayout)
+        toolbar = view.findViewById(R.id.topbarlayout)
 
         ( requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         setHasOptionsMenu(true)

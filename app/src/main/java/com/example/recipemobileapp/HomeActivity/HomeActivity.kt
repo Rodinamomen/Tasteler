@@ -61,28 +61,34 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.option_menu,menu)
-        return true}
 
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.aboutFragment ->{
-                val navController = findNavController(R.id.nav_host)
-                navController.navigate(R.id.aboutFragment) }
-            else -> { sharedPreferences= getSharedPreferences(
-                LoginFragment.SHARED_PREFS,
-                Context.MODE_PRIVATE)
-                editor=sharedPreferences.edit()
-                editor.remove(EMAIL_KEY)
-                editor.remove(PASSWORD_KEY)
-                editor.commit()
-             //   navController.navigate(R.id.aucthenticationActivity)
-                finish()
-            } }
 
-        return super.onOptionsItemSelected(item)}
+
+//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+//        super.onCreateOptionsMenu(menu)
+//        menuInflater.inflate(R.menu.option_menu,menu)
+//        return true}
+//
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        when(item.itemId){
+//            R.id.aboutFragment ->{
+//                val navController = findNavController(R.id.nav_host)
+//                navController.navigate(R.id.aboutFragment) }
+//
+//
+//            else -> { sharedPreferences= getSharedPreferences(
+//                LoginFragment.SHARED_PREFS,
+//                Context.MODE_PRIVATE)
+//                editor=sharedPreferences.edit()
+//                editor.remove(EMAIL_KEY)
+//                editor.remove(PASSWORD_KEY)
+//                editor.commit()
+//             //   navController.navigate(R.id.aucthenticationActivity)
+//                finish()
+//            } }
+//
+//        return super.onOptionsItemSelected(item)}
 
 }
