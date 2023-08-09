@@ -101,6 +101,7 @@ class DetailsFragment : Fragment(){
                 viewModel.insertMeal(clickedMeal)
                 viewModel.insertFav(Wishlist(sharedPreferences.getInt("userId",0),clickedMeal.idMeal))
             }
+
             tutorialyoutubeView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
                 override fun onReady(youTubePlayer: YouTubePlayer) {
                     super.onReady(youTubePlayer)
