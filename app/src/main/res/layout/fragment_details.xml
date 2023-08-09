@@ -9,34 +9,56 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="409dp"
-        android:layout_height="164dp"
-        android:layout_marginBottom="170dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:scaleType="fitXY"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView5"
+        android:src="@mipmap/appicon"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.08" />
+        app:layout_constraintTop_toTopOf="parent" />
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+       >
+        <at.blogc.android.views.ExpandableTextView
+            android:id="@+id/instructionsTextView"
+            android:layout_width="364dp"
+            android:layout_height="56dp"
+            android:maxLines="3"
+            android:text="laaaaa"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.446"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/readmorebtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Read More"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4"></TextView>
+
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="379dp"
         android:layout_height="38dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="140dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="170dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="248dp"
         android:background="#80FFFFFF"
         android:textColor="@color/black"
         android:textColorHighlight="@android:color/darker_gray"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView5"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <Button
         android:id="@+id/addtofavs"
@@ -53,50 +75,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/youtube_player_view" />
 
-
-    <ScrollView
-        android:id="@+id/scrollView3"
-        android:layout_width="404dp"
-        android:layout_height="174dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="176dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="157dp"
-        app:layout_constraintBottom_toBottomOf="@+id/scrollView5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.0">
-
-        <at.blogc.android.views.ExpandableTextView
-            android:id="@+id/instructionsTextView"
-            android:layout_width="364dp"
-            android:layout_height="56dp"
-            android:layout_margin="8dp"
-            android:layout_marginTop="8dp"
-            android:maxLines="3"
-            android:textSize="24sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.446"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-
-    </ScrollView>
-
-    <TextView
-        android:id="@+id/readmorebtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="read more"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.046"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.516" />
-
     <ScrollView
         android:id="@+id/scrollView5"
         android:layout_width="411dp"
@@ -107,7 +85,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.659">
+        app:layout_constraintVertical_bias="0.788">
 
         <at.blogc.android.views.ExpandableTextView
             android:id="@+id/instructionsTextView2"
@@ -130,6 +108,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/scrollView5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="163dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="395dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
