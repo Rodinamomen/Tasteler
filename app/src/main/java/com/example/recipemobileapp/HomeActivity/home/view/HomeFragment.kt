@@ -45,8 +45,7 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerViewAllMeals: RecyclerView
 
     //private lateinit var sharedPreferences:SharedPreferences
-    private var savedMealId:Int = -1
-private lateinit var toolbar: Toolbar
+    private lateinit var toolbar: Toolbar
 
 
     companion object {
@@ -100,8 +99,7 @@ private lateinit var toolbar: Toolbar
         sharedPreferences = requireActivity().getSharedPreferences(LoginFragment.SHARED_PREFS, Context.MODE_PRIVATE)
 
     toolbar = view.findViewById(R.id.topbarlayout)
-
-        ( requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         setHasOptionsMenu(true)
 
 
@@ -187,19 +185,13 @@ private lateinit var toolbar: Toolbar
             R.id.signOut_item -> {
                 // Handle sign out action
                 Toast.makeText(context, "Sign Out was selected", Toast.LENGTH_SHORT).show()
-
-
                 sharedPreferences =  requireActivity().getSharedPreferences(LoginFragment.SHARED_PREFS, Context.MODE_PRIVATE)
                 editor=sharedPreferences.edit()
                 editor.remove(EMAIL_KEY)
                 editor.remove(PASSWORD_KEY)
                 editor.commit()
-                //   navController.navigate(R.id.aucthenticationActivity)
+                findNavController().navigate(R.id.aucthenticationActivity)
                 requireActivity().finish()
-
-
-
-
                 true
             }
             else -> super.onOptionsItemSelected(item)
