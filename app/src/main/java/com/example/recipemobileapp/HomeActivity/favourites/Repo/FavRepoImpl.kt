@@ -8,17 +8,8 @@ import com.example.recipemobileapp.Database.Wishlist
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSource
 import com.example.recipemobileapp.Network.RemoteDataSource
 
-class FavRepoImpl(val remoteDataSource: RemoteDataSource, val localDataSource: LocalDataSource):
-    FavRepo {
-
-    override suspend fun getFavouriteMealsWithUserId(userId:Int): Userwithmeals?{
-        return localDataSource.getFavouriteMealsWithUserId(userId)
-    }
-
-    override suspend fun insertMeal(meal: Meal) {
-        localDataSource.insertMeal(meal)
-    }
-
+class FavRepoImpl(val remoteDataSource: RemoteDataSource,
+                  val localDataSource: LocalDataSource): FavRepo {
     override suspend fun deleteMeal(meal: Meal) {
         localDataSource.deleteMeal(meal)
     }
@@ -27,22 +18,7 @@ class FavRepoImpl(val remoteDataSource: RemoteDataSource, val localDataSource: L
         return localDataSource.getuserWithMeals()
     }
 
-    override suspend fun getMealById(id: String):Meal {
-        return localDataSource.getMealById(id)
-    }
-
-    override suspend fun getUserIdByEmail(email: String): User {
-        return localDataSource.getUserIdByEmail(email)
-    }
-
     override suspend fun deleteWishlist(wishlist: Wishlist) {
         localDataSource.deleteWishlist(wishlist)
     }
-
-    override suspend fun insertIntofavs(wishlist: Wishlist) {
-        return localDataSource.insertIntofavs(wishlist)
-    }
-
-
-
 }

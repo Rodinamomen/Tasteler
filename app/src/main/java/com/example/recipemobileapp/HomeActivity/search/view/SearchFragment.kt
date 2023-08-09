@@ -83,35 +83,16 @@ class SearchFragment : Fragment() {
         viewModel.searchMealList.observe(viewLifecycleOwner){ meals->
             if(meals != null){ addElements(meals,recyclerViewSearchMeal) }
         }
-        val combinedLiveData = MediatorLiveData<Pair<User?, Meal?>>()
-
-        viewModel.loggedUser.observe(viewLifecycleOwner) { user ->
-            combinedLiveData.value = Pair(user, combinedLiveData.value?.second)
-        }
-
-        viewModel.savedMeal.observe(viewLifecycleOwner) { meal ->
-            combinedLiveData.value = Pair(combinedLiveData.value?.first, meal)
-        }
-
-        combinedLiveData.observe(viewLifecycleOwner) { (user, meal) ->
-            if (user != null && meal != null) {
-                Log.d("TAG", "Both user and meal data are available: $user, $meal")
-                viewModel.insertFav(Wishlist(user.userid, meal.idMeal))
-            }
-        }
 
     }
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
         recyclerView.adapter = MainAdapter(data,
             {clickedMeal -> onRecipeClick(clickedMeal)})
             { position ->
-                    val clickedMeal = data[position]
-                    Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
-                    viewModel.insertMeal(clickedMeal)
-                    val email = sharedPreferences.getString("email_key","")!!
-                    viewModel.getUserId(email)
-                    viewModel.getMealId(clickedMeal.idMeal)
-                    Log.d("TAG", "addElements: $email ${clickedMeal.idMeal}")
+                val clickedMeal = data[position]
+                Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
+                viewModel.insertMeal(clickedMeal)
+                viewModel.insertFav(Wishlist(sharedPreferences.getInt("userId",0),clickedMeal.idMeal))
             }
     }
 

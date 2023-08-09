@@ -10,7 +10,5 @@ interface MealRepo {
     suspend fun getRandomMealFromAPI(): Recipe
     suspend fun insertIntofavs(wishlist: Wishlist)
     suspend fun insertMeal(meal: Meal)
-    suspend fun getMealById(id:String): Meal
     suspend fun getUserIdByEmail(email:String): User
-    suspend fun deleteWishlist(wishlist: Wishlist)
 }
