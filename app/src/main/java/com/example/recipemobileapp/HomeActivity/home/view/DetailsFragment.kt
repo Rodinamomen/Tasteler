@@ -3,6 +3,7 @@ package com.example.recipemobileapp.HomeActivity.home.view
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -29,7 +30,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
-class DetailsFragment : Fragment() {
+class DetailsFragment : Fragment(){
     private lateinit var viewModel: MealViewModel
     private lateinit var recipeImageView: ImageView
     private lateinit var recipeNameTextView: TextView
