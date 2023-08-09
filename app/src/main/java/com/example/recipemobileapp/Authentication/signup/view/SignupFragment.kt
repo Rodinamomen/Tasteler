@@ -35,6 +35,7 @@ class SignupFragment : Fragment() {
     lateinit var lastname:TextInputLayout
     lateinit var signupbtn: Button
     lateinit var signUpViewModel: SignUpViewModel
+    lateinit var loginbtn:Button
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -49,6 +50,7 @@ class SignupFragment : Fragment() {
         email=view.findViewById(R.id.textinput_email)
         password=view.findViewById(R.id.textinput_password)
         signupbtn=view.findViewById(R.id.button_signup)
+        loginbtn=view.findViewById(R.id.button_login_signupfrag)
         signUpViewModel.isEmailExists.observe(requireActivity()){data->
                 if(data){
                     MaterialAlertDialogBuilder(requireContext()).setTitle("The Account Is Signed In").setMessage("That email address is associated with a user account.").setPositiveButton("Ok", null)
@@ -64,6 +66,9 @@ class SignupFragment : Fragment() {
         }
         signupbtn.setOnClickListener{
             signUpViewModel.isEmailExists(email.editText?.text.toString())
+        }
+        loginbtn.setOnClickListener{
+            findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
         }
 
     }
