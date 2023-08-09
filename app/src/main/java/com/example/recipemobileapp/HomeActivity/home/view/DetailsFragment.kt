@@ -2,7 +2,10 @@ package com.example.recipemobileapp.HomeActivity.home.view
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
+import android.os.Parcelable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -39,7 +42,6 @@ class DetailsFragment : Fragment() {
     private lateinit var descriptionExpandableTextView2: ExpandableTextView
     private lateinit var readmore: TextView
     private lateinit var tutorialyoutubeView: YouTubePlayerView
-
 
 
 
@@ -112,7 +114,8 @@ class DetailsFragment : Fragment() {
         }
 
 
-        val recipe = arguments?.getParcelable("recipe",Meal::class.java)
+
+        val recipe = arguments?.parcelable<Meal>("recipe")
          if (recipe != null) {
                 val favbtn:Button = view.findViewById(R.id.addtofavs)
                 favbtn.setOnClickListener{
@@ -162,6 +165,11 @@ class DetailsFragment : Fragment() {
             )
         )
         viewModel = ViewModelProvider(this, mealFactory)[MealViewModel::class.java]
+    }
+
+    inline fun <reified T : Parcelable> Bundle.parcelable(key: String): T? = when {
+        SDK_INT >= 33 -> getParcelable(key, T::class.java)
+        else -> @Suppress("DEPRECATION") getParcelable(key) as? T
     }
 
 
