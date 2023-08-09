@@ -1,92 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/constraintlayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="409dp"
+        android:layout_height="164dp"
+        android:layout_marginBottom="170dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.08" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="379dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="170dp"
+        android:background="#80FFFFFF"
+        android:textColor="@color/black"
+        android:textColorHighlight="@android:color/darker_gray"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/addtofavs"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginBottom="16dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp">
+        android:layout_marginBottom="4dp"
+        android:text="Add to Favourites"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/youtube_player_view" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="212dp">
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="379dp"
-                android:layout_height="150dp"
-                android:scaleType="center"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_launcher_foreground" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="sans-serif-light"
-                android:text="TextView title"
-                android:textAlignment="center"
-                android:textColor="@color/navy_blue"
-                android:textSize="24dp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/imageView2"
-                app:layout_constraintVertical_bias="1.0" />
-
-            <ImageButton
-                android:id="@+id/addtofavs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="101dp"
-                android:background="@drawable/round_bg"
-                android:padding="8dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/imageView2"
-                app:layout_constraintVertical_bias="0.418"
-                app:srcCompat="@drawable/ic_favorite" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.cardview.widget.CardView>
 
     <ScrollView
         android:id="@+id/scrollView3"
-        android:layout_width="match_parent"
-        android:layout_height="148dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp">
+        android:layout_width="404dp"
+        android:layout_height="174dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="176dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="157dp"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.0">
 
         <at.blogc.android.views.ExpandableTextView
             android:id="@+id/instructionsTextView"
-            android:layout_width="match_parent"
+            android:layout_width="364dp"
             android:layout_height="56dp"
             android:layout_margin="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:maxLines="3"
-            android:textSize="16sp"
+            android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.446"
             app:layout_constraintStart_toStartOf="parent"
@@ -99,29 +89,47 @@
         android:id="@+id/readmorebtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="300dp"
-        android:layout_marginTop="2dp"
-        android:text="read more" />
+        android:text="read more"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.046"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.516" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/instructionsTextView2"
-        android:layout_width="match_parent"
-        android:layout_height="141dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
-        android:maxLines="3"
-        android:textSize="16sp" />
+    <ScrollView
+        android:id="@+id/scrollView5"
+        android:layout_width="411dp"
+        android:layout_height="146dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.659">
+
+        <at.blogc.android.views.ExpandableTextView
+            android:id="@+id/instructionsTextView2"
+            android:layout_width="364dp"
+            android:layout_height="56dp"
+            android:layout_margin="8dp"
+            android:layout_marginTop="8dp"
+            android:maxLines="3"
+            android:textSize="24sp" />
+    </ScrollView>
 
     <com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
         android:id="@+id/youtube_player_view"
-        android:layout_width="match_parent"
-        android:layout_height="193dp"
+        android:layout_width="357dp"
+        android:layout_height="136dp"
         android:layout_gravity="center"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="10dp" />
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="38dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView5" />
 
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
