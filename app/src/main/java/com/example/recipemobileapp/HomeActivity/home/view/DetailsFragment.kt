@@ -41,45 +41,19 @@ class DetailsFragment : Fragment(){
     private lateinit var tutorialyoutubeView: YouTubePlayerView
 
 
-
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_details, container, false)
 
-
-        readmore = view.findViewById(R.id.readmorebtn)
         recipeImageView = view.findViewById(R.id.imageView2)
-        recipeNameTextView = view.findViewById(R.id.textView2)
+        recipeNameTextView = view.findViewById(R.id.textViewMealTitle)
         descriptionExpandableTextView = view.findViewById(R.id.instructionsTextView)
-        descriptionExpandableTextView2 = view.findViewById(R.id.instructionsTextView2)
         tutorialyoutubeView = view.findViewById(R.id.youtube_player_view)
         lifecycle.addObserver(tutorialyoutubeView)
-
-        descriptionExpandableTextView.setAnimationDuration(750L)
-        descriptionExpandableTextView.setInterpolator(OvershootInterpolator())
-
-        readmore.setOnClickListener {
-            if (descriptionExpandableTextView.isExpanded) {
-                descriptionExpandableTextView.collapse()
-                readmore.text = "read more"
-            } else {
-                descriptionExpandableTextView.expand()
-                readmore.text = "read less"
-            }
-        }
-        descriptionExpandableTextView2.setAnimationDuration(750L)
-        descriptionExpandableTextView2.setInterpolator(OvershootInterpolator())
-
         descriptionExpandableTextView2.setOnClickListener {
-            if (descriptionExpandableTextView2.isExpanded) {
-                descriptionExpandableTextView2.collapse()
-            } else {
-                descriptionExpandableTextView2.expand()
-            }
+
         }
         return view
     }
@@ -94,13 +68,13 @@ class DetailsFragment : Fragment(){
 
         val recipe = arguments?.parcelable<Meal>("recipe")
         if (recipe != null) {
-            val favbtn:Button = view.findViewById(R.id.addtofavs)
-            favbtn.setOnClickListener{
-                val clickedMeal = recipe
-                Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
-                viewModel.insertMeal(clickedMeal)
-                viewModel.insertFav(Wishlist(sharedPreferences.getInt("userId",0),clickedMeal.idMeal))
-            }
+//            val favbtn:Button = view.findViewById(R.id.addtofavs)
+//            favbtn.setOnClickListener{
+//                val clickedMeal = recipe
+//                Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
+//                viewModel.insertMeal(clickedMeal)
+//                viewModel.insertFav(Wishlist(sharedPreferences.getInt("userId",0),clickedMeal.idMeal))
+//            }
 
             tutorialyoutubeView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
                 override fun onReady(youTubePlayer: YouTubePlayer) {
