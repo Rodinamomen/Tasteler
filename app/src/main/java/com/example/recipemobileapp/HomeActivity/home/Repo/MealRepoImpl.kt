@@ -29,4 +29,10 @@ class MealRepoImpl(
     override suspend fun isFavourite(userid: Int, idMeal: String): Boolean {
         return localDataSource.isFavourite(userid,idMeal)
     }
+    override suspend fun deleteWishlist(wishlist: Wishlist) {
+        localDataSource.deleteWishlist(wishlist)
+    }
+    override suspend fun deleteMeal(meal: Meal) {
+        localDataSource.deleteMeal(meal)
+    }
 }

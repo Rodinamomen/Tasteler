@@ -23,6 +23,7 @@ import com.example.recipemobileapp.Database.Wishlist
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
 import com.example.recipemobileapp.HomeActivity.home.Repo.SearchRepoImpl
 import com.example.recipemobileapp.HomeActivity.home.adapters.MainAdapter
+import com.example.recipemobileapp.HomeActivity.home.view.HomeFragmentDirections
 import com.example.recipemobileapp.HomeActivity.search.adapter.SearchAdapter
 import com.example.recipemobileapp.Network.APIClient
 import com.example.recipemobileapp.R
@@ -102,10 +103,11 @@ class SearchFragment : Fragment() {
         viewModel = ViewModelProvider(this,searchFactory)[SearchViewModel::class.java]
     }
     private fun onRecipeClick(clickedMeal: Meal) {
-        val bundle = Bundle()
-        bundle.putParcelable("recipe", clickedMeal)
-        findNavController().navigate(R.id.action_searchFragment_to_detailsFragment, bundle)
+        val action = SearchFragmentDirections.actionSearchFragmentToNewDetailsFragment (clickedMeal.strMeal,
+            clickedMeal.strCategory,clickedMeal.strInstructions,clickedMeal.strYoutube,clickedMeal.strMealThumb,clickedMeal.idMeal,clickedMeal.strArea)
+        findNavController().navigate(action)
     }
+
     private fun handleSearchQuery(query: String) {
         if(query != "") {viewModel.getSearchResult(query) }}
 

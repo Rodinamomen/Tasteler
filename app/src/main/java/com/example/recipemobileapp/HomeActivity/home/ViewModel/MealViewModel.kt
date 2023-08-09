@@ -73,5 +73,15 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
      suspend fun isFavourite(userid: Int, idMeal: String):Boolean {
             return mealRepo.isFavourite(userid,idMeal)
      }
+    fun deleteMeal(meal:Meal){
+        viewModelScope.launch(Dispatchers.IO) {
+            mealRepo.deleteMeal(meal)
+        }
+    }
+    fun deleteWishlist(wishlist: Wishlist){
+        viewModelScope.launch(Dispatchers.IO) {
+            mealRepo.deleteWishlist(wishlist)
+        }
+    }
 
 }
