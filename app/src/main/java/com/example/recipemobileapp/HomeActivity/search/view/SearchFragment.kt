@@ -87,14 +87,11 @@ class SearchFragment : Fragment() {
 
     }
     private fun addElements(data:List<Meal>, recyclerView: RecyclerView){
-        recyclerView.adapter = SearchAdapter(data,
-            {clickedMeal -> onRecipeClick(clickedMeal)})
-            { position ->
-                val clickedMeal = data[position]
-                Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
-                viewModel.insertMeal(clickedMeal)
-                viewModel.insertFav(Wishlist(sharedPreferences.getInt("userId",0),clickedMeal.idMeal))
-            }
+        recyclerView.adapter = SearchAdapter(data, viewModel
+        ) { clickedMeal -> onRecipeClick(clickedMeal) }
+
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(),
+            RecyclerView.VERTICAL, false)
     }
 
     private fun gettingViewModelReady(){

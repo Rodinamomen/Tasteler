@@ -52,5 +52,8 @@ class SearchViewModel(val searchRepo: SearchRepo):ViewModel() {
             searchRepo.insertIntofavs(wishlist)
         }
     }
+    suspend fun isFavourite(userid: Int, idMeal: String):Boolean {
+        return searchRepo.isFavourite(userid,idMeal)
+    }
 
 }
