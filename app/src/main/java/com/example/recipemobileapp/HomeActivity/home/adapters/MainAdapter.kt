@@ -49,8 +49,8 @@ class MainAdapter(val data:List<Meal>,  private val onRecipeClick: (Meal) -> Uni
     }
 
     class MyViewHolder(val row: View) : RecyclerView.ViewHolder(row) {
-        val textViewTitle: TextView = row.findViewById(R.id.textView_title)
-        val favBtn: ImageButton = row.findViewById(R.id.imageButton2)
-        val imageView: ImageView = row.findViewById(R.id.imageView)
+        val textViewTitle: TextView = row.findViewById(R.id.textView2)
+        val favBtn: ImageButton = row.findViewById(R.id.addtofavs)
+        val imageView: ImageView = row.findViewById(R.id.imageView2)
     }
 }

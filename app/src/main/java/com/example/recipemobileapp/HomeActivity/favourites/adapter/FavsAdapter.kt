@@ -50,9 +50,9 @@ class FavsAdapter(val data:MutableList<Meal>,
     }
 
     class MyViewHolder(val row: View) : RecyclerView.ViewHolder(row) {
-        val textViewTitle: TextView = row.findViewById(R.id.textView_title)
-        val favBtn: ImageButton = row.findViewById(R.id.imageButton2)
-        val imageView: ImageView = row.findViewById(R.id.imageView)
+        val textViewTitle: TextView = row.findViewById(R.id.textView2)
+        val favBtn: ImageButton = row.findViewById(R.id.addtofavs)
+        val imageView: ImageView = row.findViewById(R.id.imageView2)
         val textViewCategory: TextView= row.findViewById(R.id.textView_catagory)
         val textViewArea: TextView= row.findViewById(R.id.textView_area)
     }
