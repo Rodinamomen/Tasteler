@@ -2,6 +2,8 @@ package com.example.recipemobileapp.HomeActivity.home.view
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
+import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
@@ -14,11 +16,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.ViewModelProvider
 import at.blogc.android.views.ExpandableTextView
 import com.bumptech.glide.Glide
 import com.example.recipemobileapp.Authentication.Login.view.LoginFragment
 import com.example.recipemobileapp.Database.Meal
+import com.example.recipemobileapp.Database.User
 import com.example.recipemobileapp.Database.Wishlist
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
 import com.example.recipemobileapp.HomeActivity.home.Repo.MealRepoImpl
@@ -30,7 +34,7 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
 
-class DetailsFragment : Fragment(){
+class DetailsFragment : Fragment() {
     private lateinit var viewModel: MealViewModel
     private lateinit var recipeImageView: ImageView
     private lateinit var recipeNameTextView: TextView
@@ -91,14 +95,37 @@ class DetailsFragment : Fragment(){
         val sharedPreferences = requireActivity().
             getSharedPreferences(LoginFragment.SHARED_PREFS, Context.MODE_PRIVATE)
 
-        val recipe = arguments?.getParcelable("recipe",Meal::class.java)
+        val combinedLiveData = MediatorLiveData<Pair<User?, Meal?>>()
+
+
+        viewModel.loggedUser.observe(viewLifecycleOwner) { user ->
+            combinedLiveData.value = Pair(user, combinedLiveData.value?.second)
+        }
+
+        viewModel.savedMeal.observe(viewLifecycleOwner) { meal ->
+            combinedLiveData.value = Pair(combinedLiveData.value?.first, meal)
+        }
+
+        combinedLiveData.observe(viewLifecycleOwner) { (user, meal) ->
+            if (user != null && meal != null) {
+                Log.d("TAG", "Both user and meal data are available: $user, $meal")
+                viewModel.insertFav(Wishlist(user.userid, meal.idMeal))
+            }
+        }
+
+
+
+        val recipe = arguments?.parcelable<Meal>("recipe")
          if (recipe != null) {
                 val favbtn:Button = view.findViewById(R.id.addtofavs)
                 favbtn.setOnClickListener{
                     val clickedMeal = recipe
                     Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
                     viewModel.insertMeal(clickedMeal)
-                    viewModel.insertFav(Wishlist(sharedPreferences.getInt("userId",0),clickedMeal.idMeal))
+                    val email = sharedPreferences.getString("email_key","")!!
+                    viewModel.getUserId(email)
+                    viewModel.getMealId(clickedMeal.idMeal)
+                    Log.d("TAG", "addElements: $email ${clickedMeal.idMeal}")
                 }
              tutorialyoutubeView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
                  override fun onReady(youTubePlayer: YouTubePlayer) {
@@ -138,6 +165,11 @@ class DetailsFragment : Fragment(){
             )
         )
         viewModel = ViewModelProvider(this, mealFactory)[MealViewModel::class.java]
+    }
+
+    inline fun <reified T : Parcelable> Bundle.parcelable(key: String): T? = when {
+        SDK_INT >= 33 -> getParcelable(key, T::class.java)
+        else -> @Suppress("DEPRECATION") getParcelable(key) as? T
     }
 
 
