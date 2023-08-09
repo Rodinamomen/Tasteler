@@ -1,11 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#fff"
+    android:textAlignment="textStart"
     tools:context=".Authentication.signup.view.SignupFragment">
+
+    <Button
+        android:id="@+id/button_login_signupfrag"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:backgroundTint="@color/navy_blue"
+        android:fontFamily="@font/antic"
+        android:text="Login"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/textinput_password"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textinput_password"
+        app:layout_constraintTop_toBottomOf="@+id/textinput_password"
+        app:layout_constraintVertical_bias="0.279" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:fontFamily="@font/antic"
+        android:text="By Creating An Account"
+        android:textAlignment="center"
+        android:textColor="@color/navy_blue"
+        android:textSize="25sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.312"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <TextView
         android:id="@+id/textview_signup"
@@ -18,7 +53,7 @@
         android:text="Signup"
         android:textAlignment="center"
         android:textColor="@color/navy_blue"
-        android:textSize="60sp"
+        android:textSize="96sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,7 +64,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="150dp"
         android:layout_marginEnd="16dp"
         android:hint="Your First Name"
         app:boxStrokeColor="@color/light_baby_blue"
@@ -37,10 +71,10 @@
         app:hintTextColor="@color/navy_blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_signup"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+
         app:placeholderTextColor="@color/navy_blue"
         app:prefixTextAppearance="@style/TextAppearance.AppCompat.Large"
-
         app:startIconTint="@color/light_baby_blue"
         app:suffixTextAppearance="@style/TextAppearance.AppCompat.Large">
 
@@ -100,6 +134,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textinput_password"
         style="@style/textinput"
@@ -112,10 +147,10 @@
         app:boxStrokeColor="@color/light_baby_blue"
         app:counterTextColor="@color/navy_blue"
         app:hintTextColor="@color/navy_blue"
-        app:passwordToggleEnabled="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textinput_email"
+        app:passwordToggleEnabled="true"
         app:placeholderTextColor="@color/navy_blue"
         app:prefixTextAppearance="@style/TextAppearance.AppCompat.Large"
         app:startIconTint="@color/light_baby_blue"
@@ -144,18 +179,22 @@
         app:layout_constraintTop_toBottomOf="@+id/textinput_password"
         app:layout_constraintVertical_bias="0.188" />
 
-
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/image_view_userimg"
-        android:layout_width="0dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="16dp"
-        android:src="@drawable/user"
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="230dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="12dp"
+        android:fontFamily="@font/antic"
+        android:paddingRight="10dp"
+        android:text=" Get Started"
+        android:textAlignment="center"
+        android:textColor="@color/light_baby_blue"
+        android:textSize="40sp"
+        android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.149"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textview_signup" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
