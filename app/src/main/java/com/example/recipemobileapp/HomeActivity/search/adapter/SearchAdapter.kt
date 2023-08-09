@@ -25,6 +25,8 @@ class SearchAdapter(val data:List<Meal>, private val onRecipeClick: (Meal) -> Un
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.textViewTitle.text = data[position].strMeal
         val imgView:ImageView = holder.imageView
+        holder.textViewCategory.text= data[position].strCategory
+        holder.textViewArea.text=data[position].strArea
         Glide.with(holder.itemView.context)
             .load(data[position].strMealThumb)
             .centerCrop()
@@ -52,5 +54,7 @@ class SearchAdapter(val data:List<Meal>, private val onRecipeClick: (Meal) -> Un
         val textViewTitle: TextView = row.findViewById(R.id.textView_title)
         val favBtn: ImageButton = row.findViewById(R.id.imageButton2)
         val imageView: ImageView = row.findViewById(R.id.imageView)
+        val textViewCategory: TextView= row.findViewById(R.id.textView_catagory)
+        val textViewArea: TextView= row.findViewById(R.id.textView_area)
     }
 }
