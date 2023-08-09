@@ -9,36 +9,36 @@ import androidx.room.Relation
 @Entity(tableName ="Meal")
 data class Meal(
     @PrimaryKey(autoGenerate = false) val idMeal: String,
-    val strArea: String,
-    val strCategory: String,
-   // val strCreativeCommonsConfirmed: Any,
-  //  val strDrinkAlternate: Any,
+    val strArea: String="",
+    val strCategory: String="",
+    // val strCreativeCommonsConfirmed: Any,
+    //  val strDrinkAlternate: Any,
 //    val strImageSource: Any,
-    val strIngredient1: String,
-    val strIngredient10: String,
-    val strIngredient11: String,
-    val strIngredient12: String,
-    val strIngredient13: String,
-    val strIngredient14: String,
-    val strIngredient15: String,
-    val strIngredient16: String,
-    val strIngredient17: String,
-    val strIngredient18: String,
-    val strIngredient19: String,
-    val strIngredient2: String,
-    val strIngredient20: String,
-    val strIngredient3: String,
-    val strIngredient4: String,
-    val strIngredient5: String,
-    val strIngredient6: String,
-    val strIngredient7: String,
-    val strIngredient8: String,
-    val strIngredient9: String,
-    val strInstructions: String,
-    val strMeal: String,
-    val strMealThumb: String,
-    val strTags: String?,
-    val strYoutube: String
+    val strIngredient1: String="",
+    val strIngredient10: String="",
+    val strIngredient11: String="",
+    val strIngredient12: String="",
+    val strIngredient13: String="",
+    val strIngredient14: String="",
+    val strIngredient15: String="",
+    val strIngredient16: String="",
+    val strIngredient17: String="",
+    val strIngredient18: String="",
+    val strIngredient19: String="",
+    val strIngredient2: String="",
+    val strIngredient20: String="",
+    val strIngredient3: String="",
+    val strIngredient4: String="",
+    val strIngredient5: String="",
+    val strIngredient6: String="",
+    val strIngredient7: String="",
+    val strIngredient8: String="",
+    val strIngredient9: String="",
+    val strInstructions: String="",
+    val strMeal: String="",
+    val strMealThumb: String="",
+    val strTags: String?="",
+    val strYoutube: String=""
 
 
 ) : Parcelable {
@@ -108,37 +108,7 @@ data class Meal(
     override fun describeContents(): Int {
         return 0
     }
-    override fun hashCode(): Int {
-        var result = idMeal.toInt()
-        result = 31 * result + (strArea?.hashCode() ?: 0)
-        result = 31 * result + (strCategory?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient1?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient10?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient11?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient12?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient13?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient14?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient15?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient16?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient17?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient18?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient19?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient2?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient20?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient3?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient4?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient5?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient6?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient7?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient8?.hashCode() ?: 0)
-        result = 31 * result + (strIngredient9?.hashCode() ?: 0)
-        result = 31 * result + (strInstructions?.hashCode() ?: 0)
-        result = 31 * result + (strMeal?.hashCode() ?: 0)
-        result = 31 * result + (strMealThumb?.hashCode() ?: 0)
-        result = 31 * result + (strTags?.hashCode() ?: 0)
-        result = 31 * result + (strYoutube?.hashCode() ?: 0)
-        return result
-    }
+
 
     companion object CREATOR : Parcelable.Creator<Meal> {
         override fun createFromParcel(parcel: Parcel): Meal {
@@ -152,5 +122,4 @@ data class Meal(
 
     }
 }
-
 

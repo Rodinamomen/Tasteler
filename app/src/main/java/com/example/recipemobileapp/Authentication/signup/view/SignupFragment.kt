@@ -18,6 +18,7 @@ import com.example.recipemobileapp.Authentication.signup.viewModel.SignUpViewMod
 import com.example.recipemobileapp.Database.User
 import com.example.recipemobileapp.Database.localDataSource.LocalDataSourceImpl
 import com.example.recipemobileapp.R
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.textfield.TextInputLayout
 
 class SignupFragment : Fragment() {
@@ -34,6 +35,7 @@ class SignupFragment : Fragment() {
     lateinit var lastname:TextInputLayout
     lateinit var signupbtn: Button
     lateinit var signUpViewModel: SignUpViewModel
+    lateinit var loginbtn:Button
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
@@ -48,9 +50,11 @@ class SignupFragment : Fragment() {
         email=view.findViewById(R.id.textinput_email)
         password=view.findViewById(R.id.textinput_password)
         signupbtn=view.findViewById(R.id.button_signup)
+        loginbtn=view.findViewById(R.id.button_login_signupfrag)
         signUpViewModel.isEmailExists.observe(requireActivity()){data->
                 if(data){
-                    Toast.makeText(context, "User with that email exists", Toast.LENGTH_SHORT).show()
+                    MaterialAlertDialogBuilder(requireContext()).setTitle("The Account Is Signed In").setMessage("That email address is associated with a user account.").setPositiveButton("Ok", null)
+                        .show()
                 }else {
                     isValidData(
                         email.editText?.text.toString(),
@@ -62,6 +66,9 @@ class SignupFragment : Fragment() {
         }
         signupbtn.setOnClickListener{
             signUpViewModel.isEmailExists(email.editText?.text.toString())
+        }
+        loginbtn.setOnClickListener{
+            findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
         }
 
     }
@@ -83,20 +90,23 @@ class SignupFragment : Fragment() {
             Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show()
             view?.findNavController()?.navigate(R.id.action_signupFragment_to_homeActivity)
             requireActivity().finish()
-        }else if(!isValidName(firstname)) {
-            Toast.makeText(context, "invalid First Name", Toast.LENGTH_SHORT).show()
         }
         if(!isValidName(firstname)) {
-            Toast.makeText(context, "invalid First Name", Toast.LENGTH_SHORT).show()
+            MaterialAlertDialogBuilder(requireContext()).setTitle("Invalid Firstname").setMessage("In the first name, there must be 3 to 30 letters, either capital or small").setPositiveButton("Ok", null)
+                .show()
         }
         if(!isValidName(lastname)){
-            Toast.makeText(context, "invalid Last Name", Toast.LENGTH_SHORT).show()
+            MaterialAlertDialogBuilder(requireContext()).setTitle("Invalid  Lastname").setMessage("In the Last name, there must be 3 to 30 letters, either capital or small").setPositiveButton("Ok", null)
+                .show()
         }
         if(!isValidPassword(password)){
-            Toast.makeText(context, "invalid password", Toast.LENGTH_SHORT).show()
+            MaterialAlertDialogBuilder(requireContext()).setTitle("Invalid Password").setMessage("A password must have between four and eight letters, both lowercase and uppercase letters, and contain special characters.").setPositiveButton("Ok", null)
+                .show()
         }
         if(!isValidEmail(email)){
             Toast.makeText(context, "invalid Email", Toast.LENGTH_SHORT).show()
+            MaterialAlertDialogBuilder(requireContext()).setTitle("Invalid Email").setMessage("Check that the email you entered is a valid email").setPositiveButton("Ok", null)
+                .show()
         }
     }
     private fun isValidEmail(email :String):Boolean{
