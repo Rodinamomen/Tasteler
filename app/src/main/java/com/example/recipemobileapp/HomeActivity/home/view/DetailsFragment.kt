@@ -113,13 +113,12 @@ class DetailsFragment : Fragment(){
                         )
                         .setTitle("Are you sure you want to remove this recipe from favourites?")
                         .setMessage("This action can not be undone!")
-                        .setNegativeButton("Yes") { dialog, which ->
+                        .setNegativeButton("No") { dialog, which -> }
+                        .setPositiveButton("Yes") { dialog, which ->
                             viewModel.deleteMeal(recipe)
                             viewModel.deleteWishlist(Wishlist(sharedPreferences.getInt("userId",0), recipe.idMeal))
                             Toast.makeText(requireContext(), "Deleted from Favourites", Toast.LENGTH_SHORT).show()
                             favbtn.setImageResource(R.drawable.ic_favorite)
-                        }
-                        .setPositiveButton("No") { dialog, which ->
                         }
                         .show()
                     }else{
