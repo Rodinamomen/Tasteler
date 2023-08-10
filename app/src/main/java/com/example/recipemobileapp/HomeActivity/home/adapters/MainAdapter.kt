@@ -2,6 +2,7 @@ package com.example.recipemobileapp.HomeActivity.home.adapters
 
 
 import android.content.Context
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -22,13 +24,17 @@ import com.example.recipemobileapp.Network.APIClient
 import com.example.recipemobileapp.R
 import com.example.recipemobileapp.ViewModel.MealViewModel
 import com.example.recipemobileapp.ViewModel.MealviewModelFactory
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class MainAdapter(val data:List<Meal>,
                   val viewModel: MealViewModel,
                   private val onRecipeClick: (Meal) -> Unit) :RecyclerView.Adapter<MainAdapter.MyViewHolder>() {
+    lateinit var a:Deferred<Unit>
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val row =
             LayoutInflater.from(parent.context).inflate(R.layout.single_item, parent, false)
@@ -50,21 +56,43 @@ class MainAdapter(val data:List<Meal>,
                     .placeholder(R.drawable.loadingsvg)
                     .error(R.drawable.broken_image))
             .into(imgView)
-        holder.favBtn.setImageResource(R.drawable.ic_favorite) // Set default image resource
-        CoroutineScope(Dispatchers.Main).launch {
-            val isFavorite = viewModel.isFavourite(sharedPreferences.getInt("userId", 0), data[position].idMeal)
-            if (isFavorite) {
-                holder.favBtn.setImageResource(R.drawable.ic_fav_filled)
+        var isFavourite:Boolean = false
+        holder.favbtn.setImageResource(R.drawable.ic_favorite) // Set default image resource
+        a = CoroutineScope(Dispatchers.Main).async {
+            isFavourite = viewModel.isFavourite(sharedPreferences.getInt("userId", 0), data[position].idMeal)
+            if (isFavourite) {
+                holder.favbtn.setImageResource(R.drawable.ic_fav_filled)
             }
         }
 
-        holder.favBtn.setOnClickListener {
-            val clickedMeal = data[position]
-            Toast.makeText((holder.itemView.context),"Added to Favs", Toast.LENGTH_SHORT).show()
-            viewModel.insertMeal(clickedMeal)
-            viewModel.insertFav(Wishlist(sharedPreferences.getInt("userId",0),clickedMeal.idMeal))
-            holder.favBtn.setImageResource(R.drawable.ic_fav_filled)
-
+        holder.favbtn.setOnClickListener {
+            CoroutineScope(Dispatchers.Main).launch {
+                a = CoroutineScope(Dispatchers.Main).async {
+                    isFavourite = viewModel.isFavourite(sharedPreferences.getInt("userId", 0), data[position].idMeal)
+                }
+                a.await()
+                if(isFavourite){
+                    MaterialAlertDialogBuilder(
+                        ContextThemeWrapper(holder.itemView.context, R.style.popupDialog)
+                    )
+                        .setTitle("Are you sure you want to remove this recipe from favourites?")
+                        .setMessage("This action can not be undone!")
+                        .setNegativeButton("Yes") { dialog, which ->
+                            viewModel.deleteMeal(data[position])
+                            viewModel.deleteWishlist(Wishlist(sharedPreferences.getInt("userId",0), data[position].idMeal))
+                            holder.favbtn.setImageResource(R.drawable.ic_favorite)
+                            Toast.makeText(holder.itemView.context, "Deleted from Favourites", Toast.LENGTH_SHORT).show()
+                        }
+                        .setPositiveButton("No") { dialog, which ->
+                        }
+                        .show()
+                }else{
+                    Toast.makeText(holder.itemView.context,"Added to Favourites", Toast.LENGTH_SHORT).show()
+                    viewModel.insertMeal(data[position])
+                    viewModel.insertFav(Wishlist(sharedPreferences.getInt("userId",0),data[position].idMeal))
+                    holder.favbtn.setImageResource(R.drawable.ic_fav_filled)
+                }
+            }
         }
         val meal = data[position]
 
@@ -79,7 +107,7 @@ class MainAdapter(val data:List<Meal>,
 
     class MyViewHolder(val row: View) : RecyclerView.ViewHolder(row) {
         val textViewTitle: TextView = row.findViewById(R.id.textView2)
-        val favBtn: ImageButton = row.findViewById(R.id.addtofavs)
+        val favbtn: ImageButton = row.findViewById(R.id.addtofavs)
         val imageView: ImageView = row.findViewById(R.id.imageView2)
     }
 }

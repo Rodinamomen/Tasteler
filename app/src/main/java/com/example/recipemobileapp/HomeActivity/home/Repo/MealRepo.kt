@@ -12,5 +12,7 @@ interface MealRepo {
     suspend fun insertMeal(meal: Meal)
     suspend fun getUserIdByEmail(email:String): User
     suspend fun isFavourite(userid:Int,idMeal:String): Boolean
+    suspend fun deleteWishlist(wishlist: Wishlist)
+    suspend fun deleteMeal(meal: Meal)
 
 }
