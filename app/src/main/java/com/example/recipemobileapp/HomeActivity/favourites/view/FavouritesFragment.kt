@@ -64,26 +64,9 @@ class FavouritesFragment : Fragment() {
         val mutableCopy = mutableListOf<Meal>().apply {
             addAll(data)
         }
-        recyclerView.adapter = FavsAdapter(mutableCopy,
-            {clickedMeal -> onRecipeClick(clickedMeal)})
-        { position ->
-            MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Are you sure you want to remove this recipe from favourites?")
-                .setMessage("This action can not be undone!")
-                .setNegativeButton("Yes") { dialog, which ->
-                    if(mutableCopy.isNotEmpty()){
-                        val clickedMeal = mutableCopy[position]
-                        mutableCopy.removeAt(position)
-                        recyclerView.adapter?.notifyDataSetChanged()
-                        viewModel.deleteMeal(clickedMeal)
-                        viewModel.deleteWishlist(Wishlist(loggedInUserId, clickedMeal.idMeal))
-                        Toast.makeText(requireContext(), "Deleted from Favs", Toast.LENGTH_SHORT).show()
-                    }
-                }
-                .setPositiveButton("No") { dialog, which ->
-                }
-                .show()
-        }
+        recyclerView.adapter = FavsAdapter(mutableCopy,viewModel
+        ) { clickedMeal -> onRecipeClick(clickedMeal) }
+
         recyclerView.layoutManager = LinearLayoutManager(requireContext(),
             RecyclerView.VERTICAL, false)
     }

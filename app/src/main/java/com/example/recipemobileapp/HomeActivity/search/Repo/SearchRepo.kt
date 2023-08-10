@@ -11,5 +11,6 @@ interface SearchRepo {
     suspend fun getMealById(id:String): Meal
     suspend fun getUserIdByEmail(email:String): User
     suspend fun insertIntofavs(wishlist: Wishlist)
+    suspend fun isFavourite(userid:Int,idMeal:String): Boolean
 
 }

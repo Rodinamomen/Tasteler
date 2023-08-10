@@ -20,6 +20,8 @@
         <item name="rippleColor">@color/white</item>
     </style>
     <style name="prograssBar" parent="Widget.MaterialComponents.CircularProgressIndicator">
-
+    </style>
+    <style name="popupDialog" parent="Theme.MaterialComponents.DayNight.Dialog.Alert.Bridge">
+        <item name="colorPrimary">@color/navy_blue</item>
     </style>
 </resources>
