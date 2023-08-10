@@ -15,6 +15,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.recipemobileapp.R
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
@@ -66,7 +67,7 @@ class NewDetailsFragment : Fragment() {
         textViewInstructions.text = navArgs.mealInstructions
 
         favBtn.setImageResource(R.drawable.ic_favorite) // Set default image resource
-        a = CoroutineScope(Dispatchers.Main).async {
+        a = lifecycleScope.async {
             isFavourite = viewModel.isFavourite(sharedPreferences.getInt("userId", 0), navArgs.mealId)
             if (isFavourite) {
                 favBtn.setImageResource(R.drawable.ic_fav_filled)
@@ -75,7 +76,7 @@ class NewDetailsFragment : Fragment() {
 
 
         favBtn.setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {
+            lifecycleScope.launch {
                 a.await()
                 if(isFavourite){
                     MaterialAlertDialogBuilder(

@@ -56,19 +56,6 @@ class SearchFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = requireActivity().getSharedPreferences(LoginFragment.SHARED_PREFS, Context.MODE_PRIVATE)
 
-
-        // recyclerViewSearchMeal = view.findViewById(R.id.recyclerViewSearchResults)
-
-//        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String): Boolean {
-//                handleSearchQuery(query)
-////                Toast.makeText(view.context,query,Toast.LENGTH_SHORT).show()
-//                return false }
-//
-//            override fun onQueryTextChange(p0: String?): Boolean =false
-//        })
-//
-
         searchView.setOnQueryTextListener(object :SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(p0: String?): Boolean {
                 handleSearchQuery(p0!!)
