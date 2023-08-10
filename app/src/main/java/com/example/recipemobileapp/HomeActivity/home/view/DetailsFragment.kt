@@ -134,8 +134,6 @@ class DetailsFragment : Fragment(){
                 override fun onReady(youTubePlayer: YouTubePlayer) {
                     super.onReady(youTubePlayer)
                     val videoId = recipe.strYoutube.substring(recipe.strYoutube.length-11,recipe.strYoutube.length)
-                    Log.d("vid",recipe.strYoutube)
-                    Log.d("vid",videoId)
                     youTubePlayer.loadVideo(videoId, 0F)
                     youTubePlayer.pause()
 
