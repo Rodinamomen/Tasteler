@@ -111,8 +111,8 @@ class DetailsFragment : Fragment(){
                 .into(recipeImageView)
 
             recipeNameTextView.text = recipe.strMeal
-            descriptionExpandableTextView.text = "Instructions : \n ${recipe.strInstructions}"
-            descriptionTextView2.text = "General Information : \n - Area: ${recipe.strArea} \n -Category : ${recipe.strCategory}"
+            descriptionExpandableTextView.text = "\n ${recipe.strInstructions}"
+            descriptionTextView2.text = "- Area: ${recipe.strArea} \n -Category : ${recipe.strCategory}"
 
 
         } else {
