@@ -10,7 +10,6 @@ import com.example.recipemobileapp.Database.User
 import com.example.recipemobileapp.Database.Userwithmeals
 import com.example.recipemobileapp.Database.Wishlist
 import com.example.recipemobileapp.HomeActivity.home.Repo.MealRepo
-import com.example.recipemobileapp.HomeActivity.home.Repo.SearchRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -24,36 +23,25 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
     private val _loggedUser = MutableLiveData<User>()
     val loggedUser:LiveData<User> = _loggedUser
 
-    private val _savedMeal = MutableLiveData<Meal>()
-    val savedMeal:LiveData<Meal> = _savedMeal
-
     private val _userWithMeal = MutableLiveData<List<Userwithmeals>>()
     val userwithmeals:LiveData<List<Userwithmeals>> = _userWithMeal
 
     fun getMealsList(randomChar: Char){
         viewModelScope.launch {
-            try {
-                val response = mealRepo.getAllMealsFromAPI(randomChar)
-                _mealList.value =response.meals
-            } catch (e: Exception) {
-                Log.d("Connection", "getMealsList: No connection")
-            }
+            val response = mealRepo.getAllMealsFromAPI(randomChar)
+            _mealList.value =response.meals
         }
     }
     fun getRandomMeal(){
         viewModelScope.launch {
-            try {
-                val response = mealRepo.getRandomMealFromAPI()
-                _randomMealList.value = response.meals
-            } catch (e: Exception) {
-                Log.d("Connion", "getMealsList: No connection in random")
-            }
-        }        }
+            val response = mealRepo.getRandomMealFromAPI()
+            _randomMealList.value = response.meals
+        }
+    }
 
     fun insertFav(wishlist: Wishlist){
         viewModelScope.launch(Dispatchers.IO) {
             mealRepo.insertIntofavs(wishlist)
-            Log.d("TAG", "insertFav: inserted $wishlist")
         }
     }
 
@@ -68,8 +56,6 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
             _loggedUser.value = userResponse
         }
     }
-//    private val _isFav = MutableLiveData<Boolean>()
-//    val isFav:LiveData<Boolean> = _isFav
      suspend fun isFavourite(userid: Int, idMeal: String):Boolean {
             return mealRepo.isFavourite(userid,idMeal)
      }
@@ -83,5 +69,4 @@ class MealViewModel(val mealRepo: MealRepo):ViewModel() {
             mealRepo.deleteWishlist(wishlist)
         }
     }
-
 }

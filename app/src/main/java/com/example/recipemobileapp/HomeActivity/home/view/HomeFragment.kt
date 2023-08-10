@@ -139,12 +139,10 @@ class HomeFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu , inflater: MenuInflater) {
         inflater.inflate(R.menu.option_menu,menu)
         super.onCreateOptionsMenu(menu,inflater)
-        Log.d("Menu", "Menu inflated")
       }
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Log.d("Menu", "Menu item clicked: ${item.itemId}")
         return when (item.itemId) {
             R.id.item_about -> {
                 val navController = findNavController()

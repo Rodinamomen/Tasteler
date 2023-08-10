@@ -55,5 +55,15 @@ class SearchViewModel(val searchRepo: SearchRepo):ViewModel() {
     suspend fun isFavourite(userid: Int, idMeal: String):Boolean {
         return searchRepo.isFavourite(userid,idMeal)
     }
+    fun deleteMeal(meal:Meal){
+        viewModelScope.launch(Dispatchers.IO) {
+            searchRepo.deleteMeal(meal)
+        }
+    }
 
+    fun deleteWishlist(wishlist: Wishlist){
+        viewModelScope.launch(Dispatchers.IO) {
+            searchRepo.deleteWishlist(wishlist)
+        }
+    }
 }

@@ -6,11 +6,13 @@ import android.os.Build.VERSION.SDK_INT
 import android.os.Bundle
 import android.os.Parcelable
 import android.util.Log
+import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -27,18 +29,26 @@ import com.example.recipemobileapp.Network.APIClient
 import com.example.recipemobileapp.R
 import com.example.recipemobileapp.ViewModel.MealViewModel
 import com.example.recipemobileapp.ViewModel.MealviewModelFactory
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class DetailsFragment : Fragment(){
     private lateinit var viewModel: MealViewModel
     private lateinit var recipeImageView: ImageView
     private lateinit var recipeNameTextView: TextView
     private lateinit var descriptionExpandableTextView: ExpandableTextView
-    private lateinit var descriptionExpandableTextView2: ExpandableTextView
+    private lateinit var descriptionTextView2: TextView
     private lateinit var readmore: TextView
     private lateinit var tutorialyoutubeView: YouTubePlayerView
+    lateinit var a:Deferred<Unit>
+
 
 
     override fun onCreateView(
@@ -47,14 +57,28 @@ class DetailsFragment : Fragment(){
     ): View? {
         val view = inflater.inflate(R.layout.fragment_details, container, false)
 
+
+        readmore = view.findViewById(R.id.readmorebtn)
         recipeImageView = view.findViewById(R.id.imageView2)
-        recipeNameTextView = view.findViewById(R.id.textViewMealTitle)
+        recipeNameTextView = view.findViewById(R.id.textView2)
         descriptionExpandableTextView = view.findViewById(R.id.instructionsTextView)
+        descriptionTextView2 = view.findViewById(R.id.instructionsTextView2)
         tutorialyoutubeView = view.findViewById(R.id.youtube_player_view)
         lifecycle.addObserver(tutorialyoutubeView)
-        descriptionExpandableTextView2.setOnClickListener {
 
+        descriptionExpandableTextView.setAnimationDuration(750L)
+        descriptionExpandableTextView.setInterpolator(OvershootInterpolator())
+
+        readmore.setOnClickListener {
+            if (descriptionExpandableTextView.isExpanded) {
+                descriptionExpandableTextView.collapse()
+                readmore.text = "read more"
+            } else {
+                descriptionExpandableTextView.expand()
+                readmore.text = "read less"
+            }
         }
+
         return view
     }
 
@@ -68,20 +92,50 @@ class DetailsFragment : Fragment(){
 
         val recipe = arguments?.parcelable<Meal>("recipe")
         if (recipe != null) {
-//            val favbtn:Button = view.findViewById(R.id.addtofavs)
-//            favbtn.setOnClickListener{
-//                val clickedMeal = recipe
-//                Toast.makeText(requireContext(),"Added to Favs", Toast.LENGTH_SHORT).show()
-//                viewModel.insertMeal(clickedMeal)
-//                viewModel.insertFav(Wishlist(sharedPreferences.getInt("userId",0),clickedMeal.idMeal))
-//            }
+            val favbtn:ImageButton = view.findViewById(R.id.addtofavs)
+
+            var isFavourite:Boolean = false
+            favbtn.setImageResource(R.drawable.ic_favorite) // Set default image resource
+            a = CoroutineScope(Dispatchers.Main).async {
+                isFavourite = viewModel.isFavourite(sharedPreferences.getInt("userId", 0), recipe.idMeal)
+                if (isFavourite) {
+                    favbtn.setImageResource(R.drawable.ic_fav_filled)
+                }
+            }
+
+            favbtn.setOnClickListener {
+                CoroutineScope(Dispatchers.Main).launch {
+                    a = CoroutineScope(Dispatchers.Main).async {
+                        isFavourite = viewModel.isFavourite(sharedPreferences.getInt("userId", 0), recipe.idMeal)
+                    }
+                    a.await()
+                    if(isFavourite){
+                        MaterialAlertDialogBuilder(
+                            ContextThemeWrapper(requireContext(), R.style.popupDialog)
+                        )
+                            .setTitle("Confirm Removal")
+                        .setMessage("Are you sure you want to remove this recipe from favourites?")
+                        .setNegativeButton("No") { dialog, which -> }
+                        .setPositiveButton("Yes") { dialog, which ->
+                            viewModel.deleteMeal(recipe)
+                            viewModel.deleteWishlist(Wishlist(sharedPreferences.getInt("userId",0), recipe.idMeal))
+                            Toast.makeText(requireContext(), "Deleted from Favourites", Toast.LENGTH_SHORT).show()
+                            favbtn.setImageResource(R.drawable.ic_favorite)
+                        }
+                        .show()
+                    }else{
+                        Toast.makeText((requireContext()),"Added to Favourites", Toast.LENGTH_SHORT).show()
+                        viewModel.insertMeal(recipe)
+                        viewModel.insertFav(Wishlist(sharedPreferences.getInt("userId",0),recipe.idMeal))
+                        favbtn.setImageResource(R.drawable.ic_fav_filled)
+                    }
+                }
+            }
 
             tutorialyoutubeView.addYouTubePlayerListener(object : AbstractYouTubePlayerListener(){
                 override fun onReady(youTubePlayer: YouTubePlayer) {
                     super.onReady(youTubePlayer)
                     val videoId = recipe.strYoutube.substring(recipe.strYoutube.length-11,recipe.strYoutube.length)
-                    Log.d("vid",recipe.strYoutube)
-                    Log.d("vid",videoId)
                     youTubePlayer.loadVideo(videoId, 0F)
                     youTubePlayer.pause()
 
@@ -93,8 +147,8 @@ class DetailsFragment : Fragment(){
                 .into(recipeImageView)
 
             recipeNameTextView.text = recipe.strMeal
-            descriptionExpandableTextView.text = "Instructions : \n ${recipe.strInstructions}"
-            descriptionExpandableTextView2.text = "General Information : \n - Area: ${recipe.strArea} \n -Category : ${recipe.strCategory}\n -Tags : ${recipe.strTags} \n"
+            descriptionExpandableTextView.text = "\n ${recipe.strInstructions}"
+            descriptionTextView2.text = "- Area: ${recipe.strArea} \n -Category : ${recipe.strCategory}"
 
 
         } else {

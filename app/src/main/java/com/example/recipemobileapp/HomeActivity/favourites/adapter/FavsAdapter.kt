@@ -50,17 +50,16 @@ class FavsAdapter(val data:MutableList<Meal>, val viewModel: FavViewModel,
             )
                 .setTitle("Are you sure you want to remove this recipe from favourites?")
                 .setMessage("This action can not be undone!")
-                .setNegativeButton("Yes") { dialog, which ->
+                .setNegativeButton("No") { dialog, which -> }
+                .setPositiveButton("Yes") { dialog, which ->
                     if(data.isNotEmpty()){
                         val clickedMeal = data[position]
                         data.removeAt(position)
                         notifyDataSetChanged()
                         viewModel.deleteMeal(clickedMeal)
                         viewModel.deleteWishlist(Wishlist(sharedPreferences.getInt("userId",0), clickedMeal.idMeal))
-                        Toast.makeText(holder.itemView.context, "Deleted from Favs", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(holder.itemView.context, "Deleted from favourites", Toast.LENGTH_SHORT).show()
                     }
-                }
-                .setPositiveButton("No") { dialog, which ->
                 }
                 .show()
         }
@@ -76,9 +75,9 @@ class FavsAdapter(val data:MutableList<Meal>, val viewModel: FavViewModel,
     }
 
     class MyViewHolder(val row: View) : RecyclerView.ViewHolder(row) {
-        val textViewTitle: TextView = row.findViewById(R.id.textView_title)
-        val favBtn: ImageButton = row.findViewById(R.id.imageButton2)
-        val imageView: ImageView = row.findViewById(R.id.imageView)
+        val textViewTitle: TextView = row.findViewById(R.id.textView2)
+        val favBtn: ImageButton = row.findViewById(R.id.addtofavs)
+        val imageView: ImageView = row.findViewById(R.id.imageView2)
         val textViewCategory: TextView= row.findViewById(R.id.textView_catagory)
         val textViewArea: TextView= row.findViewById(R.id.textView_area)
     }

@@ -10,6 +10,7 @@ import com.example.recipemobileapp.Network.RemoteDataSource
 class MealRepoImpl(
     val remoteDataSource: RemoteDataSource,
     val localDataSource: LocalDataSource): MealRepo {
+
     override suspend fun getAllMealsFromAPI(randomChar: Char): Recipe {
         return remoteDataSource.getAllMeals(randomChar)
     }
