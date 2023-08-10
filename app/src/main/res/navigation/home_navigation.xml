@@ -18,6 +18,9 @@
         <action
             android:id="@+id/action_searchFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_newDetailsFragment"
+            app:destination="@id/newDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -39,6 +42,9 @@
         <action
             android:id="@+id/action_homeFragment_to_aucthenticationActivity"
             app:destination="@id/aucthenticationActivity" />
+        <action
+            android:id="@+id/action_homeFragment_to_newDetailsFragment4"
+            app:destination="@id/newDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/favouritesFragment"
@@ -48,11 +54,40 @@
         <action
             android:id="@+id/action_favouritesFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+        <action
+            android:id="@+id/action_favouritesFragment_to_newDetailsFragment"
+            app:destination="@id/newDetailsFragment" />
 
     </fragment>
     <activity
         android:id="@+id/aucthenticationActivity"
         android:name="com.example.recipemobileapp.Authentication.AucthenticationActivity"
         android:label="AucthenticationActivity" />
+    <fragment
+        android:id="@+id/newDetailsFragment"
+        android:name="com.example.recipemobileapp.HomeActivity.home.view.NewDetailsFragment"
+        android:label="NewDetailsFragment">
+        <argument
+            android:name="mealTitle"
+            app:argType="string" />
+        <argument
+            android:name="mealCategory"
+            app:argType="string" />
+        <argument
+            android:name="mealInstructions"
+            app:argType="string" />
+        <argument android:name="mealYoutubeVideo"
+            app:argType="string" />
+        <argument
+            android:name="mealImage"
+            app:argType="string" />
+        <argument
+            android:name="mealId"
+            app:argType="string" />
+        <argument
+            android:name="mealArea"
+            app:argType="string" />
+    </fragment>
+
 
 </navigation>

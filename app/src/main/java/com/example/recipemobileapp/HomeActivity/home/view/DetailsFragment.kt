@@ -49,6 +49,8 @@ class DetailsFragment : Fragment(){
     private lateinit var tutorialyoutubeView: YouTubePlayerView
     lateinit var a:Deferred<Unit>
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -111,8 +113,8 @@ class DetailsFragment : Fragment(){
                         MaterialAlertDialogBuilder(
                             ContextThemeWrapper(requireContext(), R.style.popupDialog)
                         )
-                        .setTitle("Are you sure you want to remove this recipe from favourites?")
-                        .setMessage("This action can not be undone!")
+                            .setTitle("Confirm Removal")
+                        .setMessage("Are you sure you want to remove this recipe from favourites?")
                         .setNegativeButton("No") { dialog, which -> }
                         .setPositiveButton("Yes") { dialog, which ->
                             viewModel.deleteMeal(recipe)

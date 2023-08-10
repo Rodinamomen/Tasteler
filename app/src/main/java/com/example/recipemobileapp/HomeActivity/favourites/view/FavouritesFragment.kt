@@ -21,6 +21,7 @@ import com.example.recipemobileapp.HomeActivity.favourites.Repo.FavRepoImpl
 import com.example.recipemobileapp.HomeActivity.favourites.adapter.FavsAdapter
 import com.example.recipemobileapp.HomeActivity.favourites.viewModel.FavViewModel
 import com.example.recipemobileapp.HomeActivity.favourites.viewModel.FavViewModelFactory
+import com.example.recipemobileapp.HomeActivity.home.view.HomeFragmentDirections
 import com.example.recipemobileapp.Network.APIClient
 import com.example.recipemobileapp.R
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -78,8 +79,9 @@ class FavouritesFragment : Fragment() {
         viewModel = ViewModelProvider(this,favFactory)[FavViewModel::class.java]
     }
     private fun onRecipeClick(clickedMeal: Meal) {
-        val bundle = Bundle()
-        bundle.putParcelable("recipe", clickedMeal)
-        findNavController().navigate(R.id.action_favouritesFragment_to_detailsFragment, bundle)
+        val action = FavouritesFragmentDirections.actionFavouritesFragmentToNewDetailsFragment(clickedMeal.strMeal,
+            clickedMeal.strCategory,clickedMeal.strInstructions,clickedMeal.strYoutube,clickedMeal.strMealThumb,clickedMeal.idMeal,clickedMeal.strArea)
+        findNavController().navigate(action)
     }
+
 }

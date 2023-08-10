@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id "androidx.navigation.safeargs.kotlin"
+
 }
 
 android {
@@ -77,4 +79,7 @@ dependencies {
 
     implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.28'
 
+    implementation 'com.borjabravo:readmoretextview:2.1.0'
+
 }
+

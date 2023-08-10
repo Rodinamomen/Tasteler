@@ -37,6 +37,7 @@ import com.example.recipemobileapp.Network.APIClient
 import com.example.recipemobileapp.R
 import com.example.recipemobileapp.ViewModel.MealViewModel
 import com.example.recipemobileapp.ViewModel.MealviewModelFactory
+import androidx.navigation.fragment.navArgs
 
 
 class HomeFragment : Fragment() {
@@ -47,6 +48,7 @@ class HomeFragment : Fragment() {
     lateinit var editor: SharedPreferences.Editor
     lateinit var sharedPreferences: SharedPreferences
     private lateinit var savedMealId:String
+
     companion object {
         const val SHARED_PREFS = "shared_prefs"
         const val EMAIL_KEY = "email_key"
@@ -129,9 +131,9 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(this, mealFactory)[MealViewModel::class.java]
     }
     private fun onRecipeClick(clickedMeal: Meal) {
-        val bundle = Bundle()
-        bundle.putParcelable("recipe", clickedMeal)
-        findNavController().navigate(R.id.action_homeFragment_to_detailsFragment, bundle)
+        val action = HomeFragmentDirections.actionHomeFragmentToNewDetailsFragment4(clickedMeal.strMeal,
+            clickedMeal.strCategory,clickedMeal.strInstructions,clickedMeal.strYoutube,clickedMeal.strMealThumb,clickedMeal.idMeal,clickedMeal.strArea)
+        findNavController().navigate(action)
     }
 
     override fun onCreateOptionsMenu(menu: Menu , inflater: MenuInflater) {

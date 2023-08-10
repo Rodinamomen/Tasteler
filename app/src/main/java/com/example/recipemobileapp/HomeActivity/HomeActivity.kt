@@ -51,7 +51,7 @@ class HomeActivity : AppCompatActivity() {
             fab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_home_filled))
         }
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if(destination.id == R.id.detailsFragment || destination.id == R.id.aboutFragment) {
+            if(destination.id == R.id.newDetailsFragment || destination.id == R.id.aboutFragment) {
                 bottomAppbar.visibility = View.GONE
 
             } else {

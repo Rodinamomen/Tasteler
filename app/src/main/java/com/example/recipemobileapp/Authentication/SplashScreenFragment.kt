@@ -30,7 +30,7 @@ class SplashScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         lifecycleScope.launch {
-            delay(500)
+            delay(10000)
             sharedPreferences= requireActivity().getSharedPreferences(
                 LoginFragment.SHARED_PREFS,
                 Context.MODE_PRIVATE)

@@ -68,16 +68,16 @@ class Top_picked_adapter(val data:List<Meal>,val viewModel: MealViewModel,
                     MaterialAlertDialogBuilder(
                         ContextThemeWrapper(holder.itemView.context, R.style.popupDialog)
                     )
-                        .setTitle("Are you sure you want to remove this recipe from favourites?")
-                        .setMessage("This action can not be undone!")
-                        .setNegativeButton("No") { dialog, which -> }
-                        .setPositiveButton("Yes") { dialog, which ->
-                            viewModel.deleteMeal(data[position])
-                            viewModel.deleteWishlist(Wishlist(sharedPreferences.getInt("userId",0), data[position].idMeal))
-                            Toast.makeText(holder.itemView.context, "Deleted from Favourites", Toast.LENGTH_SHORT).show()
-                            holder.favbtn.setImageResource(R.drawable.ic_favorite)
-                        }
-                        .show()
+                    .setTitle("Confirm Removal")
+                    .setMessage("Are you sure you want to remove this recipe from favourites?")
+                    .setNegativeButton("No") { dialog, which -> }
+                    .setPositiveButton("Yes") { dialog, which ->
+                        viewModel.deleteMeal(data[position])
+                        viewModel.deleteWishlist(Wishlist(sharedPreferences.getInt("userId",0), data[position].idMeal))
+                        Toast.makeText(holder.itemView.context, "Deleted from Favourites", Toast.LENGTH_SHORT).show()
+                        holder.favbtn.setImageResource(R.drawable.ic_favorite)
+                    }
+                    .show()
                 }else{
                     Toast.makeText(holder.itemView.context,"Added to Favourites", Toast.LENGTH_SHORT).show()
                     viewModel.insertMeal(data[position])
