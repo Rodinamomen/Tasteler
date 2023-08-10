@@ -50,17 +50,16 @@ class FavsAdapter(val data:MutableList<Meal>, val viewModel: FavViewModel,
             )
                 .setTitle("Are you sure you want to remove this recipe from favourites?")
                 .setMessage("This action can not be undone!")
-                .setNegativeButton("Yes") { dialog, which ->
+                .setNegativeButton("No") { dialog, which -> }
+                .setPositiveButton("Yes") { dialog, which ->
                     if(data.isNotEmpty()){
                         val clickedMeal = data[position]
                         data.removeAt(position)
                         notifyDataSetChanged()
                         viewModel.deleteMeal(clickedMeal)
                         viewModel.deleteWishlist(Wishlist(sharedPreferences.getInt("userId",0), clickedMeal.idMeal))
-                        Toast.makeText(holder.itemView.context, "Deleted from Favs", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(holder.itemView.context, "Deleted from favourites", Toast.LENGTH_SHORT).show()
                     }
-                }
-                .setPositiveButton("No") { dialog, which ->
                 }
                 .show()
         }

@@ -111,8 +111,8 @@ class DetailsFragment : Fragment(){
                         MaterialAlertDialogBuilder(
                             ContextThemeWrapper(requireContext(), R.style.popupDialog)
                         )
-                        .setTitle("Are you sure you want to remove this recipe from favourites?")
-                        .setMessage("This action can not be undone!")
+                            .setTitle("Confirm Removal")
+                        .setMessage("Are you sure you want to remove this recipe from favourites?")
                         .setNegativeButton("No") { dialog, which -> }
                         .setPositiveButton("Yes") { dialog, which ->
                             viewModel.deleteMeal(recipe)
