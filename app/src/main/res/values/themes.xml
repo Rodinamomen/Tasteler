@@ -1,7 +1,7 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.RecipeMobileApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/primary</item>
     </style>
 
     <style name="textinput" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
@@ -9,16 +9,16 @@
     <style name="button" parent="Widget.MaterialComponents.Button.TextButton.Dialog" />
     <style name="Theme.RecipeMobileApp" parent="Base.Theme.RecipeMobileApp" />
     <style name="home" parent="Widget.MaterialComponents.BottomAppBar">
-        <item name="backgroundTint">@color/white</item>
+        <item name="backgroundTint">@color/primary</item>
     </style>
     <style name="bottomNav" parent="Widget.MaterialComponents.BottomNavigationView">
-        <item name="backgroundTint">@color/white</item>
+        <item name="backgroundTint">@color/primary</item>
         <item name="itemIconTint">@color/navy_blue</item>
         <item name="itemTextColor">@color/navy_blue</item>
     </style>
     <style name="fab" parent="Widget.MaterialComponents.FloatingActionButton">
         <item name="backgroundTint">@color/light_baby_blue</item>
-        <item name="rippleColor">@color/white</item>
+        <item name="rippleColor">@color/primary</item>
     </style>
     <style name="prograssBar" parent="Widget.MaterialComponents.CircularProgressIndicator">
     </style>
