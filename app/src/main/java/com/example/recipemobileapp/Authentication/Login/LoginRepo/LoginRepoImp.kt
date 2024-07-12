@@ -10,9 +10,7 @@ class LoginRepoImp(val localDataSource: LocalDataSource):LoginRepo {
         return localDataSource.getAllUsers()
     }
 
-    override suspend fun readAllData(email: String, password: String): User {
-        return localDataSource.readAllData(email,password)
-    }
+
 
     override suspend fun isUserExist(email: String, password: String): Boolean {
         return localDataSource.isUserExist(email,password)

@@ -42,7 +42,6 @@ class SplashScreenFragment : Fragment() {
                 requireActivity().finish()
             }
         }
-        // Inflate the layout for this fragment
             return inflater.inflate(R.layout.fragment_splash_screen2, container, false)
 
         }

@@ -86,7 +86,6 @@ class HomeFragment : Fragment() {
         (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
         val processBarMeal:ProgressBar = view.findViewById(R.id.progresBar_allMeals)
         val processBarRandomMeal:ProgressBar = view.findViewById(R.id.progressBar_randomMeal)
-
         viewModel.getRandomMeal()
         viewModel.getMealsList(('A'..'Z').random())
 

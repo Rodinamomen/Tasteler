@@ -34,9 +34,6 @@ class LocalDataSourceImpl(context:Context):LocalDataSource {
         return  userDao.gellAllUsers()
     }
 
-    override suspend fun readAllData(email: String, password: String): User {
-        return userDao.readAllData(email,password)
-    }
     override suspend fun isUserExist(email: String, password: String ) : Boolean{
         return userDao.isUserExist(email, password)
     }

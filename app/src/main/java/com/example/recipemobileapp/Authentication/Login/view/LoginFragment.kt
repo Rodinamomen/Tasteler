@@ -72,7 +72,6 @@ class LoginFragment : Fragment() {
                     view.findNavController().navigate(R.id.action_loginFragment_to_homeActivity)
                    requireActivity().finish()
                 } else {
-                        Log.d("flag", "onViewCreated: $flag")
                         if (flag) {
                             Toast.makeText(context, "Invalid password", Toast.LENGTH_SHORT).show()
                         } else {
@@ -99,30 +98,7 @@ class LoginFragment : Fragment() {
             LoginRepoImp(LocalDataSourceImpl(context))
         )
         loginViewModel =
-            ViewModelProvider(this, loginViewModelFactory).get(LoginViewModel::class.java)
+            ViewModelProvider(this, loginViewModelFactory)[LoginViewModel::class.java]
     }
-
-  /*  private fun checkLogin(email: String, password: String) {
-        loginViewModel.userdata.observe(requireActivity()) { data ->
-            if (data != null) {
-                if (data) {
-                    Toast.makeText(context, " logged in ", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_loginFragment_to_home_nav_graph)
-                } else {
-                    loginViewModel.isEmailExists.observe(requireActivity()) { flag ->
-                        Log.d("flag", "onViewCreated: $flag")
-                        if (flag) {
-                            Toast.makeText(context, "invalid password", Toast.LENGTH_SHORT).show()
-                        } else {
-                            Toast.makeText(context, "Please sign up ", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-
-                }
-            }
-        }
-        loginViewModel.isUserExist(email, password)
-        loginViewModel.isEmailExists(email)
-    }*/
 }
 

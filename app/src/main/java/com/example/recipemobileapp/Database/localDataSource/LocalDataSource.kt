@@ -11,7 +11,6 @@ interface LocalDataSource {
     suspend fun insertUser(user: User)
     suspend fun deleteUser(user: User)
     suspend fun getAllUsers():List<User>
-    suspend fun readAllData(email:String, password:String): User
     suspend fun isUserExist(email: String, password: String ) : Boolean
 
     suspend fun getFavouriteMealsWithUserId(userId:Int): Userwithmeals?

@@ -70,13 +70,12 @@ class SignupFragment : Fragment() {
         loginbtn.setOnClickListener{
             findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
         }
-
     }
     private fun gettingViewModelReady(context: Context) {
         val signUpViewModelFactory = SignUpViewModelFactory(
             SignUpRepoImpl(LocalDataSourceImpl(context))
         )
-        signUpViewModel = ViewModelProvider(this,signUpViewModelFactory).get(SignUpViewModel::class.java)
+        signUpViewModel = ViewModelProvider(this,signUpViewModelFactory)[SignUpViewModel::class.java]
     }
     private fun isValidData(email:String,firstname:String,lastname:String,password: String){
         if(isValidName(firstname)&& isValidName(lastname)&& isValidPassword(password) &&isValidEmail(email)){
