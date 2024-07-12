@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@color/white"
     android:textAlignment="textStart"
     tools:context=".Authentication.signup.view.SignupFragment">
 
@@ -186,7 +186,7 @@
         android:layout_marginTop="12dp"
         android:fontFamily="@font/antic"
         android:paddingRight="10dp"
-        android:text=" Get Started"
+        android:text="Get started"
         android:textAlignment="center"
         android:textColor="@color/light_baby_blue"
         android:textSize="40sp"

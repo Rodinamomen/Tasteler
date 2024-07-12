@@ -1,11 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.RecipeMobileApp" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:statusBarColor" tools:targetApi="l">@color/white</item>
     </style>
-    <style name="textinput" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"></style>
-    <style name="button" parent="Widget.MaterialComponents.Button.TextButton.Dialog"></style>
+
+    <style name="textinput" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
+
+    <style name="button" parent="Widget.MaterialComponents.Button.TextButton.Dialog" />
     <style name="Theme.RecipeMobileApp" parent="Base.Theme.RecipeMobileApp" />
     <style name="home" parent="Widget.MaterialComponents.BottomAppBar">
         <item name="backgroundTint">@color/white</item>

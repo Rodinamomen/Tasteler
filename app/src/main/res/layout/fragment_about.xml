@@ -30,7 +30,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"
             android:text="About the App"
-            android:textColor="@android:color/black"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -39,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:text="App that provides personalised, step-by-step instructions. Users can search through a large number of recipes, save their favourites, and view cooking demonstration videos"
-            android:textColor="@android:color/black"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <!-- About Us -->
@@ -50,7 +50,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="About Us"
-            android:textColor="@android:color/black"
+            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:text="Fady Milad Garas"
-            android:textColor="@android:color/black"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
@@ -77,7 +77,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:text="Rawan Abdelrahman Younis"
-            android:textColor="@android:color/black"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:text="Rodina Mo'men Mohamed"
-            android:textColor="@android:color/black"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView
@@ -112,7 +112,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:text="Yousef Abdallah Ahmed Sayed"
-            android:textColor="@android:color/black"
+            android:textColor="@color/black"
             android:textSize="16sp" />
 
         <TextView

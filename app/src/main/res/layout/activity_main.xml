@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
+    android:backgroundTint="@color/white"
     tools:context=".HomeActivity.HomeActivity">
 
     <androidx.fragment.app.FragmentContainerView
@@ -61,8 +63,8 @@
             style="@style/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_home"
             android:backgroundTint="@color/light_baby_blue"
+            android:src="@drawable/ic_home"
             app:layout_anchor="@id/bottomAppBar"
             app:layout_constraintBottom_toBottomOf="@+id/nav_host" />
 
